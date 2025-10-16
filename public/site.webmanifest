@@ -1,0 +1,16 @@
+{
+  "name": "Abdalla Eldoumani - Full Stack Developer & AI Engineer",
+  "short_name": "Abdalla Eldoumani",
+  "description": "Computer Science student at University of Calgary specializing in high-performance systems, AI/ML, and full-stack development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0b0f",
+  "theme_color": "#06b6d4",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

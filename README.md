@@ -38,9 +38,18 @@ I'm a Computer Science student at the University of Calgary specializing in high
 - **GPU Acceleration**: `transform: translateZ(0)`, `backface-visibility: hidden`, perspective optimization
 - **IntersectionObserver**: Custom hooks for scroll-triggered animations (replacing AOS)
 - **Conditional Will-Change**: Applied only during active interactions for optimal performance
-- **Bundle Optimization**: Strategic package imports, 186 kB First Load JS
+- **Bundle Optimization**: Strategic package imports, 192 kB First Load JS
 - **Production Ready**: Zero TypeScript errors, clean static generation
 - **Accessibility First**: WCAG compliant with refined focus-visible states and reduced motion support
+
+### 🔍 SEO Excellence
+- **Comprehensive Metadata**: Enhanced Open Graph, Twitter Cards, and meta descriptions
+- **Structured Data (JSON-LD)**: Schema.org Person markup for rich search results
+- **Dynamic Sitemap**: Auto-generated XML sitemap for search engine crawling
+- **Robots.txt**: Optimized crawler guidance with sitemap reference
+- **Web Manifest**: PWA-ready with custom theme colors and icons
+- **Semantic HTML**: Proper heading hierarchy and ARIA labels
+- **Mobile-First Indexing**: Fully responsive with touch-optimized interactions
 
 ## 🛠️ Technologies Used
 
@@ -95,8 +104,10 @@ portfolio_website/
 ├── app/                    # Next.js App Router
 │   ├── resume/            # Resume page
 │   ├── globals.css        # Design system with CSS variables & advanced animations
-│   ├── layout.tsx         # Root layout with metadata
-│   └── page.tsx          # Homepage composition
+│   ├── layout.tsx         # Root layout with metadata & JSON-LD
+│   ├── page.tsx          # Homepage composition
+│   ├── sitemap.ts         # Dynamic XML sitemap generation
+│   └── robots.ts          # Robots.txt for crawler guidance
 ├── components/            # React components
 │   ├── ui/               # Reusable UI components
 │   │   ├── blur-image.tsx          # Progressive image loading component
@@ -119,7 +130,8 @@ portfolio_website/
 │   └── utils.ts         # Tailwind merge utilities
 ├── public/              # Static assets
 │   ├── images/         # Optimized project images
-│   └── my-resume.pdf   # Resume document
+│   ├── my-resume.pdf   # Resume document
+│   └── site.webmanifest # PWA manifest file
 ├── next.config.mjs      # Image optimization config
 └── tailwind.config.ts   # Extended design tokens
 ```
@@ -189,12 +201,13 @@ npm start
 
 ## 📊 Performance Metrics
 
-- ⚡ **First Load JS**: 186 kB (optimized bundle splitting with new components)
+- ⚡ **First Load JS**: 192 kB (optimized bundle splitting with new components)
 - 🖼️ **Image Optimization**: Progressive blur-up loading, AVIF/WebP formats, responsive sizing
 - 🚀 **Static Generation**: Pre-rendered pages for instant loading
 - 🎬 **Animation Performance**: GPU-accelerated transforms, conditional will-change
 - ♿ **Accessibility**: WCAG 2.1 AA compliant with enhanced focus states
-- 📱 **Responsive**: Fluid typography with clamp(), optimized breakpoints (640px, 768px, 1024px, 1280px)
+- 📱 **Responsive**: Fluid typography with clamp(), optimized breakpoints (320px, 640px, 768px, 1024px, 1920px)
+- 🔍 **SEO Score**: Comprehensive metadata, structured data, dynamic sitemap, robots.txt
 
 ## 🎯 What Makes It Stand Out
 
