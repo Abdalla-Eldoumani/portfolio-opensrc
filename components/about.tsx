@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Download, MapPin, GraduationCap, Briefcase, Languages, Award } from 'lucide-react';
 import { MagneticCard } from '@/components/ui/magnetic-card';
+import { MagneticButton } from '@/components/ui/magnetic-button';
 
 const highlights = [
   {
@@ -83,27 +84,32 @@ export const About = () => {
             </div>
 
             {/* CTA Section */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Link target="_blank" href="/resume" className="inline-flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 pt-6"
+            >
+              <Link target="_blank" href="/resume">
+                <MagneticButton
+                  strength={0.2}
+                  className="inline-flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/10 w-full sm:w-auto"
+                >
                   <Download size={20} />
                   <span>Download Resume</span>
-                </Link>
-              </motion.div>
-              
-              <Link target="_blank" href="https://www.linkedin.com/in/abdallaeldoumani/">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center space-x-2 border border-gray-600 hover:border-gray-400 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
-              >
-                <span>Let&apos;s Connect</span>
-              </motion.button>
+                </MagneticButton>
               </Link>
-            </div>
+
+              <Link target="_blank" href="https://www.linkedin.com/in/abdallaeldoumani/">
+                <MagneticButton
+                  strength={0.2}
+                  className="inline-flex items-center justify-center space-x-2 border border-gray-600 hover:border-gray-400 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5 w-full sm:w-auto"
+                >
+                  <span>Let&apos;s Connect</span>
+                </MagneticButton>
+              </Link>
+            </motion.div>
           </motion.div>
 
           {/* Highlights Grid */}

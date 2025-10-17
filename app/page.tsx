@@ -6,10 +6,12 @@ import { Experience } from "@/components/experience";
 import { Projects } from "@/components/projects";
 import { Contact } from "@/components/contact";
 import { CommandPalette } from "@/components/command-palette";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950">
+      <ScrollProgress />
       <Navbar />
       <CommandPalette />
 

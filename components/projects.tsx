@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BlurImage } from '@/components/ui/blur-image';
 import { PerformanceBadge } from '@/components/ui/performance-badge';
+import { AnimatedCounter } from '@/components/ui/animated-counter';
+import { MagneticButton } from '@/components/ui/magnetic-button';
 import { useState } from 'react';
 
 const projectsData = [
@@ -20,7 +22,8 @@ const projectsData = [
     tech: ["Rust", "Axum", "SQLite", "WebSocket", "JWT", "RESTful API", "Caching", "Rate Limiting"],
     featured: true,
     icon: Server,
-    metrics: "10,000+ concurrent requests, <10ms response time"
+    metrics: "10,000+ concurrent requests, <10ms response time",
+    liveMetrics: { requests: 10000, responseTime: 10, cacheReduction: 60 }
   },
   {
     name: "FastMathExt",
@@ -32,7 +35,8 @@ const projectsData = [
     tech: ["C++", "Python", "OpenMP", "AVX2 SIMD", "Strassen's Algorithm", "Performance Optimization"],
     featured: true,
     icon: Zap,
-    metrics: "25-41% faster than NumPy"
+    metrics: "25-41% faster than NumPy",
+    liveMetrics: { performanceGain: 41, iterations: 10000 }
   },
   {
     name: "Budget Buddy",
@@ -187,8 +191,60 @@ export const Projects = () => {
                       {project.description}
                     </p>
 
-                    {/* Metrics */}
-                    {project.metrics && (
+                    {/* Live Metrics Visualization */}
+                    {project.liveMetrics && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-gray-700/30"
+                      >
+                        {project.liveMetrics.requests && (
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-emerald-400 numeric-tabular">
+                              <AnimatedCounter value={project.liveMetrics.requests} suffix="+" delay={0.2} />
+                            </div>
+                            <p className="text-xs text-gray-400 mt-1">Concurrent Requests</p>
+                          </div>
+                        )}
+                        {project.liveMetrics.responseTime && (
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-cyan-400 numeric-tabular">
+                              <AnimatedCounter value={project.liveMetrics.responseTime} suffix="ms" delay={0.3} />
+                            </div>
+                            <p className="text-xs text-gray-400 mt-1">Response Time</p>
+                          </div>
+                        )}
+                        {project.liveMetrics.cacheReduction && (
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-purple-400 numeric-tabular">
+                              <AnimatedCounter value={project.liveMetrics.cacheReduction} suffix="%" delay={0.4} />
+                            </div>
+                            <p className="text-xs text-gray-400 mt-1">Cache Efficiency</p>
+                          </div>
+                        )}
+                        {project.liveMetrics.performanceGain && (
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-emerald-400 numeric-tabular">
+                              <AnimatedCounter value={project.liveMetrics.performanceGain} suffix="%" delay={0.2} />
+                            </div>
+                            <p className="text-xs text-gray-400 mt-1">Performance Gain</p>
+                          </div>
+                        )}
+                        {project.liveMetrics.iterations && (
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-cyan-400 numeric-tabular">
+                              <AnimatedCounter value={project.liveMetrics.iterations} suffix="+" delay={0.3} />
+                            </div>
+                            <p className="text-xs text-gray-400 mt-1">Test Iterations</p>
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+
+                    {/* Fallback Badge for projects without live metrics */}
+                    {!project.liveMetrics && project.metrics && (
                       <div className="flex items-center gap-3 flex-wrap">
                         <PerformanceBadge metric={project.metrics} icon="trending" delay={0.2} />
                       </div>
@@ -263,33 +319,29 @@ export const Projects = () => {
                   {/* Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
                     {project.live !== "#" && (
-                      <motion.a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/10 group"
-                      >
-                        <Globe size={20} />
-                        <span>Live Demo</span>
-                        <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </motion.a>
+                      <Link href={project.live} target="_blank" rel="noopener noreferrer">
+                        <MagneticButton
+                          strength={0.15}
+                          className="flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/10 group w-full sm:w-auto"
+                        >
+                          <Globe size={20} />
+                          <span>Live Demo</span>
+                          <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </MagneticButton>
+                      </Link>
                     )}
 
                     {project.github !== "#" && (
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center justify-center space-x-2 border border-gray-600 hover:border-gray-400 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5 group"
-                      >
-                        <Code size={20} />
-                        <span>Source Code</span>
-                        <FaGithub className="group-hover:scale-110 transition-transform" />
-                      </motion.a>
+                      <Link href={project.github} target="_blank" rel="noopener noreferrer">
+                        <MagneticButton
+                          strength={0.15}
+                          className="flex items-center justify-center space-x-2 border border-gray-600 hover:border-gray-400 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5 group w-full sm:w-auto"
+                        >
+                          <Code size={20} />
+                          <span>Source Code</span>
+                          <FaGithub className="group-hover:scale-110 transition-transform" />
+                        </MagneticButton>
+                      </Link>
                     )}
                   </div>
       </div>

@@ -6,6 +6,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { ParticleField } from '@/components/ui/particle-field';
+import { MagneticButton, MagneticIconButton } from '@/components/ui/magnetic-button';
 
 export const HeroSection = () => {
   return (
@@ -90,16 +91,21 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.9 }}
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
-              
               <Link target="_blank" href="https://github.com/Abdalla-Eldoumani">
-                <button className="glass-effect hover-lift px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white/10 focus-visible">
+                <MagneticButton
+                  strength={0.2}
+                  className="glass-effect hover-lift px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white/10 focus-visible w-full sm:w-auto inline-block text-center"
+                >
                   View My Work
-                </button>
+                </MagneticButton>
               </Link>
               <Link target="_blank" href="mailto:aamsdoumani@gmail.com">
-                <button className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white/5 focus-visible">
+                <MagneticButton
+                  strength={0.2}
+                  className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white/5 focus-visible w-full sm:w-auto inline-block text-center"
+                >
                   Get In Touch
-                </button>
+                </MagneticButton>
               </Link>
             </motion.div>
 
@@ -110,15 +116,30 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 1.1 }}
               className="flex space-x-6 pt-4"
             >
-              <a target="_blank" href="https://github.com/Abdalla-Eldoumani" className="text-gray-400 hover:text-white transition-colors duration-300 hover-lift">
-                <Github size={28} />
-              </a>
-              <a target="_blank" href="https://www.linkedin.com/in/abdallaeldoumani/" className="text-gray-400 hover:text-white transition-colors duration-300 hover-lift">
-                <Linkedin size={28} />
-              </a>
-              <a target="_blank" href="mailto:aamsdoumani@gmail.com" className="text-gray-400 hover:text-white transition-colors duration-300 hover-lift">
-                <Mail size={28} />
-              </a>
+              <MagneticIconButton
+                icon={<Github size={28} />}
+                ariaLabel="GitHub Profile"
+                href="https://github.com/Abdalla-Eldoumani"
+                target="_blank"
+                strength={0.3}
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              />
+              <MagneticIconButton
+                icon={<Linkedin size={28} />}
+                ariaLabel="LinkedIn Profile"
+                href="https://www.linkedin.com/in/abdallaeldoumani/"
+                target="_blank"
+                strength={0.3}
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              />
+              <MagneticIconButton
+                icon={<Mail size={28} />}
+                ariaLabel="Email Contact"
+                href="mailto:aamsdoumani@gmail.com"
+                target="_blank"
+                strength={0.3}
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              />
             </motion.div>
           </motion.div>
 

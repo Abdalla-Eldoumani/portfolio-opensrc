@@ -13,6 +13,9 @@ I'm a Computer Science student at the University of Calgary specializing in high
 ### 🎯 Signature Interactions
 - **⌘K Command Palette**: Professional keyboard-first navigation with fuzzy search
 - **Interactive Skills Constellation**: Force-directed graph visualization with proficiency-based sizing, project-based connections, zoom & pan (0.5x-2.0x with Ctrl/Cmd modifier), smart tooltip positioning, and optimized height (400px/500px) - no scroll interference
+- **Magnetic Button System**: Physics-based magnetic attraction with configurable strength (0.1-0.5), creating premium playful interactions on CTAs and icon buttons
+- **Animated Performance Counters**: Spring-animated metrics with tabular figures, perfect for showcasing technical achievements with visual impact
+- **Scroll Progress Indicator**: Smooth gradient progress bar with physics-based spring animation tracking page scroll
 - **Particle Network System**: Canvas-based animated particle field with dynamic connections in hero section
 - **Magnetic Card Effects**: 3D perspective tilt on hover with spring physics for premium feel
 - **Progressive Disclosure**: Expandable project cards revealing technical deep-dives on demand
@@ -110,19 +113,22 @@ portfolio_website/
 │   └── robots.ts          # Robots.txt for crawler guidance
 ├── components/            # React components
 │   ├── ui/               # Reusable UI components
+│   │   ├── animated-counter.tsx    # Physics-based spring animated counters
 │   │   ├── blur-image.tsx          # Progressive image loading component
+│   │   ├── magnetic-button.tsx     # Magnetic attraction button with physics
 │   │   ├── magnetic-card.tsx       # 3D tilt effect with spring physics
 │   │   ├── particle-field.tsx      # Canvas-based particle network
 │   │   ├── performance-badge.tsx   # Animated metric badges
+│   │   ├── scroll-progress.tsx     # Smooth scroll progress indicator
 │   │   ├── scroll-reveal.tsx       # Scroll-triggered animations
 │   │   └── skill-constellation.tsx # Interactive skills graph (signature)
-│   ├── about.tsx         # About with magnetic highlight cards
+│   ├── about.tsx         # About with magnetic buttons and highlight cards
 │   ├── command-palette.tsx # ⌘K command palette (signature feature)
 │   ├── contact.tsx       # Elevated contact section
 │   ├── experience.tsx    # Timeline with achievements
-│   ├── hero-section.tsx  # Hero with particle field and enhanced animations
+│   ├── hero-section.tsx  # Hero with magnetic buttons and particle field
 │   ├── navbar.tsx        # Active section navigation
-│   ├── projects.tsx      # Project showcase with progressive disclosure
+│   ├── projects.tsx      # Projects with animated metrics and magnetic CTAs
 │   └── skills.tsx        # Skills constellation + category grid
 ├── hooks/                # Custom React hooks
 │   └── use-intersection.ts # IntersectionObserver hook for performance
@@ -201,26 +207,29 @@ npm start
 
 ## 📊 Performance Metrics
 
-- ⚡ **First Load JS**: 192 kB (optimized bundle splitting with new components)
+- ⚡ **First Load JS**: 196 kB (optimized bundle splitting with enhanced interactive components)
 - 🖼️ **Image Optimization**: Progressive blur-up loading, AVIF/WebP formats, responsive sizing
 - 🚀 **Static Generation**: Pre-rendered pages for instant loading
-- 🎬 **Animation Performance**: GPU-accelerated transforms, conditional will-change
-- ♿ **Accessibility**: WCAG 2.1 AA compliant with enhanced focus states
+- 🎬 **Animation Performance**: GPU-accelerated transforms, conditional will-change, spring physics
+- ♿ **Accessibility**: WCAG 2.1 AA compliant with enhanced focus states, ARIA labels, keyboard navigation
 - 📱 **Responsive**: Fluid typography with clamp(), optimized breakpoints (320px, 640px, 768px, 1024px, 1920px)
 - 🔍 **SEO Score**: Comprehensive metadata, structured data, dynamic sitemap, robots.txt
 
 ## 🎯 What Makes It Stand Out
 
 1. **Interactive Skills Constellation**: Unique force-directed graph visualization with proficiency-based node sizing, project-based skill connections, zoom & pan functionality (Ctrl/Cmd + wheel), smart tooltip positioning with viewport boundary detection, and optimized height (400px/500px) - normal scrolling works seamlessly, demonstrates advanced React and animation expertise
-2. **Command Palette** (`⌘K`): Keyboard-first navigation with fuzzy search - immediate signal of technical sophistication
-3. **Particle Network System**: Canvas-based animated background with dynamic particle connections and optimized RAF loop - subtle but sophisticated
-4. **Magnetic Card Interactions**: 3D perspective tilt effects with spring physics (damping: 20, stiffness: 150) for premium tactile feel
-5. **Progressive Disclosure**: Expandable project cards with smooth height animations revealing technical deep-dives
-6. **Typography Excellence**: Inter font with fluid sizing, optical letter-spacing (-0.04em to -0.01em), OpenType features (kerning, ligatures, tabular figures)
-7. **Performance-First Architecture**: GPU acceleration, IntersectionObserver-based scroll animations, progressive image loading with blur-up effects
-8. **Refined Animations**: Spring physics (cubic-bezier 0.34, 1.56, 0.64, 1), purposeful micro-interactions, and proper easing curves
-9. **Design System**: Semantic CSS variables, modular typography scale, and Swiss-inspired visual hierarchy
-10. **Production Quality**: Custom React hooks, reusable UI components, TypeScript strictness, zero build errors
+2. **Magnetic Button System**: Physics-based attraction effects on all CTAs and social icons with configurable strength (damping: 20, stiffness: 300), creating premium playful interactions - rare in portfolios, creates memorable UX
+3. **Animated Performance Metrics**: Spring-animated counters with tabular figures showcasing live project metrics (10k+ requests, <10ms response, 60% cache efficiency) - technical achievements presented with visual impact
+4. **Command Palette** (`⌘K`): Keyboard-first navigation with fuzzy search - immediate signal of technical sophistication
+5. **Scroll Progress Indicator**: Elegant gradient progress bar with smooth spring physics tracking reading position
+6. **Particle Network System**: Canvas-based animated background with dynamic particle connections and optimized RAF loop - subtle but sophisticated
+7. **Magnetic Card Interactions**: 3D perspective tilt effects with spring physics (damping: 20, stiffness: 150) for premium tactile feel
+8. **Progressive Disclosure**: Expandable project cards with smooth height animations revealing technical deep-dives
+9. **Typography Excellence**: Inter font with fluid sizing, optical letter-spacing (-0.04em to -0.01em), OpenType features (kerning, ligatures, tabular figures)
+10. **Performance-First Architecture**: GPU acceleration, IntersectionObserver-based scroll animations, progressive image loading with blur-up effects
+11. **Refined Animations**: Spring physics (cubic-bezier 0.34, 1.56, 0.64, 1), purposeful micro-interactions, and proper easing curves
+12. **Design System**: Semantic CSS variables, custom scrollbar, modular typography scale, and Swiss-inspired visual hierarchy
+13. **Production Quality**: Custom React hooks, reusable UI components, TypeScript strictness, zero build errors
 
 ## 🚀 Quick Start
 

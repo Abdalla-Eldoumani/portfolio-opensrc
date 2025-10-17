@@ -501,6 +501,52 @@ a:focus-visible {
   }
 }
 
+button, a[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 6px;
+  border: 3px solid var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-primary) var(--primary-bg);
+}
+
 /* Command Palette - Signature Feature */
 .command-palette {
   position: fixed;
@@ -643,12 +689,60 @@ a:focus-visible {
   background: var(--border-secondary);
 }
 
+section + section {
+  position: relative;
+}
+
+section + section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 1200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-primary), transparent);
+  opacity: 0.3;
+}
+
 /* Responsive section spacing */
 @media (max-width: 640px) {
   section {
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
   }
+}
+
+/* Refined code blocks */
+code, pre {
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+code {
+  padding: 0.125rem 0.375rem;
+  background: var(--tertiary-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: 4px;
+  font-size: 0.875em;
+  color: var(--accent-primary);
+}
+
+/* Keyboard shortcut styling */
+kbd {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-primary);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: ui-monospace, monospace;
+  color: var(--text-muted);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 @layer base {
