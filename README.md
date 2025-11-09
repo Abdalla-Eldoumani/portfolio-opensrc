@@ -85,7 +85,7 @@ Production-ready HTTP server handling **10,000+ concurrent requests** with <10ms
 ### FastMathExt
 High-performance C++ matrix multiplication library achieving **25-41% performance gains** over NumPy through advanced optimization techniques.
 - **Tech:** C++, OpenMP, AVX2 SIMD, Multi-level Cache Blocking
-- **Performance:** O(n³) to O(n^2.807) complexity reduction using Strassen's algorithm
+- **Performance:** O(n^3) to O(n^2.807) complexity reduction using Strassen's algorithm
 
 ### Budget Buddy
 CalgaryHacks24 winning project - A full-stack financial platform for young Canadian investors.

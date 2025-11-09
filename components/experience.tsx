@@ -6,6 +6,44 @@ import { Calendar, MapPin, TrendingUp, Users, Code, Zap } from 'lucide-react';
 
 const experienceData = [
   {
+    role: "Teaching Assistant",
+    company: "University of Calgary",
+    location: "Calgary, Alberta",
+    duration: "September 2025 – Present",
+    type: "Academic",
+    description: "Facilitating hands-on learning in computer architecture and low-level programming for undergraduate students in CPSC 355.",
+    achievements: [
+      "Guide 20 students through 13-week CPSC 355 curriculum covering computer architecture, C, and ARMv8 assembly.",
+      "Conduct hands-on lab sessions demonstrating memory management, register allocation, and instruction set architecture.",
+      "Debug low-level code issues and explain complex concepts through practical examples and step-by-step walkthroughs.",
+      "Evaluate assembly programs and C implementations for correctness, efficiency, and architectural best practices."
+    ],
+    skills: ["Computer Architecture", "C Programming", "ARMv8 Assembly", "Teaching", "Debugging", "Code Review", "Mentorship"],
+    icon: FaGraduationCap,
+    color: "text-purple-400",
+    bgColor: "bg-purple-500/10",
+    borderColor: "border-purple-500/20"
+  },
+  {
+    role: "AI Training Specialist",
+    company: "Outlier",
+    location: "Remote",
+    duration: "October 2024 - September 2025",
+    type: "Remote",
+    description: "Evaluating and improving AI model performance through systematic analysis of code generation quality and algorithmic solutions.",
+    achievements: [
+      "Evaluated AI-generated Python code across 500+ dual-response scenarios, analyzing algorithm efficiency and optimization.",
+      "Tested AI solutions for functional correctness and performance, documenting comparative analysis with technical feedback.",
+      "Identified bugs and optimization opportunities in diverse programming tasks including data structures and algorithms.",
+      "Contributed to large-scale AI training by assessing model responses across Python development patterns and best practices."
+    ],
+    skills: ["Python", "AI Evaluation", "Algorithm Analysis", "Code Review", "Performance Testing", "Technical Documentation", "Quality Assurance"],
+    icon: FaCode,
+    color: "text-cyan-400",
+    bgColor: "bg-cyan-500/10",
+    borderColor: "border-cyan-500/20"
+  },
+  {
     role: "Software Engineering Fellow",
     company: "Headstarter AI",
     location: "Calgary, Alberta",
@@ -13,11 +51,11 @@ const experienceData = [
     type: "Fellowship",
     description: "Intensive software engineering fellowship focusing on AI projects, hackathons, and scalable platform development.",
     achievements: [
-      "Led development and deployment of 5 AI projects using Python and Docker, revamping machine learning proficiency and honing operational deployment capabilities",
-      "Delivered innovative solutions during multiple hackathons, addressing real-world challenges through effective teamwork and agile problem-solving across 5 intensive weekends",
-      "Completed a high-impact final project reaching over 1,000 users by utilizing React.js, Angular, HTML, CSS, and TypeScript, ensuring a robust and scalable platform"
+      "Built and deployed 5 AI-powered applications using Python and Docker, completing intensive hackathons with teams.",
+      "Developed capstone project serving 1,000+ users using React.js, TypeScript, and modern web frameworks.",
+      "Collaborated on real-world challenges requiring rapid prototyping, testing, and deployment under tight deadlines."
     ],
-    skills: ["Python", "Docker", "React.js", "Angular", "TypeScript", "Machine Learning", "Team Leadership", "Agile Development"],
+    skills: ["Python", "Docker", "React.js", "TypeScript", "Machine Learning", "Team Leadership", "Agile Development", "Rapid Prototyping"],
     icon: FaRocket,
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
@@ -31,13 +69,11 @@ const experienceData = [
     type: "Mentorship",
     description: "Led comprehensive Python programming mentorship program for high school students, focusing on practical application and collaborative learning.",
     achievements: [
-      "Led a peer mentoring program, guiding high school colleagues in mastering Python programming fundamentals and advanced concepts",
-      "Devised and conducted weekly workshops covering Python fundamentals, data structures, and basic algorithms, resulting in overhauled programming proficiency among participants",
-      "Facilitated hands-on coding sessions, enabling peers to apply theoretical concepts to practical problems and real-world scenarios",
-      "Mentored peers on project-based learning, assisting in developing Python projects, boosting confidence and coding skills significantly",
-      "Encouraged collaboration and peer learning, fostering an environment where students supported each other in overcoming coding challenges"
+      "Led programming workshops for 30+ high school students, teaching Python fundamentals and algorithm implementation.",
+      "Designed hands-on coding exercises and project-based assignments improving student programming confidence.",
+      "Facilitated collaborative learning environment where students supported each other in overcoming coding challenges."
     ],
-    skills: ["Python", "Teaching", "Curriculum Development", "Project Management", "Mentorship", "Workshop Facilitation"],
+    skills: ["Python", "Teaching", "Curriculum Development", "Workshop Facilitation", "Mentorship", "Algorithm Design"],
     icon: FaGraduationCap,
     color: "text-emerald-400",
     bgColor: "bg-emerald-500/10",
@@ -50,13 +86,15 @@ const educationData = {
   minor: "Minor in Philosophy",
   institution: "University of Calgary",
   location: "Calgary, Alberta",
-  duration: "2022 – 2027",
-  description: "Comprehensive computer science education with philosophical foundations, focusing on theoretical and practical aspects of computing.",
+  duration: "Sep 2022 – Jun 2027",
+  gpa: "3.6/4.0",
+  honors: "Dean's List (2023-2024, 2024-2025)",
+  description: "Comprehensive computer science education with philosophical foundations, focusing on low-level systems, algorithms, and software engineering principles.",
   highlights: [
-    "Strong foundation in algorithms, data structures, and software engineering",
-    "Interdisciplinary approach combining technical skills with critical thinking",
-    "Active participation in hackathons and coding competitions",
-    "Focus on performance optimization and system architecture"
+    "Computing Machinery I & II (C, ARMv8 Assembly, Computer Architecture, Embedded Systems)",
+    "Principles of Operating Systems, Data Structures & Algorithms, Computer Networks",
+    "Database Management Systems, Artificial Intelligence, Principles of Computer Security",
+    "Web-Based Systems, Software Engineering, Reverse Engineering"
   ]
 };
 
@@ -227,6 +265,14 @@ export const Experience = () => {
                   <MapPin className="w-4 h-4" />
                   <span>{educationData.location}</span>
                 </div>
+                <div className="flex items-center space-x-2">
+                  <TrendingUp className="w-4 h-4" />
+                  <span>GPA: {educationData.gpa}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <FaAward className="w-4 h-4" />
+                  <span>{educationData.honors}</span>
+                </div>
               </div>
 
               <p className="text-gray-300 leading-relaxed">
@@ -236,8 +282,8 @@ export const Experience = () => {
 
             <div>
               <h5 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <Zap className="w-5 h-5 mr-2 text-purple-400" />
-                Academic Highlights
+                <Code className="w-5 h-5 mr-2 text-purple-400" />
+                Relevant Coursework
               </h5>
               <div className="space-y-3">
                 {educationData.highlights.map((highlight, index) => (
