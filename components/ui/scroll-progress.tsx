@@ -24,6 +24,11 @@ export const ScrollProgress = () => {
         background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary))',
         boxShadow: '0 0 12px rgba(6, 182, 212, 0.5)',
       }}
+      role="progressbar"
+      aria-label="Page scroll progress"
+      aria-valuenow={Math.round(scrollYProgress.get() * 100)}
+      aria-valuemin={0}
+      aria-valuemax={100}
     />
   );
 };
@@ -52,8 +57,13 @@ export const CircularScrollProgress = () => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
+      role="progressbar"
+      aria-label={`Page scroll progress: ${Math.round(scrollYProgress.get() * 100)}%`}
+      aria-valuenow={Math.round(scrollYProgress.get() * 100)}
+      aria-valuemin={0}
+      aria-valuemax={100}
     >
-      <svg width={size} height={size} className="transform -rotate-90">
+      <svg width={size} height={size} className="transform -rotate-90" aria-hidden="true">
         {/* Background circle */}
         <circle
           cx={size / 2}
@@ -112,7 +122,10 @@ export const SectionProgress = ({ sections }: SectionProgressProps) => {
   const { scrollYProgress } = useScroll();
 
   return (
-    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block">
+    <nav
+      className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
+      aria-label="Section navigation"
+    >
       <div className="relative flex flex-col gap-4">
         {sections.map((section, index) => {
           const sectionProgress = index / (sections.length - 1);
@@ -125,6 +138,8 @@ export const SectionProgress = ({ sections }: SectionProgressProps) => {
               href={`#${section.id}`}
               className="group flex items-center gap-3"
               whileHover={{ x: 4 }}
+              aria-label={`Navigate to ${section.label} section`}
+              aria-current={isActive ? 'location' : undefined}
             >
               <motion.div
                 className="w-2 h-2 rounded-full border-2"
@@ -151,6 +166,6 @@ export const SectionProgress = ({ sections }: SectionProgressProps) => {
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 };

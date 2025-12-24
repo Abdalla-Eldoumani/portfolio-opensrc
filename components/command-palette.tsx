@@ -158,8 +158,10 @@ export const CommandPalette = () => {
   // Prevent body scroll when palette is open
   useEffect(() => {
     if (isOpen) {
+      // Calculate scrollbar width to prevent layout shift
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = 'var(--scrollbar-width, 0px)';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
@@ -188,10 +190,13 @@ export const CommandPalette = () => {
             <button
               onClick={() => setIsOpen(true)}
               className="glass-effect px-3 py-2 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2 hover-lift shadow-lg"
+              aria-label="Open command palette"
+              aria-haspopup="dialog"
+              aria-expanded={isOpen}
             >
-              <Command size={14} className="flex-shrink-0" />
+              <Command size={14} className="flex-shrink-0" aria-hidden="true" />
               <span className="hidden sm:inline">Press</span>
-              <kbd className="command-kbd text-xs">⌘K</kbd>
+              <kbd className="command-kbd text-xs" aria-label="Command K">⌘K</kbd>
             </button>
           </motion.div>
         )}
@@ -212,6 +217,7 @@ export const CommandPalette = () => {
                 setIsOpen(false);
                 setSearch('');
               }}
+              aria-hidden="true"
             />
 
             {/* Palette */}
@@ -221,10 +227,13 @@ export const CommandPalette = () => {
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
               transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="command-palette"
+              role="dialog"
+              aria-label="Command palette"
+              aria-modal="true"
             >
               {/* Search Input */}
               <div className="relative">
-                <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
+                <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={20} aria-hidden="true" />
                 <input
                   type="text"
                   className="command-input"
@@ -232,11 +241,22 @@ export const CommandPalette = () => {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   autoFocus
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-controls="command-list"
+                  aria-expanded={filteredCommands.length > 0}
+                  aria-activedescendant={filteredCommands[selectedIndex] ? `command-${filteredCommands[selectedIndex].id}` : undefined}
+                  aria-label="Search commands"
                 />
               </div>
 
               {/* Commands List */}
-              <div className="command-list">
+              <div
+                className="command-list"
+                id="command-list"
+                role="listbox"
+                aria-label="Available commands"
+              >
                 {filteredCommands.length === 0 ? (
                   <div className="text-center py-8 text-gray-400">
                     No commands found
@@ -244,19 +264,24 @@ export const CommandPalette = () => {
                 ) : (
                   filteredCommands.map((command, index) => {
                     const Icon = command.icon;
+                    const isSelected = index === selectedIndex;
                     return (
                       <button
                         key={command.id}
+                        id={`command-${command.id}`}
                         className={`command-item w-full ${
-                          index === selectedIndex ? 'selected' : ''
+                          isSelected ? 'selected' : ''
                         }`}
                         onClick={command.action}
                         onMouseEnter={() => setSelectedIndex(index)}
+                        role="option"
+                        aria-selected={isSelected}
+                        aria-label={`${command.label}${command.shortcut ? `, shortcut ${command.shortcut}` : ''}`}
                       >
-                        <Icon size={18} />
+                        <Icon size={18} aria-hidden="true" />
                         <span className="flex-1 text-left">{command.label}</span>
                         {command.shortcut && (
-                          <kbd className="command-kbd">{command.shortcut}</kbd>
+                          <kbd className="command-kbd" aria-label={`Shortcut ${command.shortcut}`}>{command.shortcut}</kbd>
                         )}
                       </button>
                     );
@@ -269,16 +294,16 @@ export const CommandPalette = () => {
                 <div className="flex items-center gap-2 sm:gap-4">
                   <span className="flex items-center gap-1">
                     <kbd className="command-kbd text-xs">↑↓</kbd>
-                    <span className="hidden xs:inline">Navigate</span>
+                    <span className="hidden sm:inline">Navigate</span>
                   </span>
                   <span className="flex items-center gap-1">
                     <kbd className="command-kbd text-xs">↵</kbd>
-                    <span className="hidden xs:inline">Select</span>
+                    <span className="hidden sm:inline">Select</span>
                   </span>
                 </div>
                 <span className="flex items-center gap-1">
                   <kbd className="command-kbd text-xs">Esc</kbd>
-                  <span className="hidden xs:inline">Close</span>
+                  <span className="hidden sm:inline">Close</span>
                 </span>
               </div>
             </motion.div>

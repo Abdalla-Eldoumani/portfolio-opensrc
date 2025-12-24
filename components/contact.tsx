@@ -68,6 +68,7 @@ export const Contact = () => {
                 viewport={{ once: false, amount: 0.3 }}
                 whileHover={{ y: -4 }}
                 className="glass-effect p-6 rounded-xl hover-lift group"
+                aria-label={`Open ${method.label}: ${method.value} in new tab`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-3 rounded-lg ${method.color} bg-opacity-10`} style={{ backgroundColor: 'var(--tertiary-bg)' }}>
@@ -136,7 +137,8 @@ export const Contact = () => {
         </motion.div>
 
         {/* Footer */}
-        <motion.div
+        <motion.footer
+          role="contentinfo"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -150,7 +152,7 @@ export const Contact = () => {
           <p className="text-sm text-center mx-auto">
             &copy; {new Date().getFullYear()} Abdalla Eldoumani. Crafted with precision and attention to detail.
           </p>
-        </motion.div>
+        </motion.footer>
       </div>
     </section>
   );

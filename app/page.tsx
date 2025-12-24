@@ -11,11 +11,19 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950">
+      {/* Skip to main content link for keyboard navigation */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10000] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg focus:font-semibold focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+
       <ScrollProgress />
       <Navbar />
       <CommandPalette />
 
-      <main>
+      <main id="main">
         <section id="home">
           <HeroSection />
         </section>

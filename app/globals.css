@@ -46,7 +46,9 @@ section {
 }
 
 /* Refined 2025 color palette - Swiss design meets modern web */
-:root {
+/* Dark mode (default) */
+:root,
+:root[data-theme="dark"] {
   --primary-bg: #0a0b0f;
   --secondary-bg: #14151a;
   --tertiary-bg: #1c1d24;
@@ -67,6 +69,111 @@ section {
   --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.12);
   --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.16);
   --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.24);
+
+  /* State colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Alpha variants for accent colors */
+  --accent-primary-10: rgba(6, 182, 212, 0.1);
+  --accent-primary-20: rgba(6, 182, 212, 0.2);
+  --accent-primary-30: rgba(6, 182, 212, 0.3);
+  --accent-primary-50: rgba(6, 182, 212, 0.5);
+  --accent-primary-70: rgba(6, 182, 212, 0.7);
+  --accent-primary-90: rgba(6, 182, 212, 0.9);
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Refined elevation system */
+  --elevation-0: 0 0 0 rgba(0,0,0,0);
+  --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+  --elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+  --elevation-4: 0 15px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05);
+  --elevation-5: 0 20px 40px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* Light mode */
+:root[data-theme="light"] {
+  --primary-bg: #ffffff;
+  --secondary-bg: #f8f9fa;
+  --tertiary-bg: #e9ecef;
+  --text-primary: #0a0b0f;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --accent-primary: #0891b2; /* Darker cyan for light mode */
+  --accent-secondary: #7c3aed;
+  --accent-tertiary: #059669;
+  --accent-subtle: #2563eb;
+  --border-primary: #dee2e6;
+  --border-secondary: #e9ecef;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --selection-bg: rgba(8, 145, 178, 0.2);
+  --selection-text: #0a0b0f;
+  --focus-ring: rgba(8, 145, 178, 0.5);
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  /* State colors - same for light mode */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Alpha variants for accent colors - adjusted for light mode */
+  --accent-primary-10: rgba(8, 145, 178, 0.1);
+  --accent-primary-20: rgba(8, 145, 178, 0.2);
+  --accent-primary-30: rgba(8, 145, 178, 0.3);
+  --accent-primary-50: rgba(8, 145, 178, 0.5);
+  --accent-primary-70: rgba(8, 145, 178, 0.7);
+  --accent-primary-90: rgba(8, 145, 178, 0.9);
+
+  /* Spacing scale - same for light mode */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Refined elevation system - lighter shadows */
+  --elevation-0: 0 0 0 rgba(0,0,0,0);
+  --elevation-1: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.16);
+  --elevation-2: 0 3px 6px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.08);
+  --elevation-3: 0 10px 20px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.08);
+  --elevation-4: 0 15px 25px rgba(0,0,0,0.10), 0 5px 10px rgba(0,0,0,0.05);
+  --elevation-5: 0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08);
+}
+
+/* Smooth theme transitions - Swiss precision */
+:root {
+  transition:
+    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Preserve specific transitions */
+.no-theme-transition,
+.no-theme-transition * {
+  transition: none !important;
 }
 
 /* Refined, purposeful gradient - Swiss precision */
@@ -183,6 +290,16 @@ section {
   letter-spacing: -0.011em;
   line-height: 1.6;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+/* Label text - Swiss-inspired uppercase labels */
+.label-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.4;
 }
 
 /* Precise headings with modular scale */
@@ -442,21 +559,77 @@ img {
   width: 100%;
 }
 
-/* Refined accessibility and focus states */
+/* Enhanced accessibility and focus states with gradient rings */
 *:focus {
   outline: none;
 }
 
 *:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-  border-radius: 4px;
-  transition: outline-offset 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-button:focus-visible,
-a:focus-visible {
-  outline-offset: 4px;
+/* Beautiful gradient focus rings - Swiss precision meets modern web */
+*:focus-visible::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Enhanced focus for buttons and links */
+button:focus-visible::before,
+a:focus-visible::before {
+  inset: -4px;
+  padding: 4px;
+  box-shadow:
+    0 0 0 3px var(--primary-bg),
+    0 0 0 5px var(--accent-primary),
+    0 0 16px rgba(6, 182, 212, 0.4);
+}
+
+/* Animated glow on focus */
+@keyframes focus-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px var(--primary-bg),
+      0 0 0 5px var(--accent-primary),
+      0 0 16px rgba(6, 182, 212, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px var(--primary-bg),
+      0 0 0 5px var(--accent-primary),
+      0 0 20px rgba(6, 182, 212, 0.6);
+  }
+}
+
+/* Special focus treatment for interactive elements */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  box-shadow:
+    0 0 0 3px var(--primary-bg),
+    0 0 0 5px var(--accent-primary),
+    0 0 16px rgba(6, 182, 212, 0.4);
+  border-color: var(--accent-primary);
+}
+
+input:focus-visible::before,
+textarea:focus-visible::before,
+select:focus-visible::before {
+  display: none;
 }
 
 /* Custom text selection */

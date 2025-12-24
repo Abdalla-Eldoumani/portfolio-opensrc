@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { IconType } from 'react-icons';
+import { skillConnections } from '@/lib/data/skills';
 
 interface Skill {
   name: string;
@@ -16,24 +17,83 @@ interface SkillConstellationProps {
   skills: Skill[];
 }
 
+interface Connection {
+  from: number;
+  to: number;
+  fromName: string;
+  toName: string;
+}
+
 interface TooltipPosition {
   showAbove: boolean;
   horizontalAlign: 'left' | 'center' | 'right';
 }
 
 /**
- * Interactive skill constellation - signature feature
+ * Optimized interactive skill constellation - signature feature
  * Visualizes skills as an interconnected knowledge graph
+ * Features memoized connections and touch-optimized interactions
  * Proficiency determines node size, hover reveals connections
  */
 export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [focusedSkillIndex, setFocusedSkillIndex] = useState<number>(-1);
+  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [pathHighlight, setPathHighlight] = useState<{ from: string; to: string } | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  // Detect touch device to optimize interactions
+  const isTouchDevice = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
+
+  // Get unique categories from skills
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(skills.map(s => s.category)));
+    return ['All', ...cats];
+  }, [skills]);
+
+  // Filter skills by category
+  const filteredSkills = useMemo(() => {
+    if (!selectedCategory || selectedCategory === 'All') return skills;
+    return skills.filter(s => s.category === selectedCategory);
+  }, [skills, selectedCategory]);
+
+  // Optimized: Check skill connections using imported data
+  const shouldConnect = useCallback((skill1: Skill, skill2: Skill) => {
+    return (
+      skillConnections[skill1.name]?.includes(skill2.name) ||
+      skillConnections[skill2.name]?.includes(skill1.name)
+    );
+  }, []);
+
+  // Memoized connections - compute once and cache
+  // This prevents O(n²) recalculation on every render
+  const connections = useMemo(() => {
+    const result: Connection[] = [];
+
+    skills.forEach((skill1, i) => {
+      skills.slice(i + 1).forEach((skill2, j) => {
+        if (shouldConnect(skill1, skill2)) {
+          result.push({
+            from: i,
+            to: i + j + 1,
+            fromName: skill1.name,
+            toName: skill2.name
+          });
+        }
+      });
+    });
+
+    return result;
+  }, [skills, shouldConnect]);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -110,6 +170,90 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
     setIsDragging(false);
   };
 
+  // Get connected skill indices for arrow navigation
+  const getConnectedSkillIndices = useCallback((currentIndex: number): number[] => {
+    const currentSkill = skills[currentIndex];
+    if (!currentSkill) return [];
+
+    return connections
+      .filter(conn =>
+        conn.fromName === currentSkill.name || conn.toName === currentSkill.name
+      )
+      .map(conn => {
+        if (conn.fromName === currentSkill.name) {
+          return skills.findIndex(s => s.name === conn.toName);
+        } else {
+          return skills.findIndex(s => s.name === conn.fromName);
+        }
+      })
+      .filter(index => index !== -1);
+  }, [skills, connections]);
+
+  // Keyboard navigation handler
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, skillIndex: number) => {
+    const connectedIndices = getConnectedSkillIndices(skillIndex);
+
+    switch (e.key) {
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        setSelectedSkill(skills[skillIndex].name);
+        setHoveredSkill(skills[skillIndex].name);
+        break;
+
+      case 'Escape':
+        e.preventDefault();
+        setSelectedSkill(null);
+        setHoveredSkill(null);
+        break;
+
+      case 'ArrowRight':
+      case 'ArrowDown':
+        e.preventDefault();
+        if (connectedIndices.length > 0) {
+          // Navigate to next connected skill
+          const currentConnectedIndex = connectedIndices.findIndex(i => i > skillIndex);
+          const nextIndex = currentConnectedIndex !== -1
+            ? connectedIndices[currentConnectedIndex]
+            : connectedIndices[0];
+          setFocusedSkillIndex(nextIndex);
+          // Focus the actual DOM element
+          const nextButton = document.querySelector(`[data-skill-index="${nextIndex}"]`) as HTMLButtonElement;
+          nextButton?.focus();
+        }
+        break;
+
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        if (connectedIndices.length > 0) {
+          // Navigate to previous connected skill
+          const currentConnectedIndex = connectedIndices.findIndex(i => i < skillIndex);
+          const prevIndex = currentConnectedIndex !== -1
+            ? connectedIndices[connectedIndices.length - 1]
+            : connectedIndices[connectedIndices.length - 1];
+          setFocusedSkillIndex(prevIndex);
+          // Focus the actual DOM element
+          const prevButton = document.querySelector(`[data-skill-index="${prevIndex}"]`) as HTMLButtonElement;
+          prevButton?.focus();
+        }
+        break;
+
+      case 'Tab':
+        // Let Tab work naturally for sequential navigation
+        // Update focused index when tabbing
+        setFocusedSkillIndex(skillIndex);
+        break;
+    }
+  }, [skills, getConnectedSkillIndices]);
+
+  // Get connection names for ARIA labels
+  const getConnectionNames = useCallback((skillName: string): string[] => {
+    return connections
+      .filter(conn => conn.fromName === skillName || conn.toName === skillName)
+      .map(conn => conn.fromName === skillName ? conn.toName : conn.fromName);
+  }, [connections]);
+
   // Generate positions using force-directed layout approximation
   const getSkillPosition = (index: number, total: number) => {
     const angle = (index / total) * 2 * Math.PI;
@@ -134,46 +278,6 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
     return { showAbove, horizontalAlign };
   };
 
-  const projectConnections: Record<string, string[]> = {
-    'Next.js': ['TypeScript', 'React.js', 'TailwindCSS', 'Prisma', 'Vercel', 'Framer Motion'],
-    'TypeScript': ['Next.js', 'React.js', 'Angular', 'Node.js', 'TailwindCSS'],
-    'React.js': ['Next.js', 'TypeScript', 'Angular', 'TailwindCSS'],
-    'TailwindCSS': ['Next.js', 'TypeScript', 'React.js', 'Framer Motion'],
-    'Rust': ['SQLite', 'JWT', 'WebSocket'],
-    'C++': ['Python', 'OpenMP'],
-    'Python': ['Docker', 'TensorFlow', 'PyTorch', 'C++', 'TypeScript'],
-    'Docker': ['Python', 'AWS'],
-    'TensorFlow': ['Python', 'PyTorch'],
-    'PyTorch': ['Python', 'TensorFlow'],
-    'Angular': ['TypeScript', 'React.js'],
-    'Node.js': ['TypeScript', 'Express.js', 'PostgreSQL', 'MongoDB'],
-    'Express.js': ['Node.js'],
-    'PostgreSQL': ['Node.js'],
-    'MongoDB': ['Node.js'],
-    'MySQL': ['Prisma'],
-    'Prisma': ['Next.js', 'MySQL'],
-    'Java': ['JUnit'],
-    'JUnit': ['Java'],
-    'AWS': ['Docker'],
-    'Vercel': ['Next.js'],
-    'Framer Motion': ['Next.js', 'TailwindCSS'],
-    'Git': ['TypeScript', 'Python', 'JavaScript', 'Java', 'Rust', 'C++'],
-    'JavaScript': ['HTML5', 'CSS3', 'Git'],
-    'HTML5': ['CSS3', 'JavaScript'],
-    'CSS3': ['HTML5', 'JavaScript'],
-    'SQLite': ['Rust'],
-    'JWT': ['Rust'],
-    'WebSocket': ['Rust'],
-    'OpenMP': ['C++'],
-  };
-
-  const shouldConnect = (skill1: Skill, skill2: Skill) => {
-    return (
-      projectConnections[skill1.name]?.includes(skill2.name) ||
-      projectConnections[skill2.name]?.includes(skill1.name)
-    );
-  };
-
   return (
     <div
       ref={containerRef}
@@ -189,7 +293,30 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      role="group"
+      aria-label="Interactive skill constellation - use Tab to navigate between skills, Arrow keys to move between connected skills, Enter to select, Escape to deselect"
     >
+      {/* Category filters */}
+      <div className="absolute top-4 left-4 z-50 flex flex-wrap gap-2 max-w-md">
+        {categories.map((category) => (
+          <motion.button
+            key={category}
+            onClick={() => setSelectedCategory(category === 'All' ? null : category)}
+            className={`glass-effect px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 ${
+              (!selectedCategory && category === 'All') || selectedCategory === category
+                ? 'border-cyan-500 text-white bg-cyan-500/20'
+                : 'border-white/10 text-gray-400 hover:text-white hover:border-white/20'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label={`Filter by ${category} skills`}
+            aria-pressed={(!selectedCategory && category === 'All') || selectedCategory === category}
+          >
+            {category}
+          </motion.button>
+        ))}
+      </div>
+
       {/* Zoom controls */}
       <div className="absolute top-4 right-4 z-50 flex flex-col gap-2">
         <button
@@ -222,7 +349,7 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
           position: 'relative',
         }}
       >
-        {/* Connection lines */}
+        {/* Connection lines - using memoized connections for performance */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
         <defs>
           <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -232,39 +359,54 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
           </linearGradient>
         </defs>
 
-        {skills.map((skill1, i) =>
-          skills.slice(i + 1).map((skill2, j) => {
-            if (!shouldConnect(skill1, skill2)) return null;
+        {connections.map((connection, index) => {
+          const pos1 = getSkillPosition(connection.from, skills.length);
+          const pos2 = getSkillPosition(connection.to, skills.length);
 
-            const pos1 = getSkillPosition(i, skills.length);
-            const pos2 = getSkillPosition(i + j + 1, skills.length);
+          const skill1 = skills[connection.from];
+          const skill2 = skills[connection.to];
 
-            const isHighlighted =
-              hoveredSkill === skill1.name || hoveredSkill === skill2.name;
+          const isHighlighted =
+            hoveredSkill === connection.fromName || hoveredSkill === connection.toName;
 
-            return (
-              <motion.line
-                key={`${skill1.name}-${skill2.name}`}
-                x1={pos1.x}
-                y1={pos1.y}
-                x2={pos2.x}
-                y2={pos2.y}
-                stroke="url(#connectionGradient)"
-                strokeWidth={isHighlighted ? 2 : 1}
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{
-                  pathLength: 1,
-                  opacity: isHighlighted ? 0.6 : 0.15,
-                }}
-                transition={{
-                  duration: 1.5,
-                  delay: i * 0.05,
-                  opacity: { duration: 0.3 },
-                }}
-              />
-            );
-          })
-        )}
+          // Check if this connection is in the highlighted path
+          const isPathHighlighted = pathHighlight &&
+            ((pathHighlight.from === connection.fromName && pathHighlight.to === connection.toName) ||
+             (pathHighlight.from === connection.toName && pathHighlight.to === connection.fromName));
+
+          // Calculate connection strength (shared connections)
+          const fromConnections = skillConnections[connection.fromName] || [];
+          const toConnections = skillConnections[connection.toName] || [];
+          const sharedConnections = fromConnections.filter((c: string) => toConnections.includes(c));
+          const strength = 1 + (sharedConnections.length * 0.5); // Base 1, +0.5 per shared connection
+
+          // Dim connections when category filter is active and neither skill matches
+          const isDimmed = selectedCategory &&
+            skill1.category !== selectedCategory &&
+            skill2.category !== selectedCategory;
+
+          return (
+            <motion.line
+              key={`${connection.fromName}-${connection.toName}`}
+              x1={pos1.x}
+              y1={pos1.y}
+              x2={pos2.x}
+              y2={pos2.y}
+              stroke={isPathHighlighted ? "var(--accent-primary)" : "url(#connectionGradient)"}
+              strokeWidth={isPathHighlighted ? 3 : isHighlighted ? 2 * strength : 1 * strength}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{
+                pathLength: 1,
+                opacity: isDimmed ? 0.05 : isPathHighlighted ? 0.8 : isHighlighted ? 0.6 : 0.15,
+              }}
+              transition={{
+                duration: 1.5,
+                delay: index * 0.05,
+                opacity: { duration: 0.3 },
+              }}
+            />
+          );
+        })}
       </svg>
 
         {/* Skill nodes */}
@@ -272,13 +414,26 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
           const position = getSkillPosition(index, skills.length);
           const size = 40 + (skill.proficiency / 100) * 40; // 40-80px based on proficiency
           const Icon = skill.icon;
-          const isHovered = hoveredSkill === skill.name;
+          const isHovered = hoveredSkill === skill.name || selectedSkill === skill.name;
+          const isFocused = focusedSkillIndex === index;
           const tooltipPos = getTooltipPosition(position.x, position.y);
+          const connectedSkills = getConnectionNames(skill.name);
+
+          // Dim skills that don't match the selected category
+          const isDimmed = selectedCategory && skill.category !== selectedCategory;
+
+          // Build comprehensive ARIA label
+          const ariaLabel = `${skill.name}, proficiency ${skill.proficiency} percent${
+            connectedSkills.length > 0
+              ? `, connects to ${connectedSkills.join(', ')}`
+              : ', no connections'
+          }. Press Enter to select, Arrow keys to navigate connections.`;
 
           return (
-            <motion.div
+            <motion.button
               key={skill.name}
-              className="absolute cursor-pointer group"
+              data-skill-index={index}
+              className="absolute group focus:outline-none"
               style={{
                 left: position.x,
                 top: position.y,
@@ -286,15 +441,30 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
                 height: size,
               }}
               initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              animate={{ scale: 1, opacity: isDimmed ? 0.3 : 1 }}
               transition={{
                 duration: 0.6,
                 delay: index * 0.05,
                 ease: [0.34, 1.56, 0.64, 1],
               }}
-              whileHover={{ scale: 1.2, zIndex: 50 }}
-              onHoverStart={() => setHoveredSkill(skill.name)}
-              onHoverEnd={() => setHoveredSkill(null)}
+              whileHover={!isTouchDevice ? { scale: 1.2, zIndex: 50 } : undefined}
+              onHoverStart={!isTouchDevice ? () => setHoveredSkill(skill.name) : undefined}
+              onHoverEnd={!isTouchDevice ? () => setHoveredSkill(null) : undefined}
+              onTouchStart={isTouchDevice ? () => setHoveredSkill(skill.name) : undefined}
+              onTouchEnd={isTouchDevice ? () => setTimeout(() => setHoveredSkill(null), 2000) : undefined}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              onFocus={() => {
+                setFocusedSkillIndex(index);
+                setHoveredSkill(skill.name);
+              }}
+              onBlur={() => {
+                if (!selectedSkill) {
+                  setHoveredSkill(null);
+                }
+              }}
+              aria-label={ariaLabel}
+              tabIndex={0}
+              type="button"
             >
               {/* Glow effect on hover */}
               <motion.div
@@ -326,6 +496,18 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
                   }`}
                   size={size * 0.5}
                 />
+
+                {/* Keyboard focus indicator */}
+                {isFocused && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    style={{
+                      boxShadow: '0 0 0 3px var(--primary-bg), 0 0 0 5px var(--accent-primary), 0 0 16px rgba(6, 182, 212, 0.4)',
+                    }}
+                  />
+                )}
               </div>
 
               {/* Smart Tooltip */}
@@ -344,14 +526,40 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
                 animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : tooltipPos.showAbove ? 10 : -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="glass-effect px-3 py-2 rounded-lg border border-white/10">
-                  <p className="text-sm font-semibold text-white">{skill.name}</p>
-                  <p className="text-xs text-gray-400">
-                    Proficiency: {skill.proficiency}%
-                  </p>
+                <div className="glass-effect px-4 py-3 rounded-xl border border-white/10 min-w-[200px]">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-sm font-bold text-white">{skill.name}</p>
+                    <span className="text-xs font-medium text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-full">
+                      {skill.category}
+                    </span>
+                  </div>
+
+                  {/* Proficiency bar */}
+                  <div className="mb-2">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-xs text-gray-400">Proficiency</span>
+                      <span className="text-xs font-bold text-white">{skill.proficiency}%</span>
+                    </div>
+                    <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full ${skill.color.replace('text-', 'bg-')}`}
+                        initial={{ width: 0 }}
+                        animate={{ width: isHovered ? `${skill.proficiency}%` : 0 }}
+                        transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Connections count */}
+                  {connectedSkills.length > 0 && (
+                    <p className="text-xs text-gray-500">
+                      {connectedSkills.length} connection{connectedSkills.length !== 1 ? 's' : ''}
+                    </p>
+                  )}
                 </div>
               </motion.div>
-            </motion.div>
+            </motion.button>
           );
         })}
 

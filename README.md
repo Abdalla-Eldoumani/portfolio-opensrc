@@ -2,16 +2,16 @@
 
 A production-grade portfolio showcasing exceptional frontend craftsmanship and attention to detail. Built with Next.js 14, TypeScript, and Tailwind CSS, featuring refined typography, sophisticated interactions, and a command palette for keyboard-first navigation.
 
-🌟 **Live Demo:** [View Portfolio](https://abdallaeldoumani.vercel.app/)
+**Live Demo:** [View Portfolio](https://abdallaeldoumani.vercel.app/)
 
 ## About Me
 
 I'm a Computer Science student at the University of Calgary specializing in high-performance systems, AI/ML, and full-stack development. Creator of Rust HTTP servers handling 10k+ concurrent requests and performance-optimized C++ libraries achieving 25-41% gains over NumPy.
 
-## ✨ Key Features
+## Key Features
 
-### 🎯 Signature Interactions
-- **⌘K Command Palette**: Professional keyboard-first navigation with fuzzy search
+### Signature Interactions
+- **Command Palette (Cmd+K)**: Professional keyboard-first navigation with fuzzy search
 - **Interactive Skills Constellation**: Force-directed graph visualization with proficiency-based sizing, project-based connections, zoom & pan (0.5x-2.0x with Ctrl/Cmd modifier), smart tooltip positioning, and optimized height (400px/500px) - no scroll interference
 - **Magnetic Button System**: Physics-based magnetic attraction with configurable strength (0.1-0.5), creating premium playful interactions on CTAs and icon buttons
 - **Animated Performance Counters**: Spring-animated metrics with tabular figures, perfect for showcasing technical achievements with visual impact
@@ -22,7 +22,7 @@ I'm a Computer Science student at the University of Calgary specializing in high
 - **Refined Micro-interactions**: Spring physics animations (cubic-bezier 0.34, 1.56, 0.64, 1) with purposeful feedback
 - **Performance Badges**: Animated metric displays showcasing technical achievements
 
-### 🎨 Visual Excellence
+### Visual Excellence
 - **Swiss Design Meets Modern Web**: Deliberate color palette beyond typical dark themes
 - **Custom SVG Illustrations**: Hand-crafted technical diagrams for FastMathExt and Self-Checkout projects, eliminating AI-generated imagery
 - **Advanced Typography System**:
@@ -36,7 +36,7 @@ I'm a Computer Science student at the University of Calgary specializing in high
 - **Gradient Border Animations**: Rotating multi-color borders for premium visual hierarchy
 - **Custom Selection Colors**: Brand-consistent text selection and focus states
 
-### ⚡ Performance Optimized
+### Performance Optimized
 - **Progressive Image Loading**: Blur-up effect with 700ms transitions
 - **GPU Acceleration**: `transform: translateZ(0)`, `backface-visibility: hidden`, perspective optimization
 - **IntersectionObserver**: Custom hooks for scroll-triggered animations (replacing AOS)
@@ -45,7 +45,7 @@ I'm a Computer Science student at the University of Calgary specializing in high
 - **Production Ready**: Zero TypeScript errors, clean static generation
 - **Accessibility First**: WCAG compliant with refined focus-visible states and reduced motion support
 
-### 🔍 SEO Excellence
+### SEO Excellence
 - **Comprehensive Metadata**: Enhanced Open Graph, Twitter Cards, and meta descriptions
 - **Structured Data (JSON-LD)**: Schema.org Person markup for rich search results
 - **Dynamic Sitemap**: Auto-generated XML sitemap for search engine crawling
@@ -54,7 +54,7 @@ I'm a Computer Science student at the University of Calgary specializing in high
 - **Semantic HTML**: Proper heading hierarchy and ARIA labels
 - **Mobile-First Indexing**: Fully responsive with touch-optimized interactions
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 ### Core Framework
 - **Next.js 14** - React framework with App Router and experimental optimizations
@@ -75,7 +75,7 @@ I'm a Computer Science student at the University of Calgary specializing in high
 - **ESLint** - Code quality and Next.js best practices
 - **PostCSS** - CSS processing with Tailwind optimizations
 
-## 🚀 Featured Projects
+## Featured Projects
 
 ### Rust HTTP Server
 Production-ready HTTP server handling **10,000+ concurrent requests** with <10ms response time.
@@ -100,7 +100,7 @@ Educational platform demonstrating cybersecurity concepts with interactive simul
 Multi-model AI platform integrating OpenAI's latest models with modern web technologies.
 - **Tech:** Next.js, TypeScript, OpenAI API, Prisma, MySQL, Stripe
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 portfolio_website/
@@ -142,7 +142,7 @@ portfolio_website/
 └── tailwind.config.ts   # Extended design tokens
 ```
 
-## 🏃‍♂️ Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
@@ -180,7 +180,7 @@ npm run build
 npm start
 ```
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 **"Swiss design meets modern web"** - Craftsmanship over flashiness:
 
@@ -205,17 +205,17 @@ npm start
 - **Reduced Motion**: Respects `prefers-reduced-motion` preference
 - **High Contrast**: Compatible with `prefers-contrast: high`
 
-## 📊 Performance Metrics
+## Performance Metrics
 
-- ⚡ **First Load JS**: 196 kB (optimized bundle splitting with enhanced interactive components)
-- 🖼️ **Image Optimization**: Progressive blur-up loading, AVIF/WebP formats, responsive sizing
-- 🚀 **Static Generation**: Pre-rendered pages for instant loading
-- 🎬 **Animation Performance**: GPU-accelerated transforms, conditional will-change, spring physics
-- ♿ **Accessibility**: WCAG 2.1 AA compliant with enhanced focus states, ARIA labels, keyboard navigation
-- 📱 **Responsive**: Fluid typography with clamp(), optimized breakpoints (320px, 640px, 768px, 1024px, 1920px)
-- 🔍 **SEO Score**: Comprehensive metadata, structured data, dynamic sitemap, robots.txt
+- **First Load JS**: 196 kB (optimized bundle splitting with enhanced interactive components)
+- **Image Optimization**: Progressive blur-up loading, AVIF/WebP formats, responsive sizing
+- **Static Generation**: Pre-rendered pages for instant loading
+- **Animation Performance**: GPU-accelerated transforms, conditional will-change, spring physics
+- **Accessibility**: WCAG 2.1 AA compliant with enhanced focus states, ARIA labels, keyboard navigation
+- **Responsive**: Fluid typography with clamp(), optimized breakpoints (320px, 640px, 768px, 1024px, 1920px)
+- **SEO Score**: Comprehensive metadata, structured data, dynamic sitemap, robots.txt
 
-## 🎯 What Makes It Stand Out
+## What Makes It Stand Out
 
 1. **Interactive Skills Constellation**: Unique force-directed graph visualization with proficiency-based node sizing, project-based skill connections, zoom & pan functionality (Ctrl/Cmd + wheel), smart tooltip positioning with viewport boundary detection, and optimized height (400px/500px) - normal scrolling works seamlessly, demonstrates advanced React and animation expertise
 2. **Magnetic Button System**: Physics-based attraction effects on all CTAs and social icons with configurable strength (damping: 20, stiffness: 300), creating premium playful interactions - rare in portfolios, creates memorable UX
@@ -231,7 +231,7 @@ npm start
 12. **Design System**: Semantic CSS variables, custom scrollbar, modular typography scale, and Swiss-inspired visual hierarchy
 13. **Production Quality**: Custom React hooks, reusable UI components, TypeScript strictness, zero build errors
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+
@@ -260,9 +260,9 @@ npm run build    # Creates optimized production build
 npm start        # Serves production build
 ```
 
-## ⌨️ Keyboard Shortcuts
+## Keyboard Shortcuts
 
-- **⌘K / Ctrl+K**: Open command palette
+- **Cmd+K / Ctrl+K**: Open command palette
 - **↑↓**: Navigate commands
 - **Enter**: Execute selected command
 - **Esc**: Close command palette
@@ -273,14 +273,60 @@ npm start        # Serves production build
 - **Ctrl/Cmd + Scroll**: Zoom skills constellation (0.5x-2.0x)
 - **Click & Drag**: Pan skills constellation when zoomed
 
-## 🤝 Connect With Me
+## Recent Enhancements
+
+### Performance & Architecture
+- **Data Layer Extraction**: Separated data definitions into typed modules (lib/data/projects.ts, lib/data/skills.ts, lib/data/experience.ts) with comprehensive TypeScript interfaces for maintainability
+- **Animation System Centralization**: Consolidated Framer Motion configurations into lib/constants/animations.ts with reusable spring presets and motion variants
+- **Particle Field Optimization**: Implemented spatial hash grid reducing collision detection from O(n²) to O(n), with connection pooling and adaptive quality
+- **Skill Constellation Optimization**: Added connection memoization, viewport culling, and separated static/hover layers for 60fps performance
+
+### UI/UX Improvements
+- **Custom Cursor**: Desktop-only cursor with faster physics (stiffness: 500, damping: 15) for natural mouse feel, context-aware states, and subtle particle trail
+- **Command Palette Enhancements**: Accurate scrollbar width calculation preventing layout shift, improved mobile breakpoints
+- **Enhanced Focus States**: Gradient focus rings with box-shadow animations for beautiful accessibility
+- **Mobile Navigation**: Added click-to-close overlay for improved mobile menu UX
+- **Skip to Main Content**: Accessible skip link for keyboard users
+- **Toast Notification System**: Context-based notifications with auto-dismiss, queue management, and ARIA live regions
+
+### Accessibility Enhancements
+- **Intersection Observer Navigation**: Replaced scroll position detection with Intersection Observer API for accurate active section highlighting
+- **ARIA Label Audit**: Added descriptive aria-labels to all interactive elements including contact cards and navigation items
+- **Semantic HTML**: Added proper footer tag with role="contentinfo" for better SEO and accessibility
+- **Keyboard Navigation**: Full keyboard support for skill constellation with Tab, Arrow keys, Enter, and Escape
+
+### Component Architecture
+- **Modular Refactoring**: Split large components into focused, reusable modules:
+  - Skills: skills-section, featured-skills, skills-grid
+  - Projects: project-card, project-metrics, project-tech-stack, image-carousel, project-modal
+  - Experience: experience-card, education-card, timeline-visual
+- **New UI Components**: progress-bar, metric-card, github-stats, toast system, theme-toggle, depth-indicator, section-transition
+
+### Code Quality
+- **TypeScript Strictness**: Eliminated all 'any' types, added proper type guards, created GitHubCommitResponse interface
+- **Design System Refinement**: Added spacing tokens (--space-xs to --space-3xl), refined elevation system (--elevation-0 to --elevation-5), state colors, alpha variants for accent colors
+- **Test Infrastructure**: Jest configuration with React Testing Library, 25+ passing unit tests covering cache utilities, GitHub API utilities, and UI components
+
+### GitHub Integration
+- **Live Stats**: GitHub API integration with LocalStorage caching (24hr TTL) for repository statistics
+- **Performance Metrics**: Animated visualizations for stars, forks, commits, and language breakdowns
+- **Rate Limit Respect**: Intelligent caching system to stay within GitHub's 60 requests/hour unauthenticated limit
+
+### Design System
+- **Spacing Scale**: Consistent spacing tokens from 0.5rem to 6rem
+- **Elevation System**: 6-level shadow system for depth hierarchy
+- **State Colors**: Success, warning, error, and info color tokens
+- **Label Text Utility**: Swiss-inspired uppercase labels with precise letter-spacing
+- **Alpha Variants**: Opacity variants (10%-90%) for accent colors
+
+## Connect With Me
 
 - **Portfolio**: [abdallaeldoumani.vercel.app](https://abdallaeldoumani.vercel.app/)
 - **LinkedIn**: [Abdalla Eldoumani](https://www.linkedin.com/in/abdallaeldoumani/)
 - **GitHub**: [@Abdalla-Eldoumani](https://github.com/Abdalla-Eldoumani)
 - **Email**: [aamsdoumani@gmail.com](mailto:aamsdoumani@gmail.com)
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 

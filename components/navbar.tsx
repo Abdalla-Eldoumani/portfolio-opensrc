@@ -28,28 +28,46 @@ export const Navbar = () => {
     setIsOpen(false);
   };
 
+  // Track scroll position for navbar background
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
-      const sections = navigationItems.map(item => item.href.replace('#', ''));
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Use Intersection Observer for accurate active section detection
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Trigger when section is 20% from top
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    const sections = navigationItems.map(item => item.href.replace('#', ''));
+    sections.forEach(section => {
+      const element = document.getElementById(section);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -66,10 +84,12 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'glass-effect backdrop-blur-xl shadow-lg' 
+        isScrolled
+          ? 'glass-effect backdrop-blur-xl shadow-lg'
           : 'bg-transparent'
       }`}
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -78,7 +98,7 @@ export const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex-shrink-0"
           >
-            <Link href="/" className="text-2xl font-bold">
+            <Link href="/" className="text-2xl font-bold" aria-label="Ahmad Eldomani - Home">
               <span className="text-gradient">AE</span>
             </Link>
           </motion.div>
@@ -101,8 +121,10 @@ export const Navbar = () => {
                         ? 'text-white bg-white/10 shadow-lg'
                         : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
+                    aria-label={`Navigate to ${item.name} section`}
+                    aria-current={isActive ? 'page' : undefined}
                   >
-                    <Icon size={16} />
+                    <Icon size={16} aria-hidden="true" />
                     <span>{item.name}</span>
                   </motion.button>
                 );
@@ -110,13 +132,14 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* CTA Button - Desktop */}
-          <div className="hidden lg:block">
+          {/* CTA - Desktop */}
+          <div className="hidden lg:flex items-center">
             <Link href="mailto:aamsdoumani@gmail.com">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="glass-effect px-6 py-2 rounded-full font-semibold text-sm hover:bg-white/10 transition-all duration-300 focus-visible"
+              aria-label="Send email to get in touch"
             >
               Get In Touch
             </motion.button>
@@ -129,8 +152,9 @@ export const Navbar = () => {
               whileTap={{ scale: 0.95 }}
               onClick={toggleNavbar}
               className="inline-flex items-center justify-center p-2 rounded-full text-gray-300 hover:text-white hover:bg-white/10 focus-visible transition-all duration-300"
-              aria-expanded="false"
-              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-controls="mobile-menu"
             >
               <AnimatePresence mode="wait">
                 {isOpen ? (
@@ -163,13 +187,29 @@ export const Navbar = () => {
       {/* Mobile Navigation Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden glass-effect backdrop-blur-xl"
-          >
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              onClick={closeNavbar}
+              aria-hidden="true"
+            />
+
+            {/* Menu */}
+            <motion.div
+              id="mobile-menu"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden glass-effect backdrop-blur-xl relative z-50"
+              role="menu"
+              aria-label="Mobile navigation menu"
+            >
             <div className="px-4 pt-2 pb-6 space-y-2">
               {navigationItems.map((item, index) => {
                 const Icon = item.icon;
@@ -187,13 +227,16 @@ export const Navbar = () => {
                         ? 'text-white bg-white/10 shadow-lg'
                         : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
+                    aria-label={`Navigate to ${item.name} section`}
+                    aria-current={isActive ? 'page' : undefined}
+                    role="menuitem"
                   >
-                    <Icon size={20} />
+                    <Icon size={20} aria-hidden="true" />
                     <span>{item.name}</span>
                   </motion.button>
                 );
               })}
-              
+
               {/* Mobile CTA */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -202,13 +245,17 @@ export const Navbar = () => {
                 className="pt-4"
               >
                 <Link href="mailto:aamsdoumani@gmail.com">
-                  <button className="w-full glass-effect px-4 py-3 rounded-xl font-semibold text-base hover:bg-white/10 transition-all duration-300 focus-visible">
+                  <button
+                    className="w-full glass-effect px-4 py-3 rounded-xl font-semibold text-base hover:bg-white/10 transition-all duration-300 focus-visible"
+                    aria-label="Send email to get in touch"
+                  >
                     Get In Touch
                   </button>
                 </Link>
               </motion.div>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
