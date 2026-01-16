@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github, MapPin, ArrowUpRight } from 'lucide-react';
+import { motionVariants, animationConfigs } from '@/lib/constants/animations';
 
 const contactMethods = [
   {
@@ -9,21 +10,21 @@ const contactMethods = [
     label: 'Email',
     value: 'aamsdoumani@gmail.com',
     href: 'mailto:aamsdoumani@gmail.com',
-    color: 'text-cyan-400'
+    colorVar: '--highlight-1'
   },
   {
     icon: Linkedin,
     label: 'LinkedIn',
     value: 'AbdallaEldoumani',
     href: 'https://www.linkedin.com/in/abdallaeldoumani/',
-    color: 'text-blue-400'
+    colorVar: '--highlight-2'
   },
   {
     icon: Github,
     label: 'GitHub',
     value: 'Abdalla-Eldoumani',
     href: 'https://github.com/Abdalla-Eldoumani',
-    color: 'text-purple-400'
+    colorVar: '--highlight-3'
   }
 ];
 
@@ -32,13 +33,13 @@ export const Contact = () => {
     <section className="py-20 bg-slate-950 text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          initial={motionVariants.slideUp.hidden}
+          whileInView={motionVariants.slideUp.visible}
+          transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
           viewport={{ once: false, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-display text-4xl sm:text-5xl mb-4">
             Let&apos;s <span className="text-gradient">Connect</span>
           </h2>
           <p className="text-xl text-body max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
@@ -48,31 +49,40 @@ export const Contact = () => {
 
         {/* Contact Cards */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: animationConfigs.entrance.ease }}
           viewport={{ once: false, amount: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
         >
           {contactMethods.map((method, index) => {
             const Icon = method.icon;
+            // Converging entrance: first from left, middle from below, last from right
+            const getEntryDirection = () => {
+              if (index === 0) return { x: -50, y: 0 };
+              if (index === 2) return { x: 50, y: 0 };
+              return { x: 0, y: 30 };
+            };
             return (
               <motion.a
                 key={method.label}
                 href={method.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeInOut" }}
+                initial={{ opacity: 0, ...getEntryDirection() }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: animationConfigs.entrance.ease }}
                 viewport={{ once: false, amount: 0.3 }}
                 whileHover={{ y: -4 }}
                 className="glass-effect p-6 rounded-xl hover-lift group"
                 aria-label={`Open ${method.label}: ${method.value} in new tab`}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`p-3 rounded-lg ${method.color} bg-opacity-10`} style={{ backgroundColor: 'var(--tertiary-bg)' }}>
-                    <Icon size={24} className={method.color} />
+                  <div
+                    className="p-3 rounded-lg"
+                    style={{ backgroundColor: 'var(--tertiary-bg)', color: `var(${method.colorVar})` }}
+                  >
+                    <Icon size={24} />
                   </div>
                   <ArrowUpRight size={20} className="text-gray-400 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
                 </div>

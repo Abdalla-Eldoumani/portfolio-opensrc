@@ -11,11 +11,11 @@ import { MagneticButton, MagneticIconButton } from '@/components/ui/magnetic-but
 export const HeroSection = () => {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
-      {/* Subtle animated background pattern */}
+      {/* Subtle animated background pattern - unified cyan accent */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-500/20 animate-pulse"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-cyan-400/20 to-cyan-600/20 animate-pulse"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl animate-pulse"></div>
       </div>
 
       <ParticleField />
@@ -43,7 +43,7 @@ export const HeroSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+                className="text-display text-4xl sm:text-6xl lg:text-7xl"
               >
                 Abdalla{' '}
                 <span className="accent-gradient">Eldoumani</span>
@@ -78,9 +78,10 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl"
+              className="text-body text-lg sm:text-xl max-w-2xl"
+              style={{ color: 'var(--text-secondary)' }}
             >
-              Computer Science student passionate about building scalable web applications 
+              Computer Science student passionate about building scalable web applications
               and exploring the intersection of AI, cybersecurity, and modern development.
             </motion.p>
 
@@ -174,7 +175,7 @@ export const HeroSection = () => {
                 animate={{ y: [0, -8, 0] }}
                 transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
               >
-                <div className="w-4 h-4 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-tertiary)' }}></div>
+                <div className="w-4 h-4 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-primary)' }}></div>
               </motion.div>
               <motion.div
                 className="absolute -bottom-4 -left-4 glass-effect p-2 rounded-lg hover-lift"

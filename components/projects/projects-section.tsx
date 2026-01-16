@@ -5,6 +5,7 @@ import { ProjectModal, useProjectModal } from '@/components/ui/project-modal';
 import { projects as projectsData } from '@/lib/data/projects';
 import { ProjectCard } from './project-card';
 import { useState } from 'react';
+import { motionVariants, animationConfigs } from '@/lib/constants/animations';
 
 /**
  * Projects Section - Main component
@@ -23,16 +24,16 @@ export const ProjectsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          initial={motionVariants.swissEntrance.hidden}
+          whileInView={motionVariants.swissEntrance.visible}
+          transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
           viewport={{ once: false, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-display text-4xl sm:text-5xl mb-4">
             Featured <span className="text-gradient">Projects</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-body text-xl max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
             A showcase of innovative projects demonstrating expertise in performance optimization,
             AI integration, cybersecurity, and full-stack development.
           </p>

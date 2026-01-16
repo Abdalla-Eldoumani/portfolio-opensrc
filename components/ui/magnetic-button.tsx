@@ -127,14 +127,16 @@ export const MagneticButton = ({
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       disabled={isDisabled}
+      aria-busy={loading}
+      aria-disabled={isDisabled}
       style={{
         x: springX,
         y: springY,
       }}
-      whileHover={{ scale: isDisabled ? 1 : 1.05 }}
-      whileTap={{ scale: isDisabled ? 1 : 0.95 }}
+      whileHover={{ scale: isDisabled ? 1 : 1.02 }}
+      whileTap={{ scale: isDisabled ? 1 : 0.98 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      className={`relative overflow-hidden ${className} ${isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+      className={`relative overflow-hidden hover-glow ${className} ${isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
     >
       {/* Ripple effects */}
       {ripples.map((ripple) => (

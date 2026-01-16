@@ -6,6 +6,7 @@ import { ExperienceCard } from './experience-card';
 import { EducationCard } from './education-card';
 import { experiences, education } from '@/lib/data/experience';
 import { useState } from 'react';
+import { motionVariants, animationConfigs } from '@/lib/constants/animations';
 
 /**
  * Experience Section - Main component
@@ -32,16 +33,16 @@ export const ExperienceSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          initial={motionVariants.slideLeft.hidden}
+          whileInView={motionVariants.slideLeft.visible}
+          transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
           viewport={{ once: false, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-display text-4xl sm:text-5xl mb-4">
             Professional <span className="text-gradient">Experience</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-body text-xl max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
             A journey through impactful roles in software engineering, AI development,
             and technical mentorship across diverse environments.
           </p>
