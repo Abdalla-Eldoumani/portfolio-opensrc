@@ -61,6 +61,39 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        semantic: {
+          bg: {
+            primary: 'var(--primary-bg)',
+            secondary: 'var(--secondary-bg)',
+            tertiary: 'var(--tertiary-bg)',
+          },
+          text: {
+            primary: 'var(--text-primary)',
+            secondary: 'var(--text-secondary)',
+            muted: 'var(--text-muted)',
+          },
+          accent: {
+            primary: 'var(--accent-primary)',
+            secondary: 'var(--accent-secondary)',
+            tertiary: 'var(--accent-tertiary)',
+            subtle: 'var(--accent-subtle)',
+          },
+          border: {
+            primary: 'var(--border-primary)',
+            secondary: 'var(--border-secondary)',
+          },
+          highlight: {
+            1: 'var(--highlight-1)',
+            2: 'var(--highlight-2)',
+            3: 'var(--highlight-3)',
+            4: 'var(--highlight-4)',
+          },
+        },
+      },
+      boxShadow: {
+        subtle: 'var(--shadow-subtle)',
+        medium: 'var(--shadow-medium)',
+        elevated: 'var(--shadow-elevated)',
       },
       borderRadius: {
         lg: "var(--radius)",

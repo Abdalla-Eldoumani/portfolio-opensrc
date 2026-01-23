@@ -40,7 +40,7 @@ export const ParticleField = () => {
     let animationFrameId: number;
     let particles: Particle[] = [];
     let spatialGrid: SpatialGrid;
-    const CONNECTION_DISTANCE = 120;
+    const CONNECTION_DISTANCE = 100;
     const CELL_SIZE = CONNECTION_DISTANCE; // Optimal cell size = connection distance
 
     // Adaptive quality based on device performance
@@ -48,8 +48,8 @@ export const ParticleField = () => {
       const cores = navigator.hardwareConcurrency || 4;
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-      if (isMobile) return 0.5; // Reduce particles on mobile
-      if (cores <= 4) return 0.7; // Low-end desktop
+      if (isMobile) return 0.4; // Reduce particles on mobile
+      if (cores <= 4) return 0.5; // Low-end desktop
       return 1.0; // High-end desktop
     };
 
@@ -67,7 +67,7 @@ export const ParticleField = () => {
     };
 
     const createParticles = () => {
-      const baseCount = Math.floor((canvas.width * canvas.height) / 15000);
+      const baseCount = Math.floor((canvas.width * canvas.height) / 20000); // Increased divisor for ~25% fewer particles
       const particleCount = Math.floor(baseCount * deviceQuality);
       particles = [];
 

@@ -176,8 +176,20 @@ section {
     color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
+
+button,
+a,
+input,
+textarea,
+select,
+.bento-card,
+.skill-card,
+.glass-effect,
+.hover-lift,
+.hover-glow,
+.nav-link-underline,
+.interactive-element {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow, transform;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
