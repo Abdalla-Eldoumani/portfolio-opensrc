@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface MousePosition {
   x: number;
@@ -93,7 +93,7 @@ export const useMouseHover = (ref: React.RefObject<HTMLElement>) => {
  */
 export const useMouseVelocity = () => {
   const [velocity, setVelocity] = useState({ x: 0, y: 0, speed: 0 });
-  const [lastPosition, setLastPosition] = useState({ x: 0, y: 0, time: Date.now() });
+  const lastPositionRef = useRef({ x: 0, y: 0, time: Date.now() });
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -101,19 +101,20 @@ export const useMouseVelocity = () => {
 
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
-      const deltaTime = now - lastPosition.time;
+      const last = lastPositionRef.current;
+      const deltaTime = now - last.time;
 
       if (deltaTime === 0) return;
 
-      const deltaX = e.clientX - lastPosition.x;
-      const deltaY = e.clientY - lastPosition.y;
+      const deltaX = e.clientX - last.x;
+      const deltaY = e.clientY - last.y;
 
       const vx = deltaX / deltaTime;
       const vy = deltaY / deltaTime;
       const speed = Math.sqrt(vx * vx + vy * vy);
 
       setVelocity({ x: vx, y: vy, speed });
-      setLastPosition({ x: e.clientX, y: e.clientY, time: now });
+      lastPositionRef.current = { x: e.clientX, y: e.clientY, time: now };
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -121,7 +122,7 @@ export const useMouseVelocity = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [lastPosition]);
+  }, []);
 
   return velocity;
 };

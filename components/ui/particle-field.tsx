@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Particle {
   x: number;
@@ -21,11 +21,12 @@ interface SpatialGrid {
 /**
  * Optimized particle field with spatial hash grid
  * Reduces connection checks from O(n²) to O(n) through spatial partitioning
- * Features adaptive quality and tab visibility detection
+ * Features adaptive quality, tab visibility detection, and viewport pausing
  */
 export const ParticleField = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
+  const isVisibleRef = useRef(true);
+  const isInViewportRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -184,8 +185,8 @@ export const ParticleField = () => {
     const frameInterval = 1000 / targetFPS;
 
     const animate = () => {
-      // Throttle animation when tab is not visible
-      if (!isVisible) {
+      // Pause when tab is hidden or canvas is scrolled off-screen
+      if (!isVisibleRef.current || !isInViewportRef.current) {
         animationFrameId = requestAnimationFrame(animate);
         return;
       }
@@ -218,7 +219,7 @@ export const ParticleField = () => {
 
     // Handle tab visibility to pause/resume animation
     const handleVisibilityChange = () => {
-      setIsVisible(!document.hidden);
+      isVisibleRef.current = !document.hidden;
     };
 
     // Handle window resize
@@ -226,6 +227,15 @@ export const ParticleField = () => {
       resizeCanvas();
       createParticles();
     };
+
+    // IntersectionObserver to pause when canvas is scrolled off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInViewportRef.current = entry.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     // Initialize
     resizeCanvas();
@@ -240,8 +250,9 @@ export const ParticleField = () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      observer.disconnect();
     };
-  }, [isVisible]);
+  }, []);
 
   return (
     <canvas

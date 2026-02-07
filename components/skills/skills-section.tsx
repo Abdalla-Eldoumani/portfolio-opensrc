@@ -41,7 +41,7 @@ export const SkillsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeInOut" }}
           viewport={{ once: false, amount: 0.3 }}
-          className="mt-16 glass-effect p-8 rounded-2xl text-center"
+          className="mt-16 glass-effect-static p-8 rounded-2xl text-center"
         >
           <h3 className="text-2xl font-bold mb-4 text-gradient">Performance & Innovation Focus</h3>
           <p className="text-gray-300 max-w-3xl mx-auto">

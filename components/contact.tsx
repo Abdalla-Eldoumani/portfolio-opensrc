@@ -74,7 +74,7 @@ export const Contact = () => {
                 transition={{ duration: 0.6, delay: index * 0.1, ease: animationConfigs.entrance.ease }}
                 viewport={{ once: false, amount: 0.3 }}
                 whileHover={{ y: -4 }}
-                className="glass-effect p-6 rounded-xl hover-lift group"
+                className="glass-effect-static p-6 rounded-xl hover-lift group"
                 aria-label={`Open ${method.label}: ${method.value} in new tab`}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -103,7 +103,7 @@ export const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
           viewport={{ once: false, amount: 0.3 }}
-          className="glass-effect p-8 md:p-12 rounded-2xl text-center"
+          className="glass-effect-static p-8 md:p-12 rounded-2xl text-center"
         >
           <div className="flex items-center justify-center mb-6">
             <MapPin size={20} style={{ color: 'var(--accent-primary)' }} className="mr-2" />
@@ -122,7 +122,7 @@ export const Contact = () => {
               href="mailto:aamsdoumani@gmail.com"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center gap-2 glass-effect px-8 py-4 rounded-full font-semibold hover-lift interactive-element"
+              className="inline-flex items-center justify-center gap-2 glass-effect-static px-8 py-4 rounded-full font-semibold hover-lift interactive-element"
               style={{ color: 'var(--text-primary)' }}
             >
               <Mail size={20} />

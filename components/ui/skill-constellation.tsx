@@ -127,6 +127,8 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
   }, []);
 
   // Pan handlers
+  const panRafRef = useRef(0);
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) {
       setIsDragging(true);
@@ -135,12 +137,17 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging) {
+    if (!isDragging) return;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    if (panRafRef.current) return;
+    panRafRef.current = requestAnimationFrame(() => {
       setPanOffset({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
+        x: clientX - dragStart.x,
+        y: clientY - dragStart.y,
       });
-    }
+      panRafRef.current = 0;
+    });
   };
 
   const handleMouseUp = () => {
@@ -254,17 +261,24 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
       .map(conn => conn.fromName === skillName ? conn.toName : conn.fromName);
   }, [connections]);
 
-  // Generate positions using force-directed layout approximation
-  const getSkillPosition = (index: number, total: number) => {
-    const angle = (index / total) * 2 * Math.PI;
+  // Pre-compute skill positions with useMemo (depends only on skills.length + dimensions)
+  const skillPositions = useMemo(() => {
+    const total = skills.length;
     const radius = Math.min(dimensions.width, dimensions.height) * 0.35;
     const centerX = dimensions.width / 2;
     const centerY = dimensions.height / 2;
 
-    return {
-      x: centerX + radius * Math.cos(angle),
-      y: centerY + radius * Math.sin(angle),
-    };
+    return skills.map((_, index) => {
+      const angle = (index / total) * 2 * Math.PI;
+      return {
+        x: centerX + radius * Math.cos(angle),
+        y: centerY + radius * Math.sin(angle),
+      };
+    });
+  }, [skills, dimensions.width, dimensions.height]);
+
+  const getSkillPosition = (index: number) => {
+    return skillPositions[index] || { x: 0, y: 0 };
   };
 
   const getTooltipPosition = (nodeX: number, nodeY: number): TooltipPosition => {
@@ -302,7 +316,7 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
           <motion.button
             key={category}
             onClick={() => setSelectedCategory(category === 'All' ? null : category)}
-            className={`glass-effect px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 ${
+            className={`glass-effect-static px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 ${
               (!selectedCategory && category === 'All') || selectedCategory === category
                 ? 'border-cyan-500 text-white bg-cyan-500/20'
                 : 'border-white/10 text-gray-400 hover:text-white hover:border-white/20'
@@ -321,19 +335,19 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
       <div className="absolute top-4 right-4 z-50 flex flex-col gap-2">
         <button
           onClick={() => setZoomLevel((prev) => Math.min(prev + 0.2, 2.0))}
-          className="glass-effect w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+          className="glass-effect-static w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
           aria-label="Zoom in"
         >
           <span className="text-xl font-bold">+</span>
         </button>
         <button
           onClick={() => setZoomLevel((prev) => Math.max(prev - 0.2, 0.5))}
-          className="glass-effect w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+          className="glass-effect-static w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
           aria-label="Zoom out"
         >
           <span className="text-xl font-bold">−</span>
         </button>
-        <div className="glass-effect px-2 py-1 rounded-lg border border-white/10 text-xs text-white text-center">
+        <div className="glass-effect-static px-2 py-1 rounded-lg border border-white/10 text-xs text-white text-center">
           {Math.round(zoomLevel * 100)}%
         </div>
       </div>
@@ -360,8 +374,8 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
         </defs>
 
         {connections.map((connection, index) => {
-          const pos1 = getSkillPosition(connection.from, skills.length);
-          const pos2 = getSkillPosition(connection.to, skills.length);
+          const pos1 = getSkillPosition(connection.from);
+          const pos2 = getSkillPosition(connection.to);
 
           const skill1 = skills[connection.from];
           const skill2 = skills[connection.to];
@@ -411,7 +425,7 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
 
         {/* Skill nodes */}
         {skills.map((skill, index) => {
-          const position = getSkillPosition(index, skills.length);
+          const position = getSkillPosition(index);
           const size = 40 + (skill.proficiency / 100) * 40; // 40-80px based on proficiency
           const Icon = skill.icon;
           const isHovered = hoveredSkill === skill.name || selectedSkill === skill.name;
@@ -526,7 +540,7 @@ export const SkillConstellation = ({ skills }: SkillConstellationProps) => {
                 animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : tooltipPos.showAbove ? 10 : -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="glass-effect px-4 py-3 rounded-xl border border-white/10 min-w-[200px]">
+                <div className="glass-effect-static px-4 py-3 rounded-xl border border-white/10 min-w-[200px]">
                   {/* Header */}
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-sm font-bold text-white">{skill.name}</p>

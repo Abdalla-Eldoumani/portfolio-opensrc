@@ -159,7 +159,7 @@ export const About = () => {
           viewport={{ once: false, amount: 0.3 }}
           className="mt-20"
         >
-          <div className="glass-effect p-8 rounded-2xl text-center max-w-4xl mx-auto">
+          <div className="glass-effect-static p-8 rounded-2xl text-center max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-4 text-gradient">My Philosophy</h3>
             <p className="text-lg text-gray-300 leading-relaxed">
               I believe technology should enhance human potential while remaining accessible and secure. 

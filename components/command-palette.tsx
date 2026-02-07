@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Home, User, Code, Briefcase, Mail, FileText, Github, Linkedin, Command } from 'lucide-react';
 
@@ -18,16 +18,16 @@ export const CommandPalette = () => {
   const [search, setSearch] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsOpen(false);
     setSearch('');
-  };
+  }, []);
 
-  const commands: CommandItem[] = [
+  const commands: CommandItem[] = useMemo(() => [
     {
       id: 'home',
       label: 'Go to Home',
@@ -100,15 +100,15 @@ export const CommandPalette = () => {
       keywords: ['resume', 'cv', 'download', 'pdf'],
       shortcut: 'r'
     },
-  ];
+  ], [scrollToSection]);
 
-  const filteredCommands = commands.filter(command => {
+  const filteredCommands = useMemo(() => commands.filter(command => {
     const searchLower = search.toLowerCase();
     return (
       command.label.toLowerCase().includes(searchLower) ||
       command.keywords.some(keyword => keyword.toLowerCase().includes(searchLower))
     );
-  });
+  }), [search, commands]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     // Cmd/Ctrl + K to open

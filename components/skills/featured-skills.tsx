@@ -1,9 +1,18 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { SkillConstellation } from '@/components/ui/skill-constellation';
 import { FaReact, FaNodeJs, FaDocker, FaPython, FaJava, FaAws } from 'react-icons/fa';
 import { SiTypescript, SiCplusplus, SiNextdotjs, SiPostgresql, SiTensorflow, SiRust } from 'react-icons/si';
+
+// Lazy-load SkillConstellation
+const SkillConstellation = dynamic(
+  () => import('@/components/ui/skill-constellation').then(mod => ({ default: mod.SkillConstellation })),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-[400px] lg:h-[500px] rounded-2xl bg-slate-900/50 animate-pulse" />,
+  }
+);
 
 const featuredSkills = [
   { name: "C/C++", icon: SiCplusplus, level: "Proficient", proficiency: 85, color: "text-blue-600", category: "Languages" },

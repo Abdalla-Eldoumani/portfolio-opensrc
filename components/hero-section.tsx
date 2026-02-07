@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import Image from 'next/image';
 import { Typewriter } from 'react-simple-typewriter';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
@@ -9,8 +10,11 @@ import { ParticleField } from '@/components/ui/particle-field';
 import { MagneticButton, MagneticIconButton } from '@/components/ui/magnetic-button';
 
 export const HeroSection = () => {
+  const heroRef = useRef(null);
+  const isInView = useInView(heroRef, { once: false, amount: 0.1 });
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
+    <div ref={heroRef} className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
       {/* Subtle animated background pattern - unified cyan accent */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-cyan-400/20 to-cyan-600/20 animate-pulse"></div>
@@ -172,8 +176,8 @@ export const HeroSection = () => {
               {/* Floating elements with enhanced animations */}
               <motion.div
                 className="absolute -top-4 -right-4 glass-effect p-3 rounded-full"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                animate={isInView ? { y: [0, -8, 0] } : { y: 0 }}
+                transition={isInView ? { repeat: Infinity, duration: 3, ease: "easeInOut" } : undefined}
               >
                 <div className="w-4 h-4 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-primary)' }}></div>
               </motion.div>
@@ -197,8 +201,8 @@ export const HeroSection = () => {
           <div className="flex flex-col items-center space-y-2 text-gray-400">
             <span className="text-sm font-medium">Scroll to explore</span>
             <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
+              animate={isInView ? { y: [0, 8, 0] } : { y: 0 }}
+              transition={isInView ? { repeat: Infinity, duration: 2 } : undefined}
             >
               <ArrowDown size={20} />
             </motion.div>

@@ -28,14 +28,22 @@ export const Navbar = () => {
     setIsOpen(false);
   };
 
-  // Track scroll position for navbar background
+  // Track scroll position for navbar background (RAF-throttled)
   useEffect(() => {
+    let rafId = 0;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        rafId = 0;
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Use Intersection Observer for accurate active section detection

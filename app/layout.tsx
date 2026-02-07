@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { CustomCursor } from "@/components/ui/custom-cursor";
+import { SimpleCursor } from "@/components/ui/custom-cursor";
 import "./globals.css";
 
 const font = Inter({
@@ -149,7 +149,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body className={font.className}>
-        <CustomCursor />
+        <SimpleCursor />
         {children}
       </body>
     </html>
