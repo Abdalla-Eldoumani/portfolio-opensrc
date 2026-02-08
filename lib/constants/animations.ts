@@ -60,6 +60,9 @@ export const easingCurves = {
   // Smooth, precise (Swiss-inspired)
   smooth: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
 
+  // Smooth deceleration for entrances
+  smoothDecel: [0.16, 1, 0.3, 1] as [number, number, number, number],
+
   // Snappy, immediate response
   snappy: [0.5, 0.01, 0, 1] as [number, number, number, number]
 };
@@ -221,16 +224,6 @@ export const magneticParams = {
   maxDistance: 100, // Maximum distance for magnetic effect
   damping: 20,
   stiffness: 300
-};
-
-// Particle field animation
-export const particleAnimationConfig = {
-  connectionDistance: 120,
-  particleSpeed: 0.3,
-  particleCount: {
-    desktop: 60,
-    mobile: 30
-  }
 };
 
 // Helper function to create staggered children animation

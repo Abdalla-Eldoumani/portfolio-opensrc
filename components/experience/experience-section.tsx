@@ -3,8 +3,7 @@
 import { motion } from 'framer-motion';
 import { TimelineVisual } from '@/components/ui/timeline-visual';
 import { ExperienceCard } from './experience-card';
-import { EducationCard } from './education-card';
-import { experiences, education } from '@/lib/data/experience';
+import { experiences } from '@/lib/data/experience';
 import { useState } from 'react';
 import { motionVariants, animationConfigs } from '@/lib/constants/animations';
 
@@ -14,7 +13,6 @@ import { motionVariants, animationConfigs } from '@/lib/constants/animations';
  */
 export const ExperienceSection = () => {
   const [expandedExperience, setExpandedExperience] = useState<number | null>(null);
-  const [expandedEducation, setExpandedEducation] = useState(false);
 
   const toggleExperience = (index: number) => {
     setExpandedExperience(expandedExperience === index ? null : index);
@@ -29,17 +27,17 @@ export const ExperienceSection = () => {
   }));
 
   return (
-    <section className="py-20 bg-slate-950 text-white">
+    <section className="py-20" style={{ backgroundColor: 'var(--primary-bg)', color: 'var(--text-primary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={motionVariants.slideLeft.hidden}
           whileInView={motionVariants.slideLeft.visible}
           transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-display text-4xl sm:text-5xl mb-4">
+          <h2 className="text-display text-4xl sm:text-5xl mb-4 font-serif">
             Professional <span className="text-gradient">Experience</span>
           </h2>
           <p className="text-body text-xl max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
@@ -53,7 +51,7 @@ export const ExperienceSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="mb-16 hidden lg:block"
         >
           <TimelineVisual events={timelineEvents} orientation="horizontal" />
@@ -72,26 +70,19 @@ export const ExperienceSection = () => {
           ))}
         </div>
 
-        {/* Education Section */}
-        <EducationCard
-          education={education}
-          isExpanded={expandedEducation}
-          onToggleExpand={() => setExpandedEducation(!expandedEducation)}
-        />
-
         {/* Call to Action */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeInOut" }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="mt-16 text-center"
         >
           <div className="glass-effect p-8 rounded-2xl max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold mb-4 text-gradient">
               Ready for New Challenges
             </h3>
-            <p className="text-gray-300 mb-6">
+            <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
               With a strong foundation in software engineering, AI development, and technical leadership,
               I&apos;m excited to tackle complex problems and drive innovation in my next role.
             </p>
@@ -110,7 +101,8 @@ export const ExperienceSection = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border border-gray-600 hover:border-gray-400 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
+                className="px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
+                style={{ border: '1px solid var(--border-primary)' }}
               >
                 Download Resume
               </motion.a>

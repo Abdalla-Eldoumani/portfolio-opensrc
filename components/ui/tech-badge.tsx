@@ -8,7 +8,6 @@ interface TechBadgeProps {
   name: string;
   description?: string;
   category?: 'frontend' | 'backend' | 'database' | 'tool' | 'language' | 'framework';
-  proficiency?: number; // 0-100
   icon?: React.ReactNode;
   delay?: number; // Animation delay
   showTooltip?: boolean;
@@ -81,26 +80,25 @@ const TECH_DESCRIPTIONS: Record<string, string> = {
   'Educational Content': 'Materials designed for effective learning and knowledge transfer',
 };
 
-// Category colors
-const CATEGORY_COLORS = {
-  frontend: 'from-cyan-500 to-blue-500',
-  backend: 'from-purple-500 to-pink-500',
-  database: 'from-green-500 to-emerald-500',
-  tool: 'from-orange-500 to-red-500',
-  language: 'from-yellow-500 to-amber-500',
-  framework: 'from-indigo-500 to-violet-500',
+// Category colors — gold/blue scheme using CSS custom properties
+const CATEGORY_COLORS: Record<string, { background: string }> = {
+  frontend: { background: 'linear-gradient(to right, var(--accent-primary), var(--accent-secondary))' },
+  backend: { background: 'linear-gradient(to right, var(--accent-secondary), var(--accent-primary))' },
+  database: { background: 'linear-gradient(to right, var(--highlight-3), var(--accent-secondary))' },
+  tool: { background: 'linear-gradient(to right, var(--highlight-2), var(--highlight-3))' },
+  language: { background: 'linear-gradient(to right, var(--accent-primary), var(--highlight-2))' },
+  framework: { background: 'linear-gradient(to right, var(--accent-secondary), var(--accent-primary))' },
 };
 
 /**
  * Tech badge with rich tooltip
  * Shows technology name with optional description on hover
- * Includes proficiency bar and category indicator
+ * Includes category indicator
  */
 export const TechBadge = ({
   name,
   description,
   category,
-  proficiency,
   icon,
   delay = 0,
   showTooltip = true,
@@ -125,7 +123,9 @@ export const TechBadge = ({
     setTooltipPosition(spaceBelow > spaceAbove ? 'bottom' : 'top');
   }, [isHovered]);
 
-  const categoryGradient = category ? CATEGORY_COLORS[category] : 'from-gray-500 to-gray-600';
+  const categoryStyle = category
+    ? CATEGORY_COLORS[category]
+    : { background: 'linear-gradient(to right, var(--text-muted), var(--border-primary))' };
 
   return (
     <motion.div
@@ -146,17 +146,32 @@ export const TechBadge = ({
     >
       {/* Badge */}
       <motion.div
-        className="px-3 py-1.5 text-sm font-medium text-gray-300 bg-gray-800/50 rounded-full border border-gray-700 hover:border-gray-600 hover:bg-gray-800/70 transition-all cursor-default flex items-center gap-1.5"
+        className="px-3 py-1.5 text-sm font-medium rounded-full border transition-all cursor-default flex items-center gap-1.5"
+        style={{
+          color: 'var(--text-secondary)',
+          backgroundColor: 'var(--tertiary-bg)',
+          borderColor: 'var(--border-primary)',
+        }}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.98 }}
         tabIndex={0}
         role="button"
         aria-label={`${name}${finalDescription ? `: ${finalDescription}` : ''}`}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget;
+          el.style.borderColor = 'var(--border-secondary)';
+          el.style.backgroundColor = 'var(--tertiary-bg)';
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget;
+          el.style.borderColor = 'var(--border-primary)';
+          el.style.backgroundColor = 'var(--tertiary-bg)';
+        }}
       >
         {icon && <span className="w-4 h-4">{icon}</span>}
         <span>{name}</span>
         {finalDescription && showTooltip && (
-          <Info size={12} className="text-gray-500" aria-hidden="true" />
+          <Info size={12} style={{ color: 'var(--text-muted)' }} aria-hidden="true" />
         )}
       </motion.div>
 
@@ -174,13 +189,20 @@ export const TechBadge = ({
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
               {/* Tooltip card */}
-              <div className="glass-effect px-4 py-3 rounded-xl border border-white/10 shadow-2xl max-w-xs min-w-[200px]">
+              <div
+                className="glass-effect px-4 py-3 rounded-xl shadow-2xl max-w-xs min-w-[200px]"
+                style={{ borderColor: 'var(--glass-border)' }}
+              >
                 {/* Header with category badge */}
                 <div className="flex items-center justify-between gap-3 mb-2">
-                  <p className="font-bold text-white text-sm">{name}</p>
+                  <p className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{name}</p>
                   {category && (
                     <span
-                      className={`px-2 py-0.5 text-[10px] font-semibold rounded-full bg-gradient-to-r ${categoryGradient} text-white uppercase tracking-wide`}
+                      className="px-2 py-0.5 text-[10px] font-semibold rounded-full uppercase tracking-wide"
+                      style={{
+                        ...categoryStyle,
+                        color: 'var(--text-primary)',
+                      }}
                     >
                       {category}
                     </span>
@@ -188,36 +210,21 @@ export const TechBadge = ({
                 </div>
 
                 {/* Description */}
-                <p className="text-xs text-gray-300 leading-relaxed mb-3">
+                <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   {finalDescription}
                 </p>
-
-                {/* Proficiency bar */}
-                {proficiency !== undefined && (
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between text-[10px] text-gray-400">
-                      <span>Proficiency</span>
-                      <span className="font-semibold text-cyan-400">{proficiency}%</span>
-                    </div>
-                    <div className="h-1 bg-gray-700/50 rounded-full overflow-hidden">
-                      <motion.div
-                        className={`h-full bg-gradient-to-r ${categoryGradient}`}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${proficiency}%` }}
-                        transition={{ duration: 0.6, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
-                      />
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* Arrow pointer */}
               <div
-                className={`absolute left-1/2 -translate-x-1/2 w-0 h-0 ${
+                className={`absolute left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-l-transparent border-r-transparent ${
                   tooltipPosition === 'top'
-                    ? 'top-full border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-900/90'
-                    : 'bottom-full border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-gray-900/90'
+                    ? 'top-full border-t-8'
+                    : 'bottom-full border-b-8'
                 }`}
+                style={{
+                  [tooltipPosition === 'top' ? 'borderTopColor' : 'borderBottomColor']: 'var(--glass-bg)',
+                }}
               />
             </motion.div>
           )}
@@ -235,7 +242,6 @@ interface TechStackProps {
   technologies: Array<{
     name: string;
     category?: TechBadgeProps['category'];
-    proficiency?: number;
   }>;
   showCategories?: boolean;
   className?: string;
@@ -254,7 +260,6 @@ export const TechStack = ({
             key={tech.name}
             name={tech.name}
             category={tech.category}
-            proficiency={tech.proficiency}
             delay={index * 0.05}
           />
         ))}
@@ -274,7 +279,7 @@ export const TechStack = ({
     <div className={`space-y-6 ${className}`}>
       {Object.entries(grouped).map(([category, techs]) => (
         <div key={category}>
-          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
             {category}
           </h4>
           <div className="flex flex-wrap gap-2">
@@ -283,7 +288,6 @@ export const TechStack = ({
                 key={tech.name}
                 name={tech.name}
                 category={tech.category}
-                proficiency={tech.proficiency}
                 delay={index * 0.05}
               />
             ))}

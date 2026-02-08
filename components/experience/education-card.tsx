@@ -21,30 +21,31 @@ export const EducationCard = ({ education, isExpanded, onToggleExpand }: Educati
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-      viewport={{ once: false, amount: 0.2 }}
-      className="glass-effect p-8 rounded-2xl border border-purple-500/20"
+      viewport={{ once: true, amount: 0.2 }}
+      className="glass-effect p-8 rounded-2xl"
+      style={{ border: '1px solid var(--accent-primary-20)' }}
     >
       <div className="flex items-center mb-6">
-        <div className="w-12 h-12 bg-purple-500/10 border border-purple-500/20 rounded-full flex items-center justify-center mr-4">
-          <FaGraduationCap className="w-6 h-6 text-purple-400" />
+        <div className="w-12 h-12 rounded-full flex items-center justify-center mr-4" style={{ backgroundColor: 'var(--accent-primary-10)', border: '1px solid var(--accent-primary-20)' }}>
+          <FaGraduationCap className="w-6 h-6" style={{ color: 'var(--accent-primary)' }} />
         </div>
         <div>
-          <h3 className="text-2xl font-bold text-white">Education</h3>
-          <p className="text-gray-400">Academic Foundation</p>
+          <h3 className="text-2xl font-bold font-serif" style={{ color: 'var(--text-primary)' }}>Education</h3>
+          <p style={{ color: 'var(--text-muted)' }}>Academic Foundation</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-4">
           <div>
-            <h4 className="text-xl font-semibold text-white mb-2">
+            <h4 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
               {education.degree}
-              <span className="text-lg text-gray-400 block">{education.minor}</span>
+              <span className="text-lg block" style={{ color: 'var(--text-muted)' }}>{education.minor}</span>
             </h4>
-            <h5 className="text-lg font-medium text-gray-300 mb-4">{education.institution}</h5>
+            <h5 className="text-lg font-medium mb-4" style={{ color: 'var(--text-secondary)' }}>{education.institution}</h5>
           </div>
 
-          <div className="space-y-2 text-sm text-gray-400">
+          <div className="space-y-2 text-sm" style={{ color: 'var(--text-muted)' }}>
             <div className="flex items-center space-x-2">
               <Calendar className="w-4 h-4" />
               <span>{education.duration}</span>
@@ -65,7 +66,7 @@ export const EducationCard = ({ education, isExpanded, onToggleExpand }: Educati
             )}
           </div>
 
-          <p className="text-gray-300 leading-relaxed">
+          <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {education.description}
           </p>
         </div>
@@ -73,15 +74,16 @@ export const EducationCard = ({ education, isExpanded, onToggleExpand }: Educati
         <div>
           <button
             onClick={onToggleExpand}
-            className="w-full flex items-center justify-between text-lg font-semibold text-white mb-4 hover:text-gray-200 transition-colors group"
+            className="w-full flex items-center justify-between text-lg font-semibold mb-4 transition-colors group"
+            style={{ color: 'var(--text-primary)' }}
             aria-expanded={isExpanded}
             aria-controls="education-coursework"
             aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${education.highlights.length} relevant courses`}
           >
             <div className="flex items-center">
-              <Code className="w-5 h-5 mr-2 text-purple-400" />
+              <Code className="w-5 h-5 mr-2" style={{ color: 'var(--accent-primary)' }} />
               Relevant Coursework
-              <span className="ml-2 text-sm text-gray-400">
+              <span className="ml-2 text-sm" style={{ color: 'var(--text-muted)' }}>
                 ({education.highlights.length} courses)
               </span>
             </div>
@@ -89,7 +91,7 @@ export const EducationCard = ({ education, isExpanded, onToggleExpand }: Educati
               animate={{ rotate: isExpanded ? 180 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              <ChevronDown className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+              <ChevronDown className="w-5 h-5 transition-colors" style={{ color: 'var(--text-muted)' }} />
             </motion.div>
           </button>
 
@@ -114,8 +116,8 @@ export const EducationCard = ({ education, isExpanded, onToggleExpand }: Educati
                       transition={{ duration: 0.4, delay: index * 0.05 }}
                       className="flex items-start space-x-3 group"
                     >
-                      <FaChevronRight className="w-3 h-3 text-purple-400 mt-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                      <p className="text-gray-300 leading-relaxed">{highlight}</p>
+                      <FaChevronRight className="w-3 h-3 mt-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" style={{ color: 'var(--accent-primary)' }} />
+                      <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{highlight}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -127,13 +129,13 @@ export const EducationCard = ({ education, isExpanded, onToggleExpand }: Educati
           {!isExpanded && (
             <div className="space-y-2">
               {education.highlights.slice(0, 2).map((highlight, index) => (
-                <div key={index} className="flex items-start space-x-3 text-gray-400 italic">
+                <div key={index} className="flex items-start space-x-3 italic" style={{ color: 'var(--text-muted)' }}>
                   <FaChevronRight className="w-3 h-3 mt-2 flex-shrink-0 opacity-50" />
                   <p className="leading-relaxed text-sm">{highlight}</p>
                 </div>
               ))}
               {education.highlights.length > 2 && (
-                <p className="ml-6 text-sm text-purple-400">
+                <p className="ml-6 text-sm" style={{ color: 'var(--accent-primary)' }}>
                   +{education.highlights.length - 2} more courses
                 </p>
               )}

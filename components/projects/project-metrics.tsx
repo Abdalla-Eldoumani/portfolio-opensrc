@@ -14,18 +14,18 @@ interface ProjectMetricsProps {
  */
 export const ProjectMetrics = ({ stats }: ProjectMetricsProps) => {
   const metricsList = [
-    ...(stats.requests ? [{ label: 'Requests', value: stats.requests.toLocaleString(), icon: Users, color: 'text-cyan-400', suffix: '+' }] : []),
-    ...(stats.responseTime ? [{ label: 'Response Time', value: stats.responseTime, icon: Zap, color: 'text-orange-400', suffix: 'ms' }] : []),
-    ...(stats.cacheReduction ? [{ label: 'Cache Reduction', value: stats.cacheReduction, icon: TrendingUp, color: 'text-emerald-400', suffix: '%' }] : []),
-    ...(stats.performanceGain ? [{ label: 'Performance Gain', value: stats.performanceGain, icon: Activity, color: 'text-purple-400', suffix: '%' }] : []),
-    ...(stats.iterations ? [{ label: 'Iterations', value: stats.iterations.toLocaleString(), icon: TrendingUp, color: 'text-emerald-400', suffix: '+' }] : []),
+    ...(stats.requests ? [{ label: 'Requests', value: stats.requests.toLocaleString(), icon: Users, color: 'var(--accent-primary)', suffix: '+' }] : []),
+    ...(stats.responseTime ? [{ label: 'Response Time', value: stats.responseTime, icon: Zap, color: 'var(--accent-primary)', suffix: 'ms' }] : []),
+    ...(stats.cacheReduction ? [{ label: 'Cache Reduction', value: stats.cacheReduction, icon: TrendingUp, color: 'var(--accent-primary)', suffix: '%' }] : []),
+    ...(stats.performanceGain ? [{ label: 'Performance Gain', value: stats.performanceGain, icon: Activity, color: 'var(--accent-secondary)', suffix: '%' }] : []),
+    ...(stats.iterations ? [{ label: 'Iterations', value: stats.iterations.toLocaleString(), icon: TrendingUp, color: 'var(--accent-primary)', suffix: '+' }] : []),
   ];
 
   if (metricsList.length === 0) return null;
 
   return (
     <div>
-      <h4 className="text-lg font-semibold mb-4 text-gray-200">Key Metrics</h4>
+      <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-secondary)' }}>Key Metrics</h4>
       <div className="grid grid-cols-2 gap-4">
         {metricsList.map((metric, index) => {
           const Icon = metric.icon;
@@ -34,10 +34,10 @@ export const ProjectMetrics = ({ stats }: ProjectMetricsProps) => {
           return (
             <div key={index} className="glass-effect p-4 rounded-xl">
               <div className="flex items-center mb-2">
-                <Icon className={`w-4 h-4 ${metric.color} mr-2`} />
-                <span className="text-xs text-gray-400 uppercase tracking-wide">{metric.label}</span>
+                <Icon className="w-4 h-4 mr-2" style={{ color: metric.color }} />
+                <span className="text-xs uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>{metric.label}</span>
               </div>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold font-mono" style={{ color: 'var(--text-primary)' }}>
                 <AnimatedCounter value={numericValue} suffix={metric.suffix} />
               </div>
             </div>

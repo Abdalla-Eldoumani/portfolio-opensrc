@@ -30,20 +30,20 @@ const contactMethods = [
 
 export const Contact = () => {
   return (
-    <section className="py-20 bg-slate-950 text-white">
+    <section className="py-28" style={{ backgroundColor: 'var(--primary-bg)', color: 'var(--text-primary)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={motionVariants.slideUp.hidden}
           whileInView={motionVariants.slideUp.visible}
           transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-display text-4xl sm:text-5xl mb-4">
+          <h2 className="font-serif text-display text-4xl sm:text-5xl mb-4">
             Let&apos;s <span className="text-gradient">Connect</span>
           </h2>
           <p className="text-xl text-body max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Open to new opportunities, collaborations, and conversations about technology, innovation, and building exceptional products.
+            Open to new opportunities, collaborations, and conversations about technology and building exceptional products.
           </p>
         </motion.div>
 
@@ -52,12 +52,11 @@ export const Contact = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: animationConfigs.entrance.ease }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
         >
           {contactMethods.map((method, index) => {
             const Icon = method.icon;
-            // Converging entrance: first from left, middle from below, last from right
             const getEntryDirection = () => {
               if (index === 0) return { x: -50, y: 0 };
               if (index === 2) return { x: 50, y: 0 };
@@ -72,7 +71,7 @@ export const Contact = () => {
                 initial={{ opacity: 0, ...getEntryDirection() }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: animationConfigs.entrance.ease }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 whileHover={{ y: -4 }}
                 className="glass-effect-static p-6 rounded-xl hover-lift group"
                 aria-label={`Open ${method.label}: ${method.value} in new tab`}
@@ -84,9 +83,13 @@ export const Contact = () => {
                   >
                     <Icon size={24} />
                   </div>
-                  <ArrowUpRight size={20} className="text-gray-400 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                  <ArrowUpRight
+                    size={20}
+                    className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
+                    style={{ color: 'var(--text-muted)' }}
+                  />
                 </div>
-                <h3 className="text-lg font-semibold mb-2" style={{ letterSpacing: '-0.02em' }}>
+                <h3 className="text-lg font-semibold mb-2" style={{ letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
                   {method.label}
                 </h3>
                 <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
@@ -102,7 +105,7 @@ export const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="glass-effect-static p-8 md:p-12 rounded-2xl text-center"
         >
           <div className="flex items-center justify-center mb-6">
@@ -110,11 +113,11 @@ export const Contact = () => {
             <span style={{ color: 'var(--text-secondary)' }}>Based in Calgary, Alberta, Canada</span>
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{ letterSpacing: '-0.025em' }}>
+          <h3 className="font-serif text-2xl md:text-3xl font-bold mb-4" style={{ letterSpacing: '-0.025em', color: 'var(--text-primary)' }}>
             Ready to build something exceptional?
           </h3>
           <p className="text-lg text-body mb-8 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Whether you&apos;re looking for a developer, have a project in mind, or just want to chat about technology – I&apos;d love to hear from you.
+            Whether you&apos;re looking for a developer, have a project in mind, or just want to chat about technology — I&apos;d love to hear from you.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -152,7 +155,7 @@ export const Contact = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="mt-16 pt-8 text-center"
           style={{
             borderTop: '1px solid var(--border-primary)',
@@ -160,7 +163,7 @@ export const Contact = () => {
           }}
         >
           <p className="text-sm text-center mx-auto">
-            &copy; {new Date().getFullYear()} Abdalla Eldoumani. Crafted with precision and attention to detail.
+            &copy; {new Date().getFullYear()} Designed & Built by Abdalla Eldoumani.
           </p>
         </motion.footer>
       </div>

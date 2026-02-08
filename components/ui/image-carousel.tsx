@@ -218,7 +218,8 @@ export const ImageCarousel = ({
       {/* Image counter (top-right) */}
       {isCarousel && (
         <div
-          className="absolute top-3 right-3 glass-effect px-3 py-1 rounded-full text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+          className="absolute top-3 right-3 glass-effect px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+          style={{ color: 'var(--text-primary)' }}
           aria-live="polite"
         >
           {currentIndex + 1} / {totalImages}

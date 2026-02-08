@@ -3,15 +3,16 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { Menu, X, FileText, User, Code, Briefcase, Mail, Home } from 'lucide-react';
+import { Menu, X, FileText, User, Code, Briefcase, Mail, Home, GraduationCap, FolderKanban } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navigationItems = [
   { name: 'Home', href: '#home', icon: Home },
   { name: 'About', href: '#about', icon: User },
-  { name: 'Skills', href: '#skills', icon: Code },
   { name: 'Experience', href: '#experience', icon: Briefcase },
-  { name: 'Projects', href: '#projects', icon: FileText },
+  { name: 'Projects', href: '#projects', icon: FolderKanban },
+  { name: 'Skills', href: '#skills', icon: Code },
+  { name: 'Education', href: '#education', icon: GraduationCap },
   { name: 'Contact', href: '#contact', icon: Mail },
 ];
 
@@ -50,7 +51,7 @@ export const Navbar = () => {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -70% 0px', // Trigger when section is 20% from top
+      rootMargin: '-20% 0px -70% 0px',
       threshold: 0,
     };
 
@@ -64,7 +65,6 @@ export const Navbar = () => {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observe all sections
     const sections = navigationItems.map(item => item.href.replace('#', ''));
     sections.forEach(section => {
       const element = document.getElementById(section);
@@ -106,8 +106,10 @@ export const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex-shrink-0"
           >
-            <Link href="/" className="text-2xl font-bold" aria-label="Ahmad Eldomani - Home">
-              <span className="text-gradient">AE</span>
+            <Link href="/" className="text-2xl font-serif font-bold" aria-label="Abdalla Eldoumani - Home"
+              style={{ color: 'var(--accent-primary)' }}
+            >
+              AE
             </Link>
           </motion.div>
 
@@ -117,18 +119,18 @@ export const Navbar = () => {
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeSection === item.href.replace('#', '');
-                
+
                 return (
                   <motion.button
                     key={item.name}
                     onClick={() => handleNavClick(item.href)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus-visible ${
-                      isActive
-                        ? 'text-white bg-white/10 shadow-lg'
-                        : 'text-gray-300 hover:text-white hover:bg-white/5'
-                    }`}
+                    className="flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 focus-visible"
+                    style={{
+                      color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      backgroundColor: isActive ? 'var(--accent-primary-10)' : 'transparent',
+                    }}
                     aria-label={`Navigate to ${item.name} section`}
                     aria-current={isActive ? 'page' : undefined}
                   >
@@ -146,7 +148,8 @@ export const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="glass-effect px-6 py-2 rounded-full font-semibold text-sm hover:bg-white/10 transition-all duration-300 focus-visible"
+              className="glass-effect px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 focus-visible"
+              style={{ color: 'var(--text-primary)' }}
               aria-label="Send email to get in touch"
             >
               Get In Touch
@@ -159,7 +162,8 @@ export const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={toggleNavbar}
-              className="inline-flex items-center justify-center p-2 rounded-full text-gray-300 hover:text-white hover:bg-white/10 focus-visible transition-all duration-300"
+              className="inline-flex items-center justify-center p-2 rounded-full focus-visible transition-all duration-300"
+              style={{ color: 'var(--text-secondary)' }}
               aria-expanded={isOpen}
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-controls="mobile-menu"
@@ -202,7 +206,8 @@ export const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              className="fixed inset-0 z-40 lg:hidden"
+              style={{ backgroundColor: 'rgba(12, 12, 14, 0.5)' }}
               onClick={closeNavbar}
               aria-hidden="true"
             />
@@ -222,7 +227,7 @@ export const Navbar = () => {
               {navigationItems.map((item, index) => {
                 const Icon = item.icon;
                 const isActive = activeSection === item.href.replace('#', '');
-                
+
                 return (
                   <motion.button
                     key={item.name}
@@ -230,11 +235,11 @@ export const Navbar = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
                     onClick={() => handleNavClick(item.href)}
-                    className={`flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 focus-visible ${
-                      isActive
-                        ? 'text-white bg-white/10 shadow-lg'
-                        : 'text-gray-300 hover:text-white hover:bg-white/5'
-                    }`}
+                    className="flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 focus-visible"
+                    style={{
+                      color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      backgroundColor: isActive ? 'var(--accent-primary-10)' : 'transparent',
+                    }}
                     aria-label={`Navigate to ${item.name} section`}
                     aria-current={isActive ? 'page' : undefined}
                     role="menuitem"
@@ -254,7 +259,8 @@ export const Navbar = () => {
               >
                 <Link href="mailto:aamsdoumani@gmail.com">
                   <button
-                    className="w-full glass-effect px-4 py-3 rounded-xl font-semibold text-base hover:bg-white/10 transition-all duration-300 focus-visible"
+                    className="w-full glass-effect px-4 py-3 rounded-xl font-semibold text-base transition-all duration-300 focus-visible"
+                    style={{ color: 'var(--text-primary)' }}
                     aria-label="Send email to get in touch"
                   >
                     Get In Touch

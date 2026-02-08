@@ -20,17 +20,17 @@ export const ProjectsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-slate-950 text-white">
+    <section className="py-20" style={{ backgroundColor: 'var(--primary-bg)', color: 'var(--text-primary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={motionVariants.swissEntrance.hidden}
           whileInView={motionVariants.swissEntrance.visible}
           transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-display text-4xl sm:text-5xl mb-4">
+          <h2 className="text-display text-4xl sm:text-5xl mb-4 font-serif">
             Featured <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-body text-xl max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>

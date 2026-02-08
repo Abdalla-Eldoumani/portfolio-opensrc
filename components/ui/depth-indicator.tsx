@@ -91,7 +91,7 @@ const DepthDot = ({
 
       {/* Label */}
       <motion.span
-        className="text-xs font-medium text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"
+        className="text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"
         style={{
           color: isActive.get() ? 'var(--text-primary)' : 'var(--text-muted)',
         }}

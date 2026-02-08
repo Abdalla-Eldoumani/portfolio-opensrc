@@ -27,17 +27,17 @@ const toastConfig = {
   },
   info: {
     icon: Info,
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
-    border: 'border-cyan-500/20',
-    progressBar: 'bg-cyan-500',
+    color: 'text-[var(--accent-primary)]',
+    bg: 'bg-[var(--accent-primary)]/10',
+    border: 'border-[var(--accent-primary)]/20',
+    progressBar: 'bg-[var(--accent-primary)]',
   },
   warning: {
     icon: AlertTriangle,
-    color: 'text-yellow-400',
-    bg: 'bg-yellow-500/10',
-    border: 'border-yellow-500/20',
-    progressBar: 'bg-yellow-500',
+    color: 'text-[var(--accent-primary)]',
+    bg: 'bg-[var(--accent-primary)]/10',
+    border: 'border-[var(--accent-primary)]/20',
+    progressBar: 'bg-[var(--accent-primary)]',
   },
 };
 
@@ -112,11 +112,11 @@ export const Toast = ({ toast, onDismiss }: ToastProps) => {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <h4 className="text-sm font-semibold text-white leading-tight mb-0.5">
+        <h4 className="text-sm font-semibold leading-tight mb-0.5" style={{ color: 'var(--text-primary)' }}>
           {toast.title}
         </h4>
         {toast.description && (
-          <p className="text-xs text-gray-400 leading-relaxed">
+          <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
             {toast.description}
           </p>
         )}
@@ -138,8 +138,8 @@ export const Toast = ({ toast, onDismiss }: ToastProps) => {
         onClick={() => onDismiss(toast.id)}
         className="
           absolute top-3 right-3 p-1 rounded-lg
-          text-gray-400 hover:text-white hover:bg-white/10
-          transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500
+          text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--text-primary)]/10
+          transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]
         "
         aria-label="Dismiss notification"
       >
@@ -148,7 +148,7 @@ export const Toast = ({ toast, onDismiss }: ToastProps) => {
 
       {/* Progress bar */}
       {toast.duration && toast.duration > 0 && (
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800/50 rounded-b-xl overflow-hidden">
+        <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-xl overflow-hidden" style={{ backgroundColor: 'var(--tertiary-bg)' }}>
           <motion.div
             className={`h-full ${config.progressBar}`}
             style={{ width: `${progress}%` }}

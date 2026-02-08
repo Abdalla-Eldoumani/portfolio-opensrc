@@ -139,15 +139,18 @@ export const TimelineVisual = ({
               onClick={() => setActiveIndex(index)}
               className={`text-xs text-center transition-all ${
                 index === activeIndex
-                  ? 'text-white font-semibold'
-                  : 'text-gray-400 hover:text-gray-300'
+                  ? 'font-semibold'
+                  : 'hover:text-[var(--text-secondary)]'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              style={{ maxWidth: `${100 / events.length}%` }}
+              style={{
+                color: index === activeIndex ? 'var(--text-primary)' : 'var(--text-muted)',
+                maxWidth: `${100 / events.length}%`,
+              }}
             >
               <div>{event.label}</div>
-              <div className="text-[10px] text-gray-500 mt-1">{event.date}</div>
+              <div className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>{event.date}</div>
             </motion.button>
           ))}
         </div>
@@ -265,7 +268,7 @@ export const TimelineVisual = ({
                 key={index}
                 onClick={() => setActiveIndex(index)}
                 className={`w-full text-left p-3 rounded-lg transition-all ${
-                  isActive ? 'bg-gray-800/50 border border-gray-700' : 'hover:bg-gray-800/30'
+                  isActive ? 'border' : ''
                 }`}
                 whileHover={{ x: 5 }}
                 animate={{
@@ -273,7 +276,11 @@ export const TimelineVisual = ({
                   scale: isActive ? 1.02 : 1,
                 }}
                 transition={{ duration: 0.3 }}
-                style={{ height: `${100 / events.length}%` }}
+                style={{
+                  height: `${100 / events.length}%`,
+                  backgroundColor: isActive ? 'var(--tertiary-bg)' : undefined,
+                  borderColor: isActive ? 'var(--border-primary)' : undefined,
+                }}
               >
                 <div className="flex items-center gap-3">
                   {IconComponent && (
@@ -286,11 +293,12 @@ export const TimelineVisual = ({
                   )}
                   <div className="flex-1">
                     <div
-                      className={`font-semibold ${isActive ? 'text-white' : 'text-gray-300'}`}
+                      className="font-semibold"
+                      style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)' }}
                     >
                       {event.label}
                     </div>
-                    <div className="text-xs text-gray-500">{event.date}</div>
+                    <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{event.date}</div>
                   </div>
                 </div>
               </motion.button>
@@ -325,8 +333,8 @@ export const MilestoneTimeline = ({ events }: { events: TimelineEvent[] }) => {
               <event.icon className="w-5 h-5" />
             </div>
           )}
-          <div className="text-sm font-semibold text-white text-center">{event.label}</div>
-          <div className="text-xs text-gray-400">{event.date}</div>
+          <div className="text-sm font-semibold text-center" style={{ color: 'var(--text-primary)' }}>{event.label}</div>
+          <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{event.date}</div>
         </motion.div>
       ))}
     </div>

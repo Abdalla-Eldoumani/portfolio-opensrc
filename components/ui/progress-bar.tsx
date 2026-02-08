@@ -82,13 +82,14 @@ export const ProgressBar = ({
       {(label || showValue) && (
         <div className="flex justify-between items-center mb-2">
           {label && (
-            <span className="text-sm font-medium text-gray-300">
+            <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               {label}
             </span>
           )}
           {showValue && (
             <motion.span
-              className="text-sm font-bold text-white tabular-nums"
+              className="text-sm font-bold tabular-nums"
+              style={{ color: 'var(--text-primary)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: isInView ? 1 : 0 }}
               transition={{ duration: 0.3, delay }}
@@ -103,7 +104,8 @@ export const ProgressBar = ({
 
       {/* Progress bar track */}
       <div
-        className={`w-full ${sizeClasses[size]} bg-gray-800/50 rounded-full overflow-hidden border border-gray-700/30`}
+        className={`w-full ${sizeClasses[size]} rounded-full overflow-hidden border`}
+        style={{ backgroundColor: 'var(--tertiary-bg)', borderColor: 'var(--border-primary)' }}
       >
         {/* Progress bar fill */}
         <motion.div
@@ -169,7 +171,7 @@ export const ComparisonProgressBar = ({
         <span className="text-green-400 font-bold text-sm">
           {improvementText}
         </span>
-        <span className="text-gray-400 text-xs">improvement</span>
+        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>improvement</span>
       </motion.div>
 
       {/* Baseline bar */}

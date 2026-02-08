@@ -8,6 +8,7 @@ interface MagneticButtonProps {
   children: ReactNode;
   strength?: number;
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
@@ -35,6 +36,7 @@ export const MagneticButton = ({
   children,
   strength = 0.3,
   className = '',
+  style,
   onClick,
   disabled = false,
   loading = false,
@@ -132,6 +134,7 @@ export const MagneticButton = ({
       style={{
         x: springX,
         y: springY,
+        ...style,
       }}
       whileHover={{ scale: isDisabled ? 1 : 1.02 }}
       whileTap={{ scale: isDisabled ? 1 : 0.98 }}
@@ -175,7 +178,7 @@ export const MagneticButton = ({
       )}
 
       {/* Enhanced focus ring */}
-      <span className="absolute inset-0 rounded-[inherit] opacity-0 focus-visible:opacity-100 transition-opacity pointer-events-none ring-2 ring-offset-2 ring-cyan-500 ring-offset-gray-900" />
+      <span className="absolute inset-0 rounded-[inherit] opacity-0 focus-visible:opacity-100 transition-opacity pointer-events-none ring-2 ring-offset-2 ring-[var(--accent-primary)] ring-offset-[var(--primary-bg)]" />
     </motion.button>
   );
 };
@@ -191,6 +194,7 @@ interface MagneticIconButtonProps {
   target?: string;
   strength?: number;
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
   hapticFeedback?: boolean;
 }
@@ -200,6 +204,7 @@ export const MagneticIconButton = ({
   ariaLabel,
   strength = 0.4,
   className = '',
+  style,
   href,
   target,
   onClick,
@@ -269,6 +274,7 @@ export const MagneticIconButton = ({
         x: springX,
         y: springY,
         transform: rotate,
+        ...style,
       }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
@@ -277,7 +283,7 @@ export const MagneticIconButton = ({
       {icon}
 
       {/* Enhanced focus ring */}
-      <span className="absolute inset-0 rounded-[inherit] opacity-0 focus-visible:opacity-100 transition-opacity pointer-events-none ring-2 ring-offset-2 ring-cyan-500 ring-offset-gray-900" />
+      <span className="absolute inset-0 rounded-[inherit] opacity-0 focus-visible:opacity-100 transition-opacity pointer-events-none ring-2 ring-offset-2 ring-[var(--accent-primary)] ring-offset-[var(--primary-bg)]" />
     </Component>
   );
 };

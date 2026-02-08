@@ -102,16 +102,17 @@ export const ProjectModal = ({
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-white/10 bg-gray-900/50">
+            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--secondary-bg)' }}>
               <div className="flex items-center gap-3">
                 <h2
                   id="modal-title"
-                  className="text-xl font-bold text-white"
+                  className="text-xl font-bold"
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   {projectName}
                 </h2>
                 {!hasError && (
-                  <span className="px-2 py-1 text-xs font-medium text-emerald-400 bg-emerald-400/10 rounded-full">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full" style={{ color: 'var(--accent-primary)', backgroundColor: 'rgba(201,169,110,0.1)' }}>
                     Live Preview
                   </span>
                 )}
@@ -123,7 +124,8 @@ export const ProjectModal = ({
                   href={projectUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 rounded-lg transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium hover:text-[var(--text-primary)] border hover:border-[var(--text-muted)] rounded-lg transition-colors"
+                  style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-primary)' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`Open ${projectName} in new tab`}
@@ -135,7 +137,8 @@ export const ProjectModal = ({
                 {/* Close button */}
                 <motion.button
                   onClick={onClose}
-                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-lg hover:text-[var(--text-primary)] hover:bg-[var(--tertiary-bg)] transition-colors"
+                  style={{ color: 'var(--text-muted)' }}
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                   aria-label="Close modal"
@@ -146,26 +149,26 @@ export const ProjectModal = ({
             </div>
 
             {/* Content area */}
-            <div className="relative w-full h-[calc(90vh-80px)] bg-gray-950">
+            <div className="relative w-full h-[calc(90vh-80px)]" style={{ backgroundColor: 'var(--primary-bg)' }}>
               {/* Loading state */}
               {isLoading && !hasError && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-gray-400">
-                  <Loader2 className="w-8 h-8 animate-spin text-cyan-500" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4" style={{ color: 'var(--text-muted)' }}>
+                  <Loader2 className="w-8 h-8 animate-spin" style={{ color: 'var(--accent-primary)' }} />
                   <p className="text-sm">Loading preview...</p>
                 </div>
               )}
 
               {/* Error state */}
               {hasError && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-gray-400 p-8">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8" style={{ color: 'var(--text-muted)' }}>
                   <div className="w-16 h-16 rounded-full bg-orange-500/10 flex items-center justify-center">
                     <AlertCircle className="w-8 h-8 text-orange-500" />
                   </div>
                   <div className="text-center space-y-2">
-                    <p className="text-lg font-semibold text-white">
+                    <p className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
                       Preview Unavailable
                     </p>
-                    <p className="text-sm text-gray-400 max-w-md">
+                    <p className="text-sm max-w-md" style={{ color: 'var(--text-muted)' }}>
                       This project cannot be previewed in an embedded frame due to security restrictions.
                       Please click &ldquo;Open in Tab&rdquo; to view the live site.
                     </p>
@@ -176,7 +179,7 @@ export const ProjectModal = ({
                     rel="noopener noreferrer"
                     className="mt-4"
                   >
-                    <MagneticButton className="flex items-center gap-2 glass-effect px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/10">
+                    <MagneticButton className="flex items-center gap-2 glass-effect px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-[var(--tertiary-bg)]">
                       <ExternalLink size={18} />
                       Open in New Tab
                     </MagneticButton>
@@ -199,8 +202,8 @@ export const ProjectModal = ({
             </div>
 
             {/* Footer hint */}
-            <div className="px-4 py-2 border-t border-white/10 bg-gray-900/50 text-xs text-gray-500 flex items-center justify-between">
-              <span>Press <kbd className="px-1.5 py-0.5 bg-gray-800 rounded text-gray-400 border border-gray-700">Esc</kbd> to close</span>
+            <div className="px-4 py-2 border-t text-xs flex items-center justify-between" style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--secondary-bg)', color: 'var(--text-muted)' }}>
+              <span>Press <kbd className="px-1.5 py-0.5 rounded border" style={{ backgroundColor: 'var(--tertiary-bg)', color: 'var(--text-muted)', borderColor: 'var(--border-primary)' }}>Esc</kbd> to close</span>
               <span className="hidden sm:inline">Click outside to dismiss</span>
             </div>
           </motion.div>
@@ -303,7 +306,8 @@ export const QuickViewModal = ({
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-900/80 text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 rounded-full hover:text-[var(--text-primary)] hover:bg-[var(--tertiary-bg)] transition-colors"
+              style={{ backgroundColor: 'var(--secondary-bg)', color: 'var(--text-muted)' }}
               aria-label="Close"
             >
               <X size={20} />
@@ -318,14 +322,14 @@ export const QuickViewModal = ({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 600px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-transparent" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--primary-bg), transparent)' }} />
             </div>
 
             {/* Content */}
             <div className="p-6 space-y-4">
-              <h2 className="text-2xl font-bold text-white">{project.name}</h2>
+              <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.name}</h2>
 
-              <p className="text-gray-300 leading-relaxed">
+              <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 {project.fullDescription || project.description}
               </p>
 
@@ -334,7 +338,8 @@ export const QuickViewModal = ({
                 {project.tech.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 text-sm font-medium text-gray-300 bg-gray-800/50 rounded-full border border-gray-700"
+                    className="px-3 py-1 text-sm font-medium rounded-full border"
+                    style={{ color: 'var(--text-secondary)', backgroundColor: 'var(--tertiary-bg)', borderColor: 'var(--border-primary)' }}
                   >
                     {tech}
                   </span>
@@ -350,7 +355,7 @@ export const QuickViewModal = ({
                     rel="noopener noreferrer"
                     className="flex-1"
                   >
-                    <MagneticButton className="w-full flex items-center justify-center gap-2 glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-white/10">
+                    <MagneticButton className="w-full flex items-center justify-center gap-2 glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-[var(--tertiary-bg)]">
                       <ExternalLink size={16} />
                       Live Demo
                     </MagneticButton>
@@ -363,7 +368,7 @@ export const QuickViewModal = ({
                     rel="noopener noreferrer"
                     className="flex-1"
                   >
-                    <MagneticButton className="w-full flex items-center justify-center gap-2 border border-gray-600 hover:border-gray-400 px-4 py-2 rounded-lg font-semibold hover:bg-white/5">
+                    <MagneticButton className="w-full flex items-center justify-center gap-2 border hover:border-[var(--text-muted)] px-4 py-2 rounded-lg font-semibold hover:bg-[var(--tertiary-bg)]" style={{ borderColor: 'var(--border-primary)' }}>
                       Source Code
                     </MagneticButton>
                   </a>

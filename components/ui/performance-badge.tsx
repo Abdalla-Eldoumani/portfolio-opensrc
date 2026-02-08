@@ -38,8 +38,8 @@ export const PerformanceBadge = ({
       }}
       className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 rounded-full"
     >
-      <Icon className="w-3.5 h-3.5 text-emerald-400" />
-      <span className="text-xs font-semibold text-emerald-400 numeric-tabular">
+      <Icon className="w-3.5 h-3.5" style={{ color: 'var(--accent-primary)' }} />
+      <span className="text-xs font-semibold numeric-tabular" style={{ color: 'var(--accent-primary)' }}>
         {metric}
       </span>
     </motion.div>

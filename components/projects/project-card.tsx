@@ -33,7 +33,7 @@ export const ProjectCard = ({ project, index, isExpanded, onToggleExpand, onOpen
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: "easeInOut" }}
-      viewport={{ once: false, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.2 }}
       className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-start ${
         project.featured && index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
       }`}
@@ -76,24 +76,25 @@ export const ProjectCard = ({ project, index, isExpanded, onToggleExpand, onOpen
         <div>
           <div className="flex items-center gap-3 mb-3">
             {IconComponent && (
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-cyan-400">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'var(--accent-primary-10)', color: 'var(--accent-primary)' }}>
                 <IconComponent size={24} />
               </div>
             )}
             <div className="flex-1">
-              <h3 className="text-3xl font-bold text-white mb-1">{project.name}</h3>
-              <p className="text-sm text-gray-400">{project.category}</p>
+              <h3 className="text-3xl font-bold font-serif mb-1" style={{ color: 'var(--text-primary)' }}>{project.name}</h3>
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{project.category}</p>
             </div>
           </div>
 
-          <p className="text-gray-300 leading-relaxed">{project.description}</p>
+          <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
           {/* Expandable Full Description */}
           {project.fullDescription && (
             <div className="mt-4">
               <button
                 onClick={() => onToggleExpand(project.name)}
-                className="flex items-center text-sm text-cyan-400 hover:text-cyan-300 transition-colors group"
+                className="flex items-center text-sm transition-colors group"
+                style={{ color: 'var(--accent-primary)' }}
                 aria-expanded={isExpanded}
                 aria-controls={`project-details-${project.name}`}
               >
@@ -119,7 +120,7 @@ export const ProjectCard = ({ project, index, isExpanded, onToggleExpand, onOpen
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <p className="mt-4 text-gray-400 leading-relaxed">{project.fullDescription}</p>
+                    <p className="mt-4 leading-relaxed" style={{ color: 'var(--text-muted)' }}>{project.fullDescription}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -135,7 +136,7 @@ export const ProjectCard = ({ project, index, isExpanded, onToggleExpand, onOpen
 
         {/* GitHub Stats */}
         {project.githubRepo && (
-          <div className="pt-4 border-t border-gray-800">
+          <div className="pt-4" style={{ borderTop: '1px solid var(--border-primary)' }}>
             <GitHubStats
               owner={project.githubRepo.owner}
               repo={project.githubRepo.repo}

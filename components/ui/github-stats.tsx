@@ -65,8 +65,8 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
             key={i}
             className="flex items-center gap-1.5 animate-pulse"
           >
-            <div className={`${compact ? 'w-3 h-3' : 'w-4 h-4'} bg-gray-700 rounded`} />
-            <div className={`${compact ? 'w-6 h-3' : 'w-8 h-4'} bg-gray-700 rounded`} />
+            <div className={`${compact ? 'w-3 h-3' : 'w-4 h-4'} rounded`} style={{ backgroundColor: 'var(--border-primary)' }} />
+            <div className={`${compact ? 'w-6 h-3' : 'w-8 h-4'} rounded`} style={{ backgroundColor: 'var(--border-primary)' }} />
           </div>
         ))}
       </div>
@@ -76,7 +76,7 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
   // Error state
   if (error || !stats) {
     return (
-      <div className="flex items-center gap-2 text-gray-500 text-sm">
+      <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-muted)' }}>
         <AlertCircle size={14} />
         <span>Stats unavailable</span>
       </div>
@@ -92,7 +92,8 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="flex items-center gap-1 text-yellow-400"
+            className="flex items-center gap-1"
+            style={{ color: 'var(--accent-primary)' }}
             title={`${stats.stars} stars`}
           >
             <Star size={14} fill="currentColor" />
@@ -105,7 +106,8 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="flex items-center gap-1 text-cyan-400"
+            className="flex items-center gap-1"
+            style={{ color: 'var(--accent-secondary)' }}
             title={`${stats.forks} forks`}
           >
             <GitFork size={14} />
@@ -117,7 +119,8 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="flex items-center gap-1 text-gray-400"
+          className="flex items-center gap-1"
+          style={{ color: 'var(--text-muted)' }}
           title={`Updated ${timeAgo(stats.pushedAt)}`}
         >
           <Clock size={14} />
@@ -134,7 +137,7 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
         icon={<Star size={16} fill="currentColor" />}
         label="Stars"
         value={stats.stars}
-        color="text-yellow-400"
+        color="var(--accent-primary)"
         delay={0}
       />
 
@@ -142,7 +145,7 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
         icon={<GitFork size={16} />}
         label="Forks"
         value={stats.forks}
-        color="text-cyan-400"
+        color="var(--accent-secondary)"
         delay={0.1}
       />
 
@@ -150,7 +153,7 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
         icon={<Eye size={16} />}
         label="Watchers"
         value={stats.watchers}
-        color="text-blue-400"
+        color="var(--accent-secondary)"
         delay={0.2}
       />
 
@@ -158,13 +161,14 @@ export const GitHubStats = ({ owner, repo, compact = false }: GitHubStatsProps) 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.3 }}
-        className="flex flex-col items-start p-3 rounded-lg bg-gray-800/30 border border-gray-700/50"
+        className="flex flex-col items-start p-3 rounded-lg"
+        style={{ backgroundColor: 'var(--secondary-bg)', border: '1px solid var(--border-primary)' }}
       >
-        <div className="flex items-center gap-2 text-gray-400 mb-1">
+        <div className="flex items-center gap-2 mb-1" style={{ color: 'var(--text-muted)' }}>
           <Clock size={16} />
           <span className="text-xs font-medium uppercase tracking-wide">Updated</span>
         </div>
-        <span className="text-sm font-semibold text-white">
+        <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
           {timeAgo(stats.pushedAt)}
         </span>
       </motion.div>
@@ -186,15 +190,16 @@ const StatCard = ({ icon, label, value, color, delay }: StatCardProps) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="flex flex-col items-start p-3 rounded-lg bg-gray-800/30 border border-gray-700/50 hover:border-gray-600/50 transition-colors"
+      className="flex flex-col items-start p-3 rounded-lg transition-colors"
+      style={{ backgroundColor: 'var(--secondary-bg)', border: '1px solid var(--border-primary)' }}
     >
-      <div className={`flex items-center gap-2 ${color} mb-1`}>
+      <div className="flex items-center gap-2 mb-1" style={{ color }}>
         {icon}
-        <span className="text-xs font-medium uppercase tracking-wide text-gray-400">
+        <span className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
           {label}
         </span>
       </div>
-      <span className="text-lg font-bold text-white numeric-tabular">
+      <span className="text-lg font-bold numeric-tabular" style={{ color: 'var(--text-primary)' }}>
         {formatNumber(value)}
       </span>
     </motion.div>

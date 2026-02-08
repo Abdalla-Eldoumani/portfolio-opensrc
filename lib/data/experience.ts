@@ -22,9 +22,9 @@ export const experiences: Experience[] = [
     ],
     skills: ["Computer Architecture", "C Programming", "ARMv8 Assembly", "Teaching", "Debugging", "Code Review", "Mentorship"],
     icon: FaGraduationCap,
-    color: "text-purple-400",
-    bgColor: "bg-purple-500/10",
-    borderColor: "border-purple-500/20"
+    color: "text-[var(--accent-primary)]",
+    bgColor: "bg-[var(--accent-primary-10)]",
+    borderColor: "border-[var(--accent-primary-20)]"
   },
   {
     role: "AI Training Specialist",
@@ -41,9 +41,9 @@ export const experiences: Experience[] = [
     ],
     skills: ["Python", "AI Evaluation", "Algorithm Analysis", "Code Review", "Performance Testing", "Technical Documentation", "Quality Assurance"],
     icon: FaCode,
-    color: "text-cyan-400",
-    bgColor: "bg-cyan-500/10",
-    borderColor: "border-cyan-500/20"
+    color: "text-[var(--accent-secondary)]",
+    bgColor: "bg-[rgba(74,111,165,0.1)]",
+    borderColor: "border-[rgba(74,111,165,0.2)]"
   },
   {
     role: "Software Engineering Fellow",
@@ -59,9 +59,9 @@ export const experiences: Experience[] = [
     ],
     skills: ["Python", "Docker", "React.js", "TypeScript", "Machine Learning", "Team Leadership", "Agile Development", "Rapid Prototyping"],
     icon: FaRocket,
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/10",
-    borderColor: "border-blue-500/20"
+    color: "text-[var(--accent-secondary)]",
+    bgColor: "bg-[rgba(74,111,165,0.1)]",
+    borderColor: "border-[rgba(74,111,165,0.2)]"
   },
   {
     role: "Python Mentor",
@@ -77,9 +77,9 @@ export const experiences: Experience[] = [
     ],
     skills: ["Python", "Teaching", "Curriculum Development", "Workshop Facilitation", "Mentorship", "Algorithm Design"],
     icon: FaGraduationCap,
-    color: "text-emerald-400",
-    bgColor: "bg-emerald-500/10",
-    borderColor: "border-emerald-500/20"
+    color: "text-[var(--accent-primary)]",
+    bgColor: "bg-[var(--accent-primary-10)]",
+    borderColor: "border-[var(--accent-primary-20)]"
   }
 ];
 

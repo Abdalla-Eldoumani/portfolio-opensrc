@@ -22,7 +22,7 @@ export const ScrollProgress = () => {
       style={{
         scaleX,
         background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary))',
-        boxShadow: '0 0 12px rgba(6, 182, 212, 0.5)',
+        boxShadow: '0 0 12px rgba(201, 169, 110, 0.4)',
       }}
       role="progressbar"
       aria-label="Page scroll progress"
@@ -102,7 +102,7 @@ export const CircularScrollProgress = () => {
         className="absolute inset-0 flex items-center justify-center"
         style={{ opacity: useSpring(scrollYProgress, { stiffness: 100, damping: 30 }) }}
       >
-        <span className="text-xs font-bold text-gray-400">
+        <span className="text-xs font-bold" style={{ color: 'var(--text-muted)' }}>
           {Math.round(scrollYProgress.get() * 100)}%
         </span>
       </motion.div>
@@ -153,7 +153,7 @@ export const SectionProgress = ({ sections }: SectionProgressProps) => {
                 transition={{ duration: 0.3 }}
               />
               <motion.span
-                className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors whitespace-nowrap"
+                className="text-sm font-medium text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors whitespace-nowrap"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{
                   opacity: isActive ? 1 : 0.5,

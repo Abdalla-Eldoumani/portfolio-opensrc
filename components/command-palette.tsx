@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Home, User, Code, Briefcase, Mail, FileText, Github, Linkedin, Command } from 'lucide-react';
+import { Search, Home, User, Code, Briefcase, Mail, FileText, Github, Linkedin, Command, GraduationCap } from 'lucide-react';
 
 interface CommandItem {
   id: string;
@@ -45,20 +45,12 @@ export const CommandPalette = () => {
       shortcut: '2'
     },
     {
-      id: 'skills',
-      label: 'See Skills & Expertise',
-      icon: Code,
-      action: () => scrollToSection('skills'),
-      keywords: ['skills', 'technologies', 'expertise', 'stack'],
-      shortcut: '3'
-    },
-    {
       id: 'experience',
       label: 'View Experience',
       icon: Briefcase,
       action: () => scrollToSection('experience'),
       keywords: ['experience', 'work', 'jobs', 'career'],
-      shortcut: '4'
+      shortcut: '3'
     },
     {
       id: 'projects',
@@ -66,7 +58,23 @@ export const CommandPalette = () => {
       icon: FileText,
       action: () => scrollToSection('projects'),
       keywords: ['projects', 'portfolio', 'work', 'code'],
+      shortcut: '4'
+    },
+    {
+      id: 'skills',
+      label: 'See Skills & Expertise',
+      icon: Code,
+      action: () => scrollToSection('skills'),
+      keywords: ['skills', 'technologies', 'expertise', 'stack'],
       shortcut: '5'
+    },
+    {
+      id: 'education',
+      label: 'View Education',
+      icon: GraduationCap,
+      action: () => scrollToSection('education'),
+      keywords: ['education', 'university', 'degree', 'coursework', 'academic'],
+      shortcut: '6'
     },
     {
       id: 'contact',
@@ -74,7 +82,7 @@ export const CommandPalette = () => {
       icon: Mail,
       action: () => scrollToSection('contact'),
       keywords: ['contact', 'email', 'reach', 'message'],
-      shortcut: '6'
+      shortcut: '7'
     },
     {
       id: 'github',
@@ -189,7 +197,8 @@ export const CommandPalette = () => {
           >
             <button
               onClick={() => setIsOpen(true)}
-              className="glass-effect px-3 py-2 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2 hover-lift shadow-lg"
+              className="glass-effect px-3 py-2 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex items-center gap-2 hover-lift shadow-lg"
+              style={{ color: 'var(--text-secondary)' }}
               aria-label="Open command palette"
               aria-haspopup="dialog"
               aria-expanded={isOpen}
@@ -233,7 +242,7 @@ export const CommandPalette = () => {
             >
               {/* Search Input */}
               <div className="relative">
-                <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={20} aria-hidden="true" />
+                <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 pointer-events-none" size={20} aria-hidden="true" style={{ color: 'var(--text-muted)' }} />
                 <input
                   type="text"
                   className="command-input"
@@ -258,7 +267,7 @@ export const CommandPalette = () => {
                 aria-label="Available commands"
               >
                 {filteredCommands.length === 0 ? (
-                  <div className="text-center py-8 text-gray-400">
+                  <div className="text-center py-8" style={{ color: 'var(--text-muted)' }}>
                     No commands found
                   </div>
                 ) : (
@@ -290,7 +299,7 @@ export const CommandPalette = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-gray-800 px-4 py-3 flex items-center justify-between text-xs text-gray-400 flex-shrink-0">
+              <div className="px-4 py-3 flex items-center justify-between text-xs flex-shrink-0" style={{ borderTop: '1px solid var(--border-primary)', color: 'var(--text-muted)' }}>
                 <div className="flex items-center gap-2 sm:gap-4">
                   <span className="flex items-center gap-1">
                     <kbd className="command-kbd text-xs">↑↓</kbd>

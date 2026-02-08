@@ -1,5 +1,5 @@
-import { IconType } from 'react-icons';
-import { LucideIcon } from 'lucide-react';
+import type { IconType } from 'react-icons';
+import type { LucideIcon } from 'lucide-react';
 
 /**
  * Portfolio data type definitions
@@ -40,7 +40,7 @@ export interface Skill {
   name: string;
   icon: IconType;
   level?: string;
-  proficiency: number;
+  proficiency?: number;
   color: string;
   category: string;
 }
@@ -53,8 +53,6 @@ export interface SkillCategory {
     color: string;
   }[];
 }
-
-export type SkillConnections = Record<string, string[]>;
 
 // Experience types
 export type ExperienceType = 'Academic' | 'Remote' | 'Fellowship' | 'Mentorship';

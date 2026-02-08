@@ -3,28 +3,28 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Download, MapPin, GraduationCap, Briefcase, Languages, Award } from 'lucide-react';
+import { Download, MapPin, GraduationCap, Briefcase, Languages, Terminal } from 'lucide-react';
 import { MagneticCard } from '@/components/ui/magnetic-card';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { motionVariants, animationConfigs } from '@/lib/constants/animations';
 
 const highlights = [
   {
-    icon: GraduationCap,
-    title: "Computer Science Student",
-    subtitle: "University of Calgary",
+    icon: Terminal,
+    title: "Systems Programmer",
+    subtitle: "C/C++, Rust, ARMv8 Assembly",
     colorVar: '--highlight-1'
   },
   {
     icon: Briefcase,
     title: "Full-Stack Developer",
-    subtitle: "Specializing in Modern Web Technologies",
+    subtitle: "TypeScript, React, Next.js, Node.js",
     colorVar: '--highlight-2'
   },
   {
-    icon: Award,
-    title: "AI/ML & Cybersecurity",
-    subtitle: "Passionate About Emerging Technologies",
+    icon: GraduationCap,
+    title: "Teaching Assistant",
+    subtitle: "Computer Architecture @ UCalgary",
     colorVar: '--highlight-3'
   },
   {
@@ -37,20 +37,20 @@ const highlights = [
 
 export const About = () => {
   return (
-    <section className="py-20 bg-slate-950 text-white">
+    <section className="py-28" style={{ backgroundColor: 'var(--primary-bg)', color: 'var(--text-primary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={motionVariants.scaleIn.hidden}
           whileInView={motionVariants.scaleIn.visible}
           transition={{ duration: 0.6, ease: animationConfigs.entrance.ease }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-display text-4xl sm:text-5xl mb-4">
+          <h2 className="font-serif text-display text-4xl sm:text-5xl mb-4">
             About <span className="text-gradient">Me</span>
           </h2>
           <p className="text-body text-xl max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Passionate developer committed to creating innovative solutions at the intersection of technology and human experience.
+            Systems thinker turned web builder, teaching the next generation along the way.
           </p>
         </motion.div>
 
@@ -60,7 +60,7 @@ export const About = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             className="space-y-6"
           >
             <div className="space-y-4">
@@ -69,13 +69,13 @@ export const About = () => {
                 <span>Calgary, Alberta, Canada</span>
               </div>
 
-              <div className="prose prose-lg prose-invert">
+              <div className="space-y-4">
                 <p className="text-body text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  I&apos;m <strong style={{ color: 'var(--text-primary)' }}>Abdalla Eldoumani</strong>, a dedicated Computer Science student at the University of Calgary with a deep passion for full-stack development, artificial intelligence, and cybersecurity.
+                  I&apos;m <strong style={{ color: 'var(--text-primary)' }}>Abdalla Eldoumani</strong>, a Computer Science student at the University of Calgary with a minor in Philosophy. I moved from Saudi Arabia to Calgary to pursue a deeper understanding of how computers work — from transistors to distributed systems.
                 </p>
 
                 <p className="text-body text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  My expertise spans modern web technologies including <strong className="text-gradient">Next.js</strong>, <strong className="text-gradient">React</strong>, <strong className="text-gradient">TypeScript</strong>, and various database systems. I excel at creating scalable, high-performance applications that deliver exceptional user experiences.                   With strong problem-solving skills and a commitment to staying current with emerging technologies, I&apos;m always ready to tackle new challenges and contribute to innovative projects.
+                  My work spans the full stack: I build high-performance servers in <strong style={{ color: 'var(--accent-primary)' }}>Rust</strong>, optimize matrix math in <strong style={{ color: 'var(--accent-primary)' }}>C++</strong>, and ship modern web apps with <strong style={{ color: 'var(--accent-primary)' }}>TypeScript</strong> and <strong style={{ color: 'var(--accent-primary)' }}>React</strong>. As a TA for CPSC 355, I teach assembly language and computer architecture — explaining how the abstractions we rely on actually work.
                 </p>
               </div>
             </div>
@@ -88,10 +88,11 @@ export const About = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-4 pt-6"
             >
-              <Link target="_blank" href="/resume">
+              <Link target="_blank" href="/my-resume.pdf">
                 <MagneticButton
                   strength={0.2}
-                  className="inline-flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/10 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto"
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   <Download size={20} />
                   <span>Download Resume</span>
@@ -101,7 +102,8 @@ export const About = () => {
               <Link target="_blank" href="https://www.linkedin.com/in/abdallaeldoumani/">
                 <MagneticButton
                   strength={0.2}
-                  className="inline-flex items-center justify-center space-x-2 border border-gray-600 hover:border-gray-400 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-white/5 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto"
+                  style={{ border: '1px solid var(--border-primary)', color: 'var(--text-secondary)' }}
                 >
                   <span>Let&apos;s Connect</span>
                 </MagneticButton>
@@ -114,7 +116,7 @@ export const About = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-6"
           >
             {highlights.map((item, index) => {
@@ -125,21 +127,21 @@ export const About = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1, ease: "easeInOut" }}
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     className="bento-card hover-lift group"
                   >
                   <div className="flex items-start space-x-4">
                     <div
-                      className="p-3 rounded-xl bg-gray-800/50 group-hover:scale-110 transition-transform duration-300"
-                      style={{ color: `var(${item.colorVar})` }}
+                      className="p-3 rounded-xl group-hover:scale-110 transition-transform duration-300"
+                      style={{ backgroundColor: 'var(--tertiary-bg)', color: `var(${item.colorVar})` }}
                     >
                       <Icon size={24} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-white mb-1">
+                      <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                         {item.title}
                       </h3>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
                         {item.subtitle}
                       </p>
                     </div>
@@ -150,24 +152,6 @@ export const About = () => {
             })}
           </motion.div>
         </div>
-
-        {/* Philosophy Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-          viewport={{ once: false, amount: 0.3 }}
-          className="mt-20"
-        >
-          <div className="glass-effect-static p-8 rounded-2xl text-center max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-gradient">My Philosophy</h3>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              I believe technology should enhance human potential while remaining accessible and secure. 
-              Every line of code I write is driven by the goal of creating meaningful, impactful solutions 
-              that make a difference in people&apos;s lives.
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

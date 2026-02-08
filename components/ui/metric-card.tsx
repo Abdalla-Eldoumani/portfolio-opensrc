@@ -19,16 +19,16 @@ interface MetricCardProps {
 
 const colorConfig = {
   primary: {
-    icon: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
-    border: 'border-cyan-500/20',
-    glow: 'shadow-cyan-500/20',
+    icon: 'text-[var(--accent-primary)]',
+    bg: 'bg-[var(--accent-primary)]/10',
+    border: 'border-[var(--accent-primary)]/20',
+    glow: 'shadow-[var(--accent-primary)]/20',
   },
   secondary: {
-    icon: 'text-purple-400',
-    bg: 'bg-purple-500/10',
-    border: 'border-purple-500/20',
-    glow: 'shadow-purple-500/20',
+    icon: 'text-[var(--accent-secondary)]',
+    bg: 'bg-[var(--accent-secondary)]/10',
+    border: 'border-[var(--accent-secondary)]/20',
+    glow: 'shadow-[var(--accent-secondary)]/20',
   },
   success: {
     icon: 'text-green-400',
@@ -37,10 +37,10 @@ const colorConfig = {
     glow: 'shadow-green-500/20',
   },
   warning: {
-    icon: 'text-yellow-400',
-    bg: 'bg-yellow-500/10',
-    border: 'border-yellow-500/20',
-    glow: 'shadow-yellow-500/20',
+    icon: 'text-[var(--accent-primary)]',
+    bg: 'bg-[var(--accent-primary)]/10',
+    border: 'border-[var(--accent-primary)]/20',
+    glow: 'shadow-[var(--accent-primary)]/20',
   },
   error: {
     icon: 'text-red-400',
@@ -63,8 +63,8 @@ const trendConfig = {
   },
   neutral: {
     icon: Minus,
-    color: 'text-gray-400',
-    bg: 'bg-gray-500/10',
+    color: 'text-[var(--text-muted)]',
+    bg: 'bg-[var(--tertiary-bg)]',
   },
 };
 
@@ -113,7 +113,7 @@ export const MetricCard = ({
               <Icon size={18} />
             </div>
           )}
-          <span className="text-xs font-medium uppercase tracking-wide text-gray-400">
+          <span className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
             {label}
           </span>
         </div>
@@ -140,21 +140,21 @@ export const MetricCard = ({
         {isNumeric && animated ? (
           <AnimatedCounter
             value={value}
-            className="text-3xl font-bold text-white tabular-nums"
+            className="text-3xl font-bold text-[var(--text-primary)] tabular-nums"
           />
         ) : (
-          <span className="text-3xl font-bold text-white tabular-nums">
+          <span className="text-3xl font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>
             {value}
           </span>
         )}
         {unit && (
-          <span className="text-lg font-medium text-gray-400">{unit}</span>
+          <span className="text-lg font-medium" style={{ color: 'var(--text-muted)' }}>{unit}</span>
         )}
       </div>
 
       {/* Description */}
       {description && (
-        <p className="text-xs text-gray-500 leading-relaxed">
+        <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
           {description}
         </p>
       )}

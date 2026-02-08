@@ -1,133 +1,93 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { FaReact, FaNodeJs, FaDocker, FaGitAlt, FaPython, FaJava, FaCss3Alt, FaAws } from 'react-icons/fa';
-import { SiTypescript, SiCplusplus, SiGnubash, SiNextdotjs, SiTailwindcss, SiMongodb, SiPostgresql, SiExpress, SiJunit5, SiAssemblyscript, SiPytest, SiSupabase, SiFirebase, SiVercel, SiSpring, SiFlask, SiKubernetes, SiMysql, SiOracle, SiPhp, SiJupyter, SiPowerbi, SiMicrosoftazure, SiOpenai, SiTensorflow, SiPytorch, SiPostman, SiJira, SiKotlin, SiGo, SiRust } from 'react-icons/si';
-import { TbBrandDjango } from "react-icons/tb";
+import { FaReact, FaNodeJs, FaDocker, FaGitAlt, FaPython, FaJava, FaAws } from 'react-icons/fa';
+import { SiTypescript, SiCplusplus, SiGnubash, SiNextdotjs, SiTailwindcss, SiMongodb, SiPostgresql, SiJunit5, SiAssemblyscript, SiPytest, SiJupyter, SiOpenai, SiTensorflow, SiPytorch, SiPostman, SiJira, SiKotlin, SiGo, SiRust, SiVercel, SiLinux } from 'react-icons/si';
 
-const skillsData = [
+const domains = [
   {
-    category: "Languages",
+    name: "Systems & Low-Level",
     skills: [
-      { name: "C/C++", icon: SiCplusplus, color: "text-blue-600" },
-      { name: "Rust", icon: SiRust, color: "text-orange-500" },
-      { name: "Python", icon: FaPython, color: "text-yellow-400" },
-      { name: "Java", icon: FaJava, color: "text-red-500" },
-      { name: "TypeScript", icon: SiTypescript, color: "text-blue-400" },
-      { name: "Assembly", icon: SiAssemblyscript, color: "text-gray-400" },
-      { name: "PHP", icon: SiPhp, color: "text-indigo-500" },
-      { name: "Bash", icon: SiGnubash, color: "text-green-400" },
-      { name: "Go", icon: SiGo, color: "text-cyan-400" },
-      { name: "Kotlin", icon: SiKotlin, color: "text-orange-500" },
+      { name: "C/C++", icon: SiCplusplus },
+      { name: "Rust", icon: SiRust },
+      { name: "Assembly", icon: SiAssemblyscript },
+      { name: "Go", icon: SiGo },
+      { name: "Bash", icon: SiGnubash },
+      { name: "Linux", icon: SiLinux },
     ],
   },
   {
-    category: "Frontend & Frameworks",
+    name: "Web & Cloud",
     skills: [
-      { name: "React.js", icon: FaReact, color: "text-cyan-400" },
-      { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
-      { name: "TailwindCSS", icon: SiTailwindcss, color: "text-teal-400" },
-      { name: "CSS3", icon: FaCss3Alt, color: "text-blue-500" },
-      { name: "Spring Boot", icon: SiSpring, color: "text-green-500" },
-      { name: "Express.js", icon: SiExpress, color: "text-gray-300" },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "React", icon: FaReact },
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Node.js", icon: FaNodeJs },
+      { name: "TailwindCSS", icon: SiTailwindcss },
+      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "Docker", icon: FaDocker },
+      { name: "AWS", icon: FaAws },
+      { name: "Vercel", icon: SiVercel },
     ],
   },
   {
-    category: "Backend & Databases",
+    name: "Data & AI",
     skills: [
-      { name: "Node.js", icon: FaNodeJs, color: "text-green-500" },
-      { name: "Django", icon: TbBrandDjango, color: "text-green-600" },
-      { name: "Flask", icon: SiFlask, color: "text-gray-300" },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-600" },
-      { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
-      { name: "MySQL", icon: SiMysql, color: "text-blue-500" },
-      { name: "Supabase", icon: SiSupabase, color: "text-green-400" },
-      { name: "Firebase", icon: SiFirebase, color: "text-orange-400" },
-      { name: "Oracle", icon: SiOracle, color: "text-red-500" },
+      { name: "Python", icon: FaPython },
+      { name: "TensorFlow", icon: SiTensorflow },
+      { name: "PyTorch", icon: SiPytorch },
+      { name: "Jupyter", icon: SiJupyter },
+      { name: "OpenAI API", icon: SiOpenai },
     ],
   },
   {
-    category: "Data Science & AI/ML",
+    name: "Tools & Methods",
     skills: [
-      { name: "TensorFlow", icon: SiTensorflow, color: "text-orange-500" },
-      { name: "PyTorch", icon: SiPytorch, color: "text-red-500" },
-      { name: "Jupyter", icon: SiJupyter, color: "text-orange-400" },
-      { name: "Power BI", icon: SiPowerbi, color: "text-yellow-500" },
-      { name: "OpenAI API", icon: SiOpenai, color: "text-green-400" },
-    ],
-  },
-  {
-    category: "Cloud & DevOps",
-    skills: [
-      { name: "AWS", icon: FaAws, color: "text-orange-400" },
-      { name: "Azure", icon: SiMicrosoftazure, color: "text-blue-500" },
-      { name: "Docker", icon: FaDocker, color: "text-blue-500" },
-      { name: "Kubernetes", icon: SiKubernetes, color: "text-blue-600" },
-      { name: "Vercel", icon: SiVercel, color: "text-white" },
-    ],
-  },
-  {
-    category: "Testing & Tools",
-    skills: [
-      { name: "JUnit", icon: SiJunit5, color: "text-red-500" },
-      { name: "pytest", icon: SiPytest, color: "text-yellow-400" },
-      { name: "Git", icon: FaGitAlt, color: "text-orange-500" },
-      { name: "Postman", icon: SiPostman, color: "text-orange-500" },
-      { name: "Jira", icon: SiJira, color: "text-blue-500" },
+      { name: "Java", icon: FaJava },
+      { name: "Git", icon: FaGitAlt },
+      { name: "JUnit", icon: SiJunit5 },
+      { name: "pytest", icon: SiPytest },
+      { name: "Postman", icon: SiPostman },
+      { name: "Jira", icon: SiJira },
+      { name: "Kotlin", icon: SiKotlin },
     ],
   },
 ];
 
-/**
- * Skills Grid - Category-based skill display
- * Bento grid layout showcasing all technical skills
- */
 export const SkillsGrid = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-      viewport={{ once: false, amount: 0.2 }}
-      className="bento-grid"
-    >
-      {skillsData.map((category, categoryIndex) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {domains.map((domain, domainIndex) => (
         <motion.div
-          key={category.category}
+          key={domain.name}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: categoryIndex * 0.1, ease: "easeInOut" }}
-          viewport={{ once: false, amount: 0.3 }}
-          className={`bento-card hover-lift ${
-            category.category === 'Languages' ? 'lg:col-span-2' :
-            category.category === 'Backend & Databases' ? 'lg:col-span-2' : ''
-          }`}
+          transition={{ duration: 0.5, delay: domainIndex * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="bento-card hover-lift"
         >
-          <div className="flex items-center mb-6">
-            <div className="w-2 h-8 bg-gradient-to-b from-emerald-400 to-blue-500 rounded-full mr-4"></div>
-            <h3 className="text-2xl font-bold text-white">{category.category}</h3>
-          </div>
+          <h3 className="font-serif text-xl font-semibold mb-6" style={{ color: 'var(--accent-primary)' }}>
+            {domain.name}
+          </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {category.skills.map((skill, skillIndex) => (
-              <motion.div
+          <div className="flex flex-wrap gap-3">
+            {domain.skills.map((skill) => (
+              <div
                 key={skill.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: skillIndex * 0.05, ease: "easeInOut" }}
-                whileHover={{ scale: 1.1 }}
-                viewport={{ once: false, amount: 0.3 }}
-                className="flex flex-col items-center p-3 rounded-lg bg-gray-800/30 hover:bg-gray-800/50 transition-all duration-300 group"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200"
+                style={{
+                  backgroundColor: 'var(--tertiary-bg)',
+                  color: 'var(--text-secondary)',
+                }}
               >
-                <skill.icon className={`text-3xl ${skill.color} mb-2 group-hover:scale-110 transition-transform duration-300`} />
-                <span className="text-sm font-medium text-center text-gray-300 group-hover:text-white transition-colors">
-                  {skill.name}
-                </span>
-              </motion.div>
+                <skill.icon className="text-lg" style={{ color: 'var(--text-muted)' }} />
+                <span className="text-sm font-medium">{skill.name}</span>
+              </div>
             ))}
           </div>
         </motion.div>
       ))}
-    </motion.div>
+    </div>
   );
 };

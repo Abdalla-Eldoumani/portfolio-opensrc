@@ -1,46 +1,58 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { SimpleCursor } from "@/components/ui/custom-cursor";
+import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const font = Inter({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-serif",
+  weight: ["400", "500", "600", "700"],
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://abdallaeldoumani.vercel.app'),
   title: {
-    default: "Abdalla Eldoumani - Full Stack Developer & AI Engineer",
+    default: "Abdalla Eldoumani - Software Developer",
     template: "%s | Abdalla Eldoumani"
   },
 
-  description: "Computer Science student at University of Calgary specializing in high-performance systems, AI/ML, and full-stack development. Creator of Rust HTTP servers handling 10k+ concurrent requests and performance-optimized C++ libraries achieving 25-41% gains over NumPy.",
-  
+  description: "Computer Science student at University of Calgary specializing in systems programming, full-stack web development, and technical teaching. Building from registers to React.",
+
   keywords: [
-    "Full Stack Developer",
+    "Software Developer",
     "Software Engineer",
-    "AI ML Engineer",
+    "Systems Programmer",
+    "Teaching Assistant",
     "Rust Developer",
+    "C++ Developer",
     "TypeScript Developer",
     "React Developer",
     "Next.js Developer",
-    "Performance Optimization",
     "Computer Science",
     "University of Calgary",
-    "High Performance Computing",
-    "Cybersecurity",
+    "Full Stack Developer",
     "Calgary Developer",
     "Web Development",
-    "Software Development"
   ],
 
   authors: [{ name: "Abdalla Eldoumani", url: "https://github.com/Abdalla-Eldoumani" }],
   creator: "Abdalla Eldoumani",
   publisher: "Abdalla Eldoumani",
-  
+
   formatDetection: {
     email: false,
     address: false,
@@ -50,24 +62,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://abdallaeldoumani.com",
+    url: "https://abdallaeldoumani.vercel.app",
     siteName: "Abdalla Eldoumani Portfolio",
-    title: "Abdalla Eldoumani - Full Stack Developer & AI Engineer",
-    description: "Computer Science student creating high-performance web applications and AI/ML solutions. Specializing in Rust, TypeScript, React, and Next.js. Open to new opportunities in 2025.",
+    title: "Abdalla Eldoumani - Software Developer",
+    description: "Computer Science student building high-performance systems and modern web applications. Specializing in Rust, C++, TypeScript, and React.",
     images: [
       {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Abdalla Eldoumani - Full Stack Developer & AI Engineer",
+        alt: "Abdalla Eldoumani - Software Developer",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Abdalla Eldoumani - Full Stack Developer & AI Engineer",
-    description: "Computer Science student creating high-performance web applications and AI/ML solutions.",
+    title: "Abdalla Eldoumani - Software Developer",
+    description: "Computer Science student building high-performance systems and modern web applications.",
     images: ["/images/og-image.png"],
     creator: "@AbdallaEldoumani",
   },
@@ -110,7 +122,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       "https://github.com/Abdalla-Eldoumani",
       "https://www.linkedin.com/in/abdallaeldoumani/",
     ],
-    jobTitle: "Full Stack Developer & AI Engineer",
+    jobTitle: "Software Developer & Teaching Assistant",
     worksFor: {
       "@type": "EducationalOrganization",
       name: "University of Calgary",
@@ -120,18 +132,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       name: "University of Calgary",
     },
     knowsAbout: [
+      "Systems Programming",
       "Full Stack Development",
-      "Artificial Intelligence",
-      "Machine Learning",
       "Rust Programming",
+      "C/C++ Programming",
       "TypeScript",
       "React",
       "Next.js",
+      "Computer Architecture",
       "Performance Optimization",
-      "Cybersecurity",
-      "High Performance Computing",
     ],
-    description: "Computer Science student at University of Calgary specializing in high-performance systems, AI/ML, and full-stack development.",
+    description: "Computer Science student at University of Calgary specializing in systems programming, full-stack web development, and technical teaching.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Calgary",
@@ -148,8 +159,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={font.className}>
-        <SimpleCursor />
+      <body className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className}`}>
         {children}
       </body>
     </html>
