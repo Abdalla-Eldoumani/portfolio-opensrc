@@ -1,0 +1,234 @@
+%-------------------------
+% Resume in LaTeX
+% Based on Jake's Resume Template
+% Adapted for: Abdalla Eldoumani
+% GENERAL BASE TEMPLATE — Not tailored to any specific role
+%------------------------
+
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{microtype}
+\input{glyphtounicode}
+
+% Define link color to match Google Docs blue
+\definecolor{linkblue}{RGB}{17,85,204}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    urlcolor=linkblue,
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Tight margins for single page
+\usepackage[left=0.4in,right=0.4in,top=0.35in,bottom=0.35in]{geometry}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-6pt}]
+
+% Ensure that generated pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.1in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, topsep=0pt, parsep=0pt, partopsep=0pt, itemsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Abdalla Eldoumani} \\ \vspace{1pt}
+    \small \href{mailto:aamsdoumani@gmail.com}{aamsdoumani@gmail.com} $|$ +1 (403) 708-6931 $|$ 
+    \href{https://www.linkedin.com/in/abdallaeldoumani/}{LinkedIn: AbdallaEldoumani} $|$
+    \href{https://github.com/Abdalla-Eldoumani}{GitHub: AbdallaEldoumani} $|$
+    \href{https://abdallaeldoumani.vercel.app}{Website: Portfolio}
+\end{center}
+\vspace{-14pt}
+
+%-----------EDUCATION-----------
+\section{Education}
+\begin{itemize}[leftmargin=0.1in, label={}]
+  \item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{University of Calgary} & Sep 2022 -- Jun 2027 \\
+      \textit{\small B.Sc.\ Computer Science, Minor in Philosophy} & \textit{\small Calgary, Alberta} \\
+    \end{tabular*}\vspace{-2pt}
+    
+    \small{GPA: 3.6/4.0 $|$ Dean's List (2023--2024, 2024--2025)}\\[2pt]
+    \small{\textbf{Relevant Coursework:}}
+    \vspace{-6pt}
+    \begin{itemize}[leftmargin=0.15in, itemsep=0pt, topsep=2pt, parsep=0pt]
+      \item \small{Computing Machinery I \& II (C, ARMv8 Assembly, Computer Architecture), Principles of Operating Systems, Design \& Analysis of Algorithms, Data Structures \& Algorithms, Computer Networks, Database Management Systems, Artificial Intelligence, Computer Security, Network Systems Security, Software Engineering, Reverse Engineering}
+    \end{itemize}
+\end{itemize}
+\vspace{-10pt}
+
+%-----------EXPERIENCE-----------
+\section{Work Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Teaching Assistant}{Sep 2025 -- Present}
+      {University of Calgary}{Calgary, Alberta}
+      \resumeItemListStart
+        \resumeItem{Serve as \textbf{Head TA for CPSC 355}; coordinate TAs, configure \textbf{Gradescope auto-graders}, and automate grade splitting.}
+        \resumeItem{Teach labs on \textbf{computer architecture}, \textbf{C}, and \textbf{ARMv8 assembly} covering memory management, register allocation, and ISA.}
+        \resumeItem{Lead \textbf{CPSC 413} tutorials on \textbf{algorithm design}: \textbf{greedy}, \textbf{divide-and-conquer}, \textbf{dynamic programming}, and \textbf{NP-completeness}.}
+        \resumeItem{Debug \textbf{low-level code} and evaluate student \textbf{assembly programs} and \textbf{C implementations} for correctness and efficiency.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {AI Training Specialist}{Oct 2024 -- Sep 2025}
+      {Outlier}{Remote, Canada}
+      \resumeItemListStart
+        \resumeItem{Evaluated \textbf{AI-generated Python code} across \textbf{500+ dual-response scenarios}, analyzing algorithm efficiency and optimization.}
+        \resumeItem{Tested AI solutions for \textbf{functional correctness} and performance, documenting \textbf{comparative analysis} with technical feedback.}
+        \resumeItem{Identified bugs and optimization opportunities in diverse \textbf{programming tasks} including data structures and algorithms.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Software Engineering Fellow}{Jul 2024 -- Sep 2024}
+      {Headstarter AI}{Remote, Canada}
+      \resumeItemListStart
+        \resumeItem{Built and deployed \textbf{5 AI-powered applications} using \textbf{Python} and \textbf{Docker}, completing intensive hackathons with teams.}
+        \resumeItem{Developed a capstone project serving \textbf{1,000+ users} using \textbf{React.js}, \textbf{TypeScript}, and modern web frameworks.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Python Mentor}{Jul 2021 -- Jul 2022}
+      {Al Oruba International School}{Riyadh, Saudi Arabia}
+      \resumeItemListStart
+        \resumeItem{Led programming workshops for \textbf{30+ high school students}, teaching \textbf{Python fundamentals} and algorithm implementation.}
+        \resumeItem{Designed hands-on coding exercises and \textbf{project-based assignments} improving student programming confidence.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+\vspace{-12pt}
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Rust HTTP Server} $|$ \emph{Rust, Axum, SQLite, WebSocket} $|$ Solo Developer}{Jul 2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Architected production-grade server handling \textbf{10,000+ concurrent connections} with sub-\textbf{10ms latency} and \textbf{JWT auth}.}
+            \resumeItem{Integrated \textbf{full-text search} with fuzzy matching, intelligent caching reducing DB load by \textbf{60\%}, and \textbf{rate limiting}.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{AEOS --- Educational OS} $|$ \emph{C/C++, ARMv8 Assembly, QEMU} $|$ Solo Developer}{2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Built a \textbf{monolithic kernel} from scratch on the \textbf{QEMU virt board} (ARM64) with bootloading and \textbf{interrupt handling}.}
+            \resumeItem{Engineered \textbf{memory management} subsystem and \textbf{process scheduler}, exploring core OS primitives at hardware level.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{FastMathExt} $|$ \emph{C++, Python, AVX2 SIMD, OpenMP} $|$ Solo Developer}{Jan 2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Optimized \textbf{matrix multiplication} achieving \textbf{25--41\% gains} over NumPy through cache blocking and \textbf{SIMD vectorization}.}
+            \resumeItem{Implemented \textbf{Strassen's algorithm} with task-based concurrency, reducing complexity from \textbf{O(n\textsuperscript{3})} to \textbf{O(n\textsuperscript{2.807})}.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{DUST} $|$ \emph{Next.js, TypeScript, Convex, Clerk} $|$ Calgary Hacks 2026}{Jan 2026}
+          \resumeItemListStart
+            \resumeItem{Built a \textbf{real-time multiplayer} web game where players explore a decaying internet as digital archaeologists via \textbf{Convex}.}
+            \resumeItem{Implemented \textbf{competitive and cooperative modes} with secure \textbf{Clerk authentication} and immersive discovery mechanics.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{AI-Platform} $|$ \emph{Next.js, TypeScript, OpenAI API, Prisma, MySQL} $|$ Solo Developer}{2024}
+          \resumeItemListStart
+            \resumeItem{Developed multi-tool \textbf{AI platform} with \textbf{conversation}, image/video generation, music composition, and \textbf{code generation}.}
+            \resumeItem{Integrated \textbf{Stripe} subscription management, API rate monitoring, and \textbf{secure auth} with a centralized dashboard.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Budget Buddy} $|$ \emph{Next.js, TypeScript, PostgreSQL, Clerk, Vercel} $|$ Team Lead}{Feb 2024}
+          \resumeItemListStart
+            \resumeItem{Built full-stack financial platform with \textbf{real-time stock data} integration and secure authentication for \textbf{100+ users}.}
+            \resumeItem{Implemented \textbf{budget tracking}, investment projections, and \textbf{financial analytics} dashboard deployed on \textbf{Vercel}.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Interactive Cybersecurity Site} $|$ \emph{HTML, CSS, JavaScript} $|$ Team Lead}{Sep 2023 -- Dec 2023}
+          \resumeItemListStart
+            \resumeItem{Developed \textbf{educational platform} with interactive quizzes on \textbf{cryptography}, hashing, \textbf{malware}, and digital privacy.}
+            \resumeItem{Authored content on \textbf{encryption methods} and security principles with a \textbf{hands-on}, interactive learning approach.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Self-Checkout Station Simulation} $|$ \emph{Java, JUnit, Git} $|$ Team Member}{Sep 2023 -- Dec 2023}
+          \resumeItemListStart
+            \resumeItem{Collaborated in a \textbf{20-member team} to build a \textbf{self-checkout simulation} with responsive GUI using \textbf{Java} and \textbf{OOP}.}
+            \resumeItem{Conducted comprehensive testing with \textbf{JUnit} and improved productivity by \textbf{30\%} through effective \textbf{Git} workflows.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+\vspace{-10pt}
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.1in, label={}, itemsep=0pt, topsep=0pt, parsep=0pt]
+    \small{\item{
+     \textbf{Languages}{: C, C++, Python, Java, JavaScript/TypeScript, Rust, SQL, ARMv8 Assembly} \\
+     \textbf{Tools \& Frameworks}{: Git, Linux, Docker, React.js, Node.js, Next.js, Flask, Django, FastAPI, Spring Boot} \\
+     \textbf{Technologies}{: AWS, Azure, Google Cloud, PostgreSQL, MongoDB, MySQL, REST APIs, WebSocket, CI/CD, Kubernetes}
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}

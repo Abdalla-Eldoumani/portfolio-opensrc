@@ -21,7 +21,7 @@ export const ScrollProgress = () => {
       className="fixed top-0 left-0 right-0 h-1 z-[9999] origin-left"
       style={{
         scaleX,
-        background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary))',
+        background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))',
         boxShadow: '0 0 12px rgba(201, 169, 110, 0.4)',
       }}
       role="progressbar"
@@ -91,8 +91,7 @@ export const CircularScrollProgress = () => {
         <defs>
           <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="var(--accent-primary)" />
-            <stop offset="50%" stopColor="var(--accent-secondary)" />
-            <stop offset="100%" stopColor="var(--accent-tertiary)" />
+            <stop offset="100%" stopColor="var(--accent-secondary)" />
           </linearGradient>
         </defs>
       </svg>

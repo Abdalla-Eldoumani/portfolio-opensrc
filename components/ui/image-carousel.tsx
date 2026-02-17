@@ -40,21 +40,31 @@ export const ImageCarousel = ({
   // Only show carousel UI if multiple images
   const isCarousel = totalImages > 1;
 
-  // Navigate to specific index
+  // Navigate to specific index — functional updates avoid dependency on currentIndex
   const goToSlide = useCallback((index: number) => {
-    const newIndex = (index + totalImages) % totalImages;
-    setDirection(newIndex > currentIndex ? 1 : -1);
-    setCurrentIndex(newIndex);
-  }, [currentIndex, totalImages]);
+    setCurrentIndex((prev) => {
+      const newIndex = (index + totalImages) % totalImages;
+      setDirection(newIndex > prev ? 1 : -1);
+      return newIndex;
+    });
+  }, [totalImages]);
 
   // Next/Previous handlers
   const goToNext = useCallback(() => {
-    goToSlide(currentIndex + 1);
-  }, [currentIndex, goToSlide]);
+    setCurrentIndex((prev) => {
+      const next = (prev + 1) % totalImages;
+      setDirection(1);
+      return next;
+    });
+  }, [totalImages]);
 
   const goToPrev = useCallback(() => {
-    goToSlide(currentIndex - 1);
-  }, [currentIndex, goToSlide]);
+    setCurrentIndex((prev) => {
+      const next = (prev - 1 + totalImages) % totalImages;
+      setDirection(-1);
+      return next;
+    });
+  }, [totalImages]);
 
   // Keyboard navigation
   useEffect(() => {

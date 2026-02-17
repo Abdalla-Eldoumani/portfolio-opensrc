@@ -132,7 +132,7 @@ export const Contact = () => {
               Send a Message
             </motion.a>
             <motion.a
-              href="/my-resume.pdf"
+              href="/resume"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}

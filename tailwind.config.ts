@@ -3,10 +3,8 @@ import type { Config } from "tailwindcss"
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
 	],
   prefix: "",
   theme: {
@@ -26,7 +24,7 @@ const config = {
       backdropBlur: {
         'none': 'none',
         'sm': '4px',
-        '': '8px',
+        'DEFAULT': '8px',
         'md': '12px',
         'lg': '16px',
         'xl': '24px',

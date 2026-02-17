@@ -1,5 +1,5 @@
 import { Project } from '@/lib/types/portfolio';
-import { Server, Zap, Calculator, Shield, Star, ShoppingCart } from 'lucide-react';
+import { Server, Zap, Calculator, Shield, ShoppingCart, Gamepad2, Cpu, Star } from 'lucide-react';
 
 /**
  * Portfolio projects data
@@ -93,6 +93,40 @@ export const projects: Project[] = [
     icon: Star,
     category: 'ai',
     metrics: "Multiple AI tools integrated"
+  },
+  {
+    name: "DUST",
+    description: "Web-based game where players become digital archaeologists exploring a decaying internet. Built at Calgary Hacks 2026 with real-time multiplayer featuring both competitive and cooperative modes.",
+    fullDescription: "DUST is a web-based exploration game where players dig through layers of a fictional, crumbling internet to uncover lost data, forgotten websites, and digital artifacts. Features real-time multiplayer powered by Convex, secure authentication via Clerk, and an immersive atmosphere of digital decay and discovery.",
+    image: "/images/DUST.png",
+    github: "https://github.com/Abdalla-Eldoumani/DUST",
+    githubRepo: {
+      owner: "Abdalla-Eldoumani",
+      repo: "DUST"
+    },
+    live: "https://dust-mu.vercel.app",
+    tech: ["Next.js", "TypeScript", "Convex", "Clerk Auth", "Real-time Multiplayer"],
+    featured: false,
+    icon: Gamepad2,
+    category: 'web',
+    metrics: "Calgary Hacks 2026"
+  },
+  {
+    name: "AEOS — Educational OS",
+    description: "Monolithic kernel built from scratch targeting the QEMU virt board on ARM64. An educational exploration of fundamental operating system components including memory management and process scheduling.",
+    fullDescription: "Abdalla's Educational OS (AEOS) is a ground-up operating system kernel written in C/C++ and ARMv8 Assembly. Targeting the QEMU virt board on ARM64, the project explores core OS concepts including bootloading, memory management, interrupt handling, and process scheduling. Built as a hands-on learning project to deepen systems-level understanding.",
+    image: "/images/AEOS.png",
+    github: "https://github.com/Abdalla-Eldoumani/aeos",
+    githubRepo: {
+      owner: "Abdalla-Eldoumani",
+      repo: "aeos"
+    },
+    live: "#",
+    tech: ["C/C++", "ARMv8 Assembly", "QEMU", "OS Development", "Kernel Programming"],
+    featured: false,
+    icon: Cpu,
+    category: 'performance',
+    metrics: "In Progress"
   },
   {
     name: "Self-Checkout Station Software",

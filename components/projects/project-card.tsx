@@ -35,14 +35,14 @@ export const ProjectCard = ({ project, index, isExpanded, onToggleExpand, onOpen
       transition={{ duration: 0.8, delay: index * 0.1, ease: "easeInOut" }}
       viewport={{ once: true, amount: 0.2 }}
       className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-start ${
-        project.featured && index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+        index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
       }`}
     >
       {/* Project Image/Carousel */}
       <motion.div
         whileHover={{ scale: 1.01 }}
         className={`relative group ${
-          project.featured && index % 2 === 1 ? 'lg:col-start-2' : ''
+          index % 2 === 1 ? 'lg:col-start-2' : ''
         }`}
       >
         <div className="glass-effect p-4 rounded-2xl overflow-hidden hover-lift">
@@ -71,7 +71,7 @@ export const ProjectCard = ({ project, index, isExpanded, onToggleExpand, onOpen
       </motion.div>
 
       {/* Project Details */}
-      <div className={`space-y-6 ${project.featured && index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+      <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
         {/* Project Header */}
         <div>
           <div className="flex items-center gap-3 mb-3">

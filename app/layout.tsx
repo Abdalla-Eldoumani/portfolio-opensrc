@@ -102,9 +102,6 @@ export const metadata: Metadata = {
   },
 
   manifest: "/site.webmanifest",
-  verification: {
-    google: "",
-  },
 
   alternates: {
     canonical: "https://abdallaeldoumani.vercel.app",

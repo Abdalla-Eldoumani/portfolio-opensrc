@@ -88,7 +88,7 @@ export const About = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-4 pt-6"
             >
-              <Link target="_blank" href="/my-resume.pdf">
+              <Link target="_blank" href="/resume">
                 <MagneticButton
                   strength={0.2}
                   className="inline-flex items-center justify-center space-x-2 glass-effect hover-lift px-6 py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto"
