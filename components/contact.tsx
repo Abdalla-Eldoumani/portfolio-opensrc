@@ -106,7 +106,7 @@ export const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
           viewport={{ once: true, amount: 0.3 }}
-          className="glass-effect-static p-8 md:p-12 rounded-2xl text-center"
+          className="glass-effect-static p-6 sm:p-8 md:p-12 rounded-2xl text-center"
         >
           <div className="flex items-center justify-center mb-6">
             <MapPin size={20} style={{ color: 'var(--accent-primary)' }} className="mr-2" />
@@ -125,7 +125,7 @@ export const Contact = () => {
               href="mailto:aamsdoumani@gmail.com"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center gap-2 glass-effect-static px-8 py-4 rounded-full font-semibold hover-lift interactive-element"
+              className="inline-flex items-center justify-center gap-2 glass-effect-static px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover-lift interactive-element"
               style={{ color: 'var(--text-primary)' }}
             >
               <Mail size={20} />
@@ -137,7 +137,7 @@ export const Contact = () => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold interactive-element"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold interactive-element"
               style={{
                 border: '1px solid var(--border-primary)',
                 color: 'var(--text-secondary)'

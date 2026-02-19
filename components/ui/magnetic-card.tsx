@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, useState, useEffect } from 'react';
 
 interface MagneticCardProps {
   children: ReactNode;
@@ -11,6 +11,11 @@ interface MagneticCardProps {
 
 export const MagneticCard = ({ children, className = '', strength = 0.15 }: MagneticCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [hasHover, setHasHover] = useState(true);
+
+  useEffect(() => {
+    setHasHover(window.matchMedia('(hover: hover)').matches);
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -23,7 +28,7 @@ export const MagneticCard = ({ children, className = '', strength = 0.15 }: Magn
   const rotateY = useTransform(springX, [-100, 100], [-8, 8]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!ref.current || !hasHover) return;
 
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -40,6 +45,11 @@ export const MagneticCard = ({ children, className = '', strength = 0.15 }: Magn
     x.set(0);
     y.set(0);
   };
+
+  // On touch devices, render without magnetic effects
+  if (!hasHover) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

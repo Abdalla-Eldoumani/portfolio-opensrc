@@ -2,7 +2,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, FileText, User, Code, Briefcase, Mail, Home, GraduationCap, FolderKanban } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -77,6 +77,42 @@ export const Navbar = () => {
       observer.disconnect();
     };
   }, []);
+
+  // Focus trap for mobile menu (WCAG compliance)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const menu = document.getElementById('mobile-menu');
+    if (!menu) return;
+
+    const focusableElements = menu.querySelectorAll<HTMLElement>(
+      'button, [href], input, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusableElements.length) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
+    firstElement.focus();
+    document.addEventListener('keydown', handleTabKey);
+    return () => document.removeEventListener('keydown', handleTabKey);
+  }, [isOpen]);
 
   const handleNavClick = (href: string) => {
     closeNavbar();
@@ -162,7 +198,7 @@ export const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={toggleNavbar}
-              className="inline-flex items-center justify-center p-2 rounded-full focus-visible transition-all duration-300"
+              className="inline-flex items-center justify-center p-2.5 rounded-full focus-visible transition-all duration-300"
               style={{ color: 'var(--text-secondary)' }}
               aria-expanded={isOpen}
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -235,7 +271,7 @@ export const Navbar = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
                     onClick={() => handleNavClick(item.href)}
-                    className="flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 focus-visible"
+                    className="flex items-center space-x-3 w-full px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-300 focus-visible"
                     style={{
                       color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                       backgroundColor: isActive ? 'var(--accent-primary-10)' : 'transparent',

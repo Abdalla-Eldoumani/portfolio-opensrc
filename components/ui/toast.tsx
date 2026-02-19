@@ -95,10 +95,12 @@ export const Toast = ({ toast, onDismiss }: ToastProps) => {
       transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
       className={`
         relative flex items-start gap-3 p-4 pr-12 rounded-xl
         ${config.bg} ${config.border} border backdrop-blur-sm
-        shadow-lg max-w-md w-full
+        shadow-lg max-w-sm sm:max-w-md w-full
         group
       `}
       role="alert"

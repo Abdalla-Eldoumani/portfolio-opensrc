@@ -43,7 +43,7 @@ export const useIntersection = ({
     return () => {
       observer.disconnect();
     };
-  }, [threshold, rootMargin, triggerOnce, hasIntersected]);
+  }, [threshold, rootMargin, triggerOnce]);
 
   return { ref, isIntersecting, hasIntersected };
 };

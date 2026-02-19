@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
 
 interface SectionTransitionProps {
@@ -18,6 +18,7 @@ export const SectionTransition = ({
   className = '',
   transitionType = 'fade',
 }: SectionTransitionProps) => {
+  const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -55,6 +56,10 @@ export const SectionTransition = ({
         return {};
     }
   };
+
+  if (prefersReducedMotion) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

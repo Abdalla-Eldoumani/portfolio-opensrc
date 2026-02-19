@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
 
 interface ParallaxProps {
@@ -26,6 +26,7 @@ export const Parallax = ({
   className = '',
   direction = 'vertical',
 }: ParallaxProps) => {
+  const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -43,6 +44,11 @@ export const Parallax = ({
   // Calculate transform values
   const y = useTransform(smoothProgress, [0, 1], ['0%', `${speed * 100}%`]);
   const x = useTransform(smoothProgress, [0, 1], ['0%', `${speed * 100}%`]);
+
+  // Skip parallax for reduced motion
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   const transform = direction === 'vertical'
     ? { y }
@@ -102,6 +108,7 @@ export const ParallaxSection = ({
   className = '',
   offset = 0,
 }: ParallaxSectionProps) => {
+  const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -120,6 +127,10 @@ export const ParallaxSection = ({
     [0, 0.5, 1],
     [1, 0.8, 0]
   );
+
+  if (prefersReducedMotion) {
+    return <section className={className}>{children}</section>;
+  }
 
   return (
     <motion.section
@@ -151,6 +162,7 @@ export const ScrollReveal = ({
   direction = 'up',
   once = true,
 }: ScrollRevealProps) => {
+  const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -176,6 +188,10 @@ export const ScrollReveal = ({
   const y = useTransform(scrollYProgress, [0, 1], [initial.y, 0]);
   const x = useTransform(scrollYProgress, [0, 1], [initial.x, 0]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

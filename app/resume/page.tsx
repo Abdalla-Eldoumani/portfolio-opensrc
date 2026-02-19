@@ -34,7 +34,7 @@ export default function ResumePage() {
         <iframe
           src={pdfSrc}
           className="flex-1 w-full"
-          style={{ minHeight: 'calc(100vh - 80px)', border: 'none' }}
+          style={{ minHeight: 'calc(100vh - 4rem)', border: 'none' }}
           title="Abdalla Eldoumani's Resume"
           allow="autoplay"
         />

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useRef } from 'react';
 import { X, ExternalLink, Loader2, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 import { MagneticButton } from './magnetic-button';
@@ -28,8 +28,9 @@ export const ProjectModal = ({
 }: ProjectModalProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const scrollYRef = useRef(0);
 
-  // Close on Escape key
+  // Close on Escape key + lock body scroll (iOS-safe)
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -37,13 +38,21 @@ export const ProjectModal = ({
 
     if (isOpen) {
       window.addEventListener('keydown', handleEscape);
-      // Prevent body scroll when modal is open
+      // iOS Safari workaround: position:fixed prevents background scroll
+      scrollYRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollYRef.current}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
       window.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollYRef.current);
     };
   }, [isOpen, onClose]);
 
@@ -204,6 +213,7 @@ export const ProjectModal = ({
             {/* Footer hint */}
             <div className="px-4 py-2 border-t text-xs flex items-center justify-between" style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--secondary-bg)', color: 'var(--text-muted)' }}>
               <span>Press <kbd className="px-1.5 py-0.5 rounded border" style={{ backgroundColor: 'var(--tertiary-bg)', color: 'var(--text-muted)', borderColor: 'var(--border-primary)' }}>Esc</kbd> to close</span>
+              <span className="sm:hidden">Tap outside to close</span>
               <span className="hidden sm:inline">Click outside to dismiss</span>
             </div>
           </motion.div>
@@ -266,7 +276,8 @@ export const QuickViewModal = ({
   onClose,
   project,
 }: QuickViewModalProps) => {
-  // Close on Escape
+  // Close on Escape + lock body scroll (iOS-safe)
+  const quickViewScrollYRef = useRef(0);
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -274,12 +285,20 @@ export const QuickViewModal = ({
 
     if (isOpen) {
       window.addEventListener('keydown', handleEscape);
+      quickViewScrollYRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${quickViewScrollYRef.current}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
       window.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, quickViewScrollYRef.current);
     };
   }, [isOpen, onClose]);
 

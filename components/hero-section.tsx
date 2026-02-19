@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
 import { MagneticIconButton } from '@/components/ui/magnetic-button';
 
 export const HeroSection = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
@@ -35,8 +37,8 @@ export const HeroSection = () => {
           Abdalla Eldoumani
           {/* Blinking cursor */}
           <motion.span
-            animate={{ opacity: [1, 1, 0, 0] }}
-            transition={{ repeat: Infinity, duration: 1, times: [0, 0.5, 0.5, 1], ease: 'linear' }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: [1, 1, 0, 0] }}
+            transition={prefersReducedMotion ? {} : { repeat: Infinity, duration: 1, times: [0, 0.5, 0.5, 1], ease: 'linear' }}
             className="inline-block ml-1"
             style={{ color: 'var(--accent-primary)' }}
             aria-hidden="true"
@@ -93,7 +95,7 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex justify-center space-x-6"
+          className="flex justify-center space-x-4 sm:space-x-6"
         >
           <MagneticIconButton
             icon={<Github size={24} />}
@@ -130,13 +132,13 @@ export const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.0 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <div className="flex flex-col items-center space-y-2" style={{ color: 'var(--text-muted)' }}>
           <span className="text-sm font-medium">Scroll to explore</span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
+            animate={prefersReducedMotion ? {} : { y: [0, 8, 0] }}
+            transition={prefersReducedMotion ? {} : { repeat: Infinity, duration: 2 }}
           >
             <ArrowDown size={20} />
           </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef, ReactNode, useState } from 'react';
+import { useRef, ReactNode, useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 
 interface MagneticButtonProps {
@@ -44,6 +44,11 @@ export const MagneticButton = ({
 }: MagneticButtonProps) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [ripples, setRipples] = useState<Ripple[]>([]);
+  const [hasHover, setHasHover] = useState(true);
+
+  useEffect(() => {
+    setHasHover(window.matchMedia('(hover: hover)').matches);
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -53,7 +58,7 @@ export const MagneticButton = ({
   const springY = useSpring(y, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled || !ref.current) return;
+    if (disabled || !ref.current || !hasHover) return;
 
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -211,6 +216,11 @@ export const MagneticIconButton = ({
   hapticFeedback = true,
 }: MagneticIconButtonProps) => {
   const ref = useRef<HTMLAnchorElement | HTMLDivElement>(null);
+  const [hasHover, setHasHover] = useState(true);
+
+  useEffect(() => {
+    setHasHover(window.matchMedia('(hover: hover)').matches);
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -220,6 +230,7 @@ export const MagneticIconButton = ({
   const springY = useSpring(y, springConfig);
 
   const rotate = useTransform([x, y], ([latestX, latestY]) => {
+    if (!hasHover) return 'none';
     const rotateX = (latestY as number) * -0.05;
     const rotateY = (latestX as number) * 0.05;
     return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -233,7 +244,7 @@ export const MagneticIconButton = ({
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (!ref.current || !hasHover) return;
 
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;

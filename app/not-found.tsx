@@ -20,7 +20,7 @@ export default function NotFound() {
       </p>
 
       {/* 404 */}
-      <h1 className="font-serif text-display text-8xl sm:text-9xl mb-4">
+      <h1 className="font-serif text-display sm:text-9xl mb-4" style={{ fontSize: 'clamp(4rem, 20vw, 9rem)' }}>
         <span className="text-gradient">404</span>
       </h1>
 

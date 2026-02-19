@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Circle } from 'lucide-react';
 import { BlurImage } from './blur-image';
 
@@ -32,8 +32,8 @@ export const ImageCarousel = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 = left, 1 = right
   const [isPaused, setIsPaused] = useState(false);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const touchStartRef = useRef<number | null>(null);
+  const touchEndRef = useRef<number | null>(null);
 
   const totalImages = images.length;
 
@@ -91,18 +91,18 @@ export const ImageCarousel = ({
   const minSwipeDistance = 50;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    touchEndRef.current = null;
+    touchStartRef.current = e.targetTouches[0].clientX;
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    touchEndRef.current = e.targetTouches[0].clientX;
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStartRef.current || !touchEndRef.current) return;
 
-    const distance = touchStart - touchEnd;
+    const distance = touchStartRef.current - touchEndRef.current;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
@@ -139,7 +139,7 @@ export const ImageCarousel = ({
       className={`relative overflow-hidden rounded-xl group ${aspectClasses[aspectRatio]} ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={onTouchStart}
+      onTouchStart={(e) => { setIsPaused(true); onTouchStart(e); }}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
       role="region"
@@ -183,7 +183,7 @@ export const ImageCarousel = ({
           {/* Previous button */}
           <motion.button
             onClick={goToPrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 glass-effect p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white/20 z-10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 glass-effect p-2 rounded-full opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-70 transition-opacity duration-300 hover:bg-white/20 z-10"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Previous image"
@@ -194,7 +194,7 @@ export const ImageCarousel = ({
           {/* Next button */}
           <motion.button
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 glass-effect p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white/20 z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 glass-effect p-2 rounded-full opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-70 transition-opacity duration-300 hover:bg-white/20 z-10"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Next image"
@@ -228,7 +228,7 @@ export const ImageCarousel = ({
       {/* Image counter (top-right) */}
       {isCarousel && (
         <div
-          className="absolute top-3 right-3 glass-effect px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+          className="absolute top-3 right-3 glass-effect px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-70 transition-opacity duration-300 z-10"
           style={{ color: 'var(--text-primary)' }}
           aria-live="polite"
         >
